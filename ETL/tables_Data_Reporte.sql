@@ -1,0 +1,173 @@
+------------------------------------------------+
+------------- DATAREPORT by colonnes            |
+------------------------------------------------+
+
+--CREATE TABLE DR_CSVFile_Col
+exec dropTable('DATAREPORTBYCOL');
+CREATE TABLE DATAREPORTBYCOL
+(
+CSVName VARCHAR2(100),
+OLDVALUES VARCHAR2(100),
+SYNTACTICTYPE VARCHAR2(100),
+COLUMNWIDHT NUMBER,
+NUMBEROFWORDS NUMBER,
+OBSERVATION VARCHAR2(100),
+NEWVALUES VARCHAR2(100),
+SEMANTICCATEGORY VARCHAR2(100),
+SEMANTICSUBCATEGORY VARCHAR2(100)
+);
+
+
+COLUMN CSVName FORMAT A15
+COLUMN OLDVALUES FORMAT A15
+COLUMN SYNTACTICTYPE FORMAT A15
+COLUMN COLUMNWIDHT FORMAT 999
+COLUMN NUMBEROFWORDS FORMAT 999
+COLUMN OBSERVATION FORMAT A15
+COLUMN NEWVALUES FORMAT A15
+COLUMN SEMANTICCATEGORY FORMAT A15
+COLUMN SEMANTICSUBCATEGORY FORMAT A15
+
+
+
+
+------------------------------------------------+
+------------- DATAREPORT   For the table        |
+------------------------------------------------+
+-- contient le Profilage des données pour chaque colonne
+exec dropTable('DATAREPORT');
+CREATE TABLE DATAREPORT
+(
+    CSVName VARCHAR2(100),
+    OLDName VARCHAR2(100),
+    NEWName VARCHAR2(100),
+    nbrRows NUMBER,
+    nbrNullValues NUMBER,
+    nbrNotNullValues NUMBER,
+    minLenght NUMBER,
+    maxLength NUMBER,
+    nbrWords NUMBER,
+    nbrValuesVarcharType NUMBER,
+    nbrValuesNumberType NUMBER,
+    nbrValuesDateType NUMBER,
+    nbrValuesBooleanType NUMBER,
+    nbrValuesNullType NUMBER,
+    nbrOfDifferenteValues NUMBER,
+    theDominantSyntacticType VARCHAR2(100),
+    NumberOfSyntacticAnomalies NUMBER,
+    NumberOfSyntacticNormalValues NUMBER,
+    theDominantSemanticType VARCHAR2(100),
+    NumberOfSemanticAnomalies NUMBER,
+    NumberOfSemanticNormalValues NUMBER,
+	CONSTRAINT PK_DATAREPORT				PRIMARY KEY(CSVName,OLDName)
+);
+
+COLUMN CSVName FORMAT A15
+COLUMN OLDName FORMAT A15
+COLUMN NEWName FORMAT A15
+COLUMN nbrRows FORMAT 99
+COLUMN nbrNullValues FORMAT 99
+COLUMN nbrNotNullValues FORMAT 99
+COLUMN minLenght FORMAT 99
+COLUMN maxLength FORMAT 99
+COLUMN nbrWords FORMAT 99
+COLUMN nbrValuesVarcharType FORMAT 99
+COLUMN nbrValuesNumberType FORMAT 99
+COLUMN nbrValuesDateType FORMAT 99
+COLUMN nbrValuesBooleanType FORMAT 99
+COLUMN nbrValuesNullType FORMAT 99
+COLUMN nbrOfDifferenteValues FORMAT 99
+COLUMN theDominantSyntacticType FORMAT A15
+COLUMN NumberOfSyntacticAnomalies FORMAT 99
+COLUMN NumberOfSyntacticNormalValues FORMAT 99
+COLUMN theDominantSemanticType FORMAT A15
+COLUMN NumberOfSemanticAnomalies FORMAT 99
+COLUMN NumberOfSemanticNormalValues FORMAT 99
+/*------------------------------------------------+
+------------- DATAREPORT   For the table        |
+------------------------------------------------+
+-- contient le Profilage des données pour chaque colonne
+DROP TABLE DATAREPORT2;
+CREATE TABLE DATAREPORT2
+(
+    CSVName VARCHAR2(100),
+	OLDName VARCHAR2(100),
+	NEWName VARCHAR2(100),
+	M000 NUMBER,
+	M100 NUMBER,
+	M101 NUMBER,
+	M102 NUMBER,
+	M103 NUMBER,
+	M104 NUMBER,
+	M005 NUMBER,
+	M106 NUMBER,
+	M107 NUMBER,
+	M108 NUMBER,
+	M109 NUMBER,
+	M110 NUMBER,
+	M111 VARCHAR2(20),
+	M112 NUMBER,
+	M113 NUMBER,
+	M114 VARCHAR2(20),
+	M115 NUMBER,
+	M116 NUMBER,
+
+	CONSTRAINT PK_DATAREPORT2				PRIMARY KEY(CSVName,OLDName)
+);
+
+COLUMN CSVName FORMAT A15
+COLUMN OLDName FORMAT A15
+COLUMN NEWName FORMAT A15
+COLUMN M000 FORMAT 99
+COLUMN M100 FORMAT 99
+COLUMN M101 FORMAT 99
+COLUMN M102 FORMAT 99
+COLUMN M103 FORMAT 99
+COLUMN M104 FORMAT 99
+COLUMN M005 FORMAT 99
+COLUMN M106 FORMAT 99
+COLUMN M107 FORMAT 99
+COLUMN M108 FORMAT 99
+COLUMN M109 FORMAT 99
+COLUMN M110 FORMAT 99
+COLUMN M111 FORMAT A15
+COLUMN M112 FORMAT 99
+COLUMN M113 FORMAT 99
+COLUMN M114 FORMAT A15
+COLUMN M115 FORMAT 99
+COLUMN M116 FORMAT 99
+------------------------------------------------+
+------------- DEFINITION  FOR DATAREPORT        |
+------------------------------------------------+
+-- contient les definition des variable de Profilage
+DROP TABLE DEFINITION;
+CREATE TABLE DEFINITION
+(
+	ID VARCHAR2(20),
+	DESCRIPTION VARCHAR2(200),
+	CONSTRAINT PK_DEFINITION			PRIMARY KEY(ID)
+);
+INSERT INTO DEFINITION VALUES ('M000','Number of rows');
+INSERT INTO DEFINITION VALUES ('M100','Number of NULL values');
+INSERT INTO DEFINITION VALUES ('M101','Number of NOT NULL values');
+INSERT INTO DEFINITION VALUES ('M102','min length (characters)');
+INSERT INTO DEFINITION VALUES ('M103','MAX LENGTH (characters)');
+INSERT INTO DEFINITION VALUES ('M104','Number of worlds');
+INSERT INTO DEFINITION VALUES ('M105','Number of values of the STRING TYPE');
+INSERT INTO DEFINITION VALUES ('M106','Number of values of the NUMBER TYPE');
+INSERT INTO DEFINITION VALUES ('M107','Number of values of the DATE TYPE');
+INSERT INTO DEFINITION VALUES ('M108','Number of values of the BOOLEAN TYPE');
+INSERT INTO DEFINITION VALUES ('M109','Number of values of the NULL TYPE');
+INSERT INTO DEFINITION VALUES ('M110','Number of DIFFERENT values');
+INSERT INTO DEFINITION VALUES ('M111','The DOMINANT syntactic TYPE');
+INSERT INTO DEFINITION VALUES ('M112','Number of syntactic ANOMALIES');
+INSERT INTO DEFINITION VALUES ('M113','Number of syntactic Normal values');
+INSERT INTO DEFINITION VALUES ('M114','The DOMINANT semantic TYPE');
+INSERT INTO DEFINITION VALUES ('M115','Number of semantic ANOMALIES');
+INSERT INTO DEFINITION VALUES ('M116','Number of semantic Normal values');
+
+COLUMN ID FORMAT A15
+COLUMN DESCRIPTION FORMAT A15
+*/
+
+COMMIT;
