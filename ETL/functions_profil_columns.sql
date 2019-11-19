@@ -239,6 +239,35 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
   END;
   /
 
+  ------------------------------------------------+
+  -------------      UpdateReportByCol               |
+  ------------------------------------------------+
+
+CREATE OR REPLACE PROCEDURE UpdateReportByCol(laTableReportByCol in VARCHAR2, colName in VARCHAR2,dataReportTableName in VARCHAR2)
+AS
+
+  theDominantSemanticType VARCHAR2(2000);
+
+  theDominantSyntacticType VARCHAR2(60);
+  observation VARCHAR2(60);
+  newValues VARCHAR2(60);
+BEGIN
+
+  EXECUTE IMMEDIATE 'SELECT theDominantSyntacticType FROM  '||dataReportTableName
+  || ' WHERE OLDName  = '''||colName||''' ' INTO theDominantSyntacticType;
+
+  observation := '''<!?!>ANOMALIES_SYS''';
+  theDominantSyntacticType := ''''|| theDominantSyntacticType ||'''';
+  newValues := '''|<!?!>ANOMALIES_SYS''';
+
+  EXECUTE IMMEDIATE 'UPDATE '|| laTableReportByCol
+  ||' SET observation = '||observation||', newValues = concat(newValues,'||newValues||')'
+  ||' WHERE SYNTACTICTYPE  NOT LIKE '||theDominantSyntacticType;
+  -- it is not necessary to the condition OLDName IS NOT NULL
+
+  --DBMS_OUTPUT.put_line('---------'||theDominantSyntacticType);
+END;
+/
 -------------------------------------------------------------------------------------
 -- Génération de la Data Report DR_CSVFile_Col_
 -- @param :
@@ -267,6 +296,9 @@ myColValuesToInsert VARCHAR2(60);
 colDataCategory VARCHAR2(2000);
 colDataSubCategory VARCHAR2(2000);
 delimiteurOfCategory VARCHAR2(60);
+
+observation VARCHAR2(60);
+newValues VARCHAR2(60);
 
 
 --dataReportTableName VARCHAR2(60);
@@ -297,6 +329,10 @@ BEGIN
           colDataType := 'null';
           colLength := 0;
           colNbrMot := 0;
+
+          observation := '''|<!>NULL''';
+          newValues := observation;
+
           ------------ SEMANTIC -----------
           colDataCategory := 'null';
           colDataSubCategory := 'null';
@@ -314,6 +350,9 @@ BEGIN
           -- je détermine le nombre de mot de la colonne (séparer par un espaces)
           colNbrMot := REGEXP_COUNT(myColValues, ' ') + 1;
 
+          observation := 'null';
+          newValues := myColValuesToInsert;
+
 
           ------------ SEMANTIC -----------
           -- I determine the semantic type of the column
@@ -325,8 +364,11 @@ BEGIN
 
         END IF;
 
+
+
+
         -- pour le profilage syntaxique on insert les données car la table est vide
-        myInsertValueSyntaxique := ' VALUES ('''||CSVName||''','|| myColValuesToInsert ||','|| colDataType ||',' ||colLength ||', '|| colNbrMot ||',null,null,'|| colDataCategory||','|| colDataSubCategory||')';
+        myInsertValueSyntaxique := ' VALUES ('''||CSVName||''','|| myColValuesToInsert ||','|| colDataType ||',' ||colLength ||', '|| colNbrMot ||','||observation||','||newValues||','|| colDataCategory||','|| colDataSubCategory||')';
         myInsertQuerySyntaxique := 'INSERT INTO ' || laTableRes ||myInsertValueSyntaxique;
         --DBMS_OUTPUT.put_line (myInsertQuerySyntaxique);
         EXECUTE IMMEDIATE myInsertQuerySyntaxique;
@@ -335,13 +377,15 @@ BEGIN
  close table_cursor;
 
 
--- @ludo faire une autre fonction dans laque on apellera cette fonction et celle ci desous
+ -- @ludo faire une autre fonction dans laque on apellera cette fonction et celle ci desous
  -- je génére une partie de la table DATAREPORT pour le fichier CSV
  --dataReportTableName := 'DR_'||CSVName||'_TabCol' ;
  GenerateReportTable(laTableRes, colName, dataReportTableName);
 
 
- -- pour les données sémantique on fait un update car la lique contient déja des valeurs
+ -- pour les colonnes (observation et newValues) on fait un update car la clique contient déja des valeurs
+ UpdateReportByCol(laTableRes, colName, dataReportTableName);
+
 
 
 END;
