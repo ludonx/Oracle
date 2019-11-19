@@ -1,0 +1,1 @@
++ est ce qu'il faut contatener les char et les numerique pour la génération de la clés 
