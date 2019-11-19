@@ -66,6 +66,65 @@ CREATE OR REPLACE PROCEDURE getDataCategory(data IN VARCHAR2, category OUT VARCH
    END;
    /
 
+------------------------------------------------+
+------------- getTheDominantSemanticType        |
+------------------------------------------------+
+-- je prend une liste de valuer avec delimiteur
+-- + une table avec la colonnes qui contiendra les valeurs [de meme category que ma liste]
+
+-- je decoupe ma liste,
+-- pour chaque element de ma liste je compte le nombre d'occurence (avec un like %xx%)
+-- je garde la valuer qui a la max et ne nombre max
+
+-- ( initailement le max = 0 et la valeur max = inconnue)
+
+-- je retourne la valeur max
+
+--select regexp_substr('SMITH,ALLEN,WARD,JONES','[^,]+', 1, level) from dual
+--connect by regexp_substr('SMITH,ALLEN,WARD,JONES', '[^,]+', 1, level) is not null;
+
+CREATE OR REPLACE FUNCTION getTheDominantSemanticType(laTableReportByCol in VARCHAR2, delimiteurOfCategory in VARCHAR2)
+RETURN VARCHAR2
+IS
+
+theDominantSemanticType VARCHAR2(2000);
+regexDelimiteurOfCategory VARCHAR2(20);
+myCatagory VARCHAR2(60);
+myiCatagory VARCHAR2(60);
+
+maxCategory VARCHAR2(60);
+nbrElemCategory NUMBER;
+maxNbrElemCategory NUMBER;
+BEGIN
+
+EXECUTE IMMEDIATE ' CREATE OR REPLACE VIEW todelete as ( SELECT SEMANTICCATEGORY, count(*) as nbr from '||laTableReportByCol||' GROUP BY SEMANTICCATEGORY )';
+EXECUTE IMMEDIATE ' SELECT SEMANTICCATEGORY FROM todelete WHERE nbr = (SELECT MAX(nbr) FROM todelete) AND ROWNUM = 1' INTO theDominantSemanticType;
+
+theDominantSemanticType := ''''|| theDominantSemanticType ||'''';
+regexDelimiteurOfCategory := '[^'''|| delimiteurOfCategory ||''']+';
+
+maxCategory := 'INCONNUE';
+maxNbrElemCategory := 0;
+nbrElemCategory := 0;
+FOR i IN ( SELECT regexp_substr(theDominantSemanticType,regexDelimiteurOfCategory, 1, level) as myCatagory from dual
+connect by regexp_substr(theDominantSemanticType, regexDelimiteurOfCategory, 1, level) is not null )
+LOOP
+ --select count(*) from t_col4 where SEMANTICCATEGORY like '%SIZE_SHOES%';
+ myiCatagory := '''%'|| i.myCatagory ||'%''';
+ EXECUTE IMMEDIATE ' SELECT count(*) FROM '||laTableReportByCol||' WHERE SEMANTICCATEGORY like '||myiCatagory INTO nbrElemCategory;
+ --DBMS_OUTPUT.put_line (' SELECT count(*) FROM '||laTableReportByCol||' WHERE SEMANTICCATEGORY like '||myiCatagory);
+ IF ( nbrElemCategory > maxNbrElemCategory )THEN
+   maxNbrElemCategory := nbrElemCategory;
+   maxCategory := i.myCatagory;
+ END IF;
+
+END LOOP;
+
+EXECUTE IMMEDIATE ' DROP VIEW todelete';
+
+RETURN (maxCategory);
+END;
+/
 
 ------------------------------------------------+
 ------------- GenerateReportTable                    |
@@ -78,7 +137,7 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
   dataReportTable DATAREPORT%ROWTYPE;
   myInsertQuery VARCHAR2(500);
   myInsertValue VARCHAR2(500);
-
+  delimiteurOfCategory VARCHAR2(50);
   BEGIN
    --EXECUTE IMMEDIATE ' SELECT DISTINCT(CSVName) FROM ' || laTableReportByCol INTO dataReportTable.CSVName ;
    dataReportTable.OLDName := colName;
@@ -117,15 +176,26 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
    dataReportTable.theDominantSyntacticType ||'%'' '  INTO  dataReportTable.NumberOfSyntacticNormalValues ;
 
 
-   -- ces 3 données seront initialise plustard en fonction
-   /*
-   EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.theDominantSemanticType ;
-   EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.NumberOfSemanticAnomalies ;
-   EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.NumberOfSemanticNormalValues ;
-   */
-   dataReportTable.theDominantSemanticType := 'INCONNU';
-   dataReportTable.NumberOfSemanticAnomalies := -1;
-   dataReportTable.NumberOfSemanticNormalValues := -1;
+
+   -- the dominante SEMANTICCATEGORY
+   --EXECUTE IMMEDIATE ' CREATE OR REPLACE VIEW todelete as ( SELECT SEMANTICCATEGORY, count(*) as nbr from '||laTableReportByCol||' GROUP BY SEMANTICCATEGORY )';
+   --EXECUTE IMMEDIATE ' SELECT SEMANTICCATEGORY FROM todelete WHERE nbr = (SELECT MAX(nbr) FROM todelete) AND ROWNUM = 1' INTO dataReportTable.theDominantSemanticType;
+   --EXECUTE IMMEDIATE ' DROP VIEW todelete';
+   delimiteurOfCategory := '/';
+   dataReportTable.theDominantSemanticType := getTheDominantSemanticType(laTableReportByCol,delimiteurOfCategory);
+   --DBMS_OUTPUT.put_line ('------'||dataReportTable.theDominantSemanticType);
+
+   -- c'est le nombre de valeur differente de la valeur semantique dominante
+   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol
+   || ' WHERE SYNTACTICTYPE IS NULL OR SEMANTICCATEGORY NOT LIKE ''%'||
+   dataReportTable.theDominantSemanticType ||'%'' '  INTO  dataReportTable.NumberOfSemanticAnomalies ;
+
+   -- c'est le nombre de valeur egale à la valeur semantique dominante
+   -- ou c'est ( le nombre d'element total ) - dataReportTable.NumberOfSyntacticAnomalies
+   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol
+   || ' WHERE SEMANTICCATEGORY LIKE ''%'||
+   dataReportTable.theDominantSemanticType ||'%'' '  INTO  dataReportTable.NumberOfSemanticNormalValues ;
+
 
 
 
@@ -261,16 +331,18 @@ BEGIN
         --DBMS_OUTPUT.put_line (myInsertQuerySyntaxique);
         EXECUTE IMMEDIATE myInsertQuerySyntaxique;
 
-        -- je génére une partie de la table DATAREPORT pour le fichier CSV
-        dataReportTableName := 'DR_'||CSVName||'_TabCol' ;
-        GenerateReportTable(laTableRes, colName, dataReportTableName);
-
-
-        -- pour les données sémantique on fait un update car la lique contient déja des valeurs
-
-
      END loop;
  close table_cursor;
+
+
+-- @ludo faire une autre fonction dans laque on apellera cette fonction et celle ci desous
+ -- je génére une partie de la table DATAREPORT pour le fichier CSV
+ --dataReportTableName := 'DR_'||CSVName||'_TabCol' ;
+ GenerateReportTable(laTableRes, colName, dataReportTableName);
+
+
+ -- pour les données sémantique on fait un update car la lique contient déja des valeurs
+
 
 END;
 /

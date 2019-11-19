@@ -1,97 +1,42 @@
-CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, colName in VARCHAR2, laTableReportTable in VARCHAR2)
-  AS
-  --- la stucture de la table resultante sera la meme que DATAREPORT
-  --- desc DATAREPORT --
-  dataReportTable DATAREPORT%ROWTYPE;
-  myInsertQuery VARCHAR2(500);
-  myInsertValue VARCHAR2(500);
+CREATE OR REPLACE PROCEDURE getTheDominantSemanticType(laTableReportByCol in VARCHAR2, delimiteurOfCategory in VARCHAR2)
+RETURN VARCHAR2
+IS
 
-  BEGIN
-   --EXECUTE IMMEDIATE ' SELECT DISTINCT(CSVName) FROM ' || laTableReportByCol INTO dataReportTable.CSVName ;
-   dataReportTable.OLDName := colName;
-	 -- NEWVALUES a apfaire apres dans un update
-	 dataReportTable.NEWName := 'INCONNU';
-	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol INTO  dataReportTable.nbrRows ;
+theDominantSemanticType VARCHAR2(2000);
+regexDelimiteurOfCategory VARCHAR2(20);
+myCatagory VARCHAR2(60);
+myiCatagory VARCHAR2(60);
 
-   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE OLDVALUES IS NULL ' INTO  dataReportTable.nbrNullValues  ;
-	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE OLDVALUES IS NOT NULL ' INTO  dataReportTable.nbrNotNullValues  ;
-	 EXECUTE IMMEDIATE ' SELECT MIN(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.minLenght ;
-	 EXECUTE IMMEDIATE ' SELECT MAX(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.maxLength ;
-	 --EXECUTE IMMEDIATE ' SELECT MAX(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.nbrWords ;
-	 dataReportTable.nbrWords := -1;
-	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%VARCHAR2%'' ' INTO  dataReportTable.nbrValuesVarcharType ;
-   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%NUMBER%'' ' INTO  dataReportTable.nbrValuesNumberType ;
-   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%DATE%'' ' INTO  dataReportTable.nbrValuesDateType ;
-	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%BOOLEAN%'' ' INTO  dataReportTable.nbrValuesBooleanType ;
-	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  is NULL ' INTO  dataReportTable.nbrValuesNullType ;
-	 --EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%NUMBER%'' ' INTO  dataReportTable.nbrOfDifferenteValues ;
-   dataReportTable.nbrOfDifferenteValues := -1;
+maxCategory VARCHAR2(60);
+nbrElemCategory NUMBER;
+maxNbrElemCategory NUMBER;
+BEGIN
 
-   --EXECUTE IMMEDIATE ' SELECT SYNTACTICTYPE FROM ( SELECT SYNTACTICTYPE ) '|| laTableReportByCol INTO  dataReportTable.theDominantSyntacticType ;
-   EXECUTE IMMEDIATE ' CREATE OR REPLACE VIEW todelete as ( SELECT SYNTACTICTYPE, count(*) as nbr from '||laTableReportByCol||' GROUP BY SYNTACTICTYPE )';
-   EXECUTE IMMEDIATE ' SELECT SYNTACTICTYPE FROM todelete WHERE nbr = (SELECT MAX(nbr) FROM todelete)' INTO dataReportTable.theDominantSyntacticType;
-   EXECUTE IMMEDIATE ' DROP VIEW todelete';
+EXECUTE IMMEDIATE ' CREATE OR REPLACE VIEW todelete as ( SELECT SEMANTICCATEGORY, count(*) as nbr from '||laTableReportByCol||' GROUP BY SEMANTICCATEGORY )';
+EXECUTE IMMEDIATE ' SELECT SEMANTICCATEGORY FROM todelete WHERE nbr = (SELECT MAX(nbr) FROM todelete) AND ROWNUM = 1' INTO theDominantSemanticType;
 
-   -- c'est le nombre de valeur differente de la valeur syntaxique dominante
-   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol
-   || ' WHERE SYNTACTICTYPE IS NULL OR SYNTACTICTYPE NOT LIKE ''%'||
-   dataReportTable.theDominantSyntacticType ||'%'' '  INTO  dataReportTable.NumberOfSyntacticAnomalies ;
+theDominantSemanticType := ''''|| theDominantSemanticType ||'''';
+regexDelimiteurOfCategory := '[^'''|| delimiteurOfCategory ||''']+';
 
-   -- c'est le nombre de valeur egale à la valeur syntaxique dominante
-   -- ou c'est ( le nombre d'element total ) - dataReportTable.NumberOfSyntacticAnomalies
-   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol
-   || ' WHERE SYNTACTICTYPE LIKE ''%'||
-   dataReportTable.theDominantSyntacticType ||'%'' '  INTO  dataReportTable.NumberOfSyntacticNormalValues ;
+maxCategory := 'INCONNUE';
+maxNbrElemCategory := 0;
+nbrElemCategory := 0;
+FOR i IN ( SELECT regexp_substr(theDominantSemanticType,regexDelimiteurOfCategory, 1, level) as myCatagory from dual
+connect by regexp_substr(theDominantSemanticType, regexDelimiteurOfCategory, 1, level) is not null )
+LOOP
+ --select count(*) from t_col4 where SEMANTICCATEGORY like '%SIZE_SHOES%';
+ myiCatagory := '''%'|| i.myCatagory ||'%''';
+ EXECUTE IMMEDIATE ' SELECT count(*) FROM '||laTableReportByCol||' WHERE SEMANTICCATEGORY like '||myiCatagory INTO nbrElemCategory;
+ --DBMS_OUTPUT.put_line (' SELECT count(*) FROM '||laTableReportByCol||' WHERE SEMANTICCATEGORY like '||myiCatagory);
+ IF ( nbrElemCategory > maxNbrElemCategory )THEN
+   maxNbrElemCategory := nbrElemCategory;
+   maxCategory := i.myCatagory;
+ END IF;
 
+END LOOP;
 
-   -- ces 3 données seront initialise plustard en fonction
-   /*
-   EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.theDominantSemanticType ;
-   EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.NumberOfSemanticAnomalies ;
-   EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.NumberOfSemanticNormalValues ;
-   */
-   dataReportTable.theDominantSemanticType := 'INCONNU';
-   dataReportTable.NumberOfSemanticAnomalies := -1;
-   dataReportTable.NumberOfSemanticNormalValues := -1;
+EXECUTE IMMEDIATE ' DROP VIEW todelete';
 
-
-
-  --DBMS_OUTPUT.put_line ('dataReportTable.OLDName  : '||dataReportTable.OLDName);
-  myInsertValue := ' VALUES ('''|| dataReportTable.CSVName  ||''','''||
-				 dataReportTable.OLDName  ||''','''||
-				 dataReportTable.NEWName  ||''','||
-				 dataReportTable.nbrRows ||','||
-
-				 dataReportTable.nbrNullValues ||','||
-				 dataReportTable.nbrNotNullValues ||','||
-
-				 dataReportTable.minLenght ||','||
-				 dataReportTable.maxLength ||','||
-
-				 dataReportTable.nbrWords ||','||
-
-				 dataReportTable.nbrValuesVarcharType ||','||
-				 dataReportTable.nbrValuesNumberType ||','||
-				 dataReportTable.nbrValuesDateType ||','||
-				 dataReportTable.nbrValuesBooleanType ||','||
-				 dataReportTable.nbrValuesNullType ||','||
-
-				 dataReportTable.nbrOfDifferenteValues ||','''||
-
-				 dataReportTable.theDominantSyntacticType  ||''','||
-				 dataReportTable.NumberOfSyntacticAnomalies ||','||
-				 dataReportTable.NumberOfSyntacticNormalValues ||','''||
-
-				 dataReportTable.theDominantSemanticType  ||''','||
-				 dataReportTable.NumberOfSemanticAnomalies ||','||
-				 dataReportTable.NumberOfSemanticNormalValues ||
-				 ')';
-
-
-  dropTable(laTableReportTable);
-  EXECUTE IMMEDIATE ' CREATE TABLE '|| laTableReportTable || ' AS SELECT * FROM DATAREPORT';
-  myInsertQuery := ' INSERT INTO '||laTableReportTable||' '||myInsertValue;
-  --DBMS_OUTPUT.put_line (myInsertQuery);
-  EXECUTE IMMEDIATE myInsertQuery;
-  END;
-  /
+RETURN ('maxCategory');
+END;
+/

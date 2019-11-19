@@ -57,10 +57,10 @@ colName := 'col4';
 laTableRes := 't_col4';
 CSVName := 'CSVfile';
 delimiteurOfCategory := '_OR_';
-dataReportTableName := laTableRes ||'_stat';
+dataReportTableName := 'DR_'||CSVName||'_TabCol' ;
 GenerateReportByCol(CSVName,laTable,colName, laTableRes,dataReportTableName );
 
-
+-----------------------------------------------------------------------------------------
 laTable := 'mytable';
 colName := 'col4';
 laTableRes := 't_col4';
@@ -87,5 +87,5 @@ dataReportTableName := laTableRes ||'_stat';
 END;
 /
 
-select * from t_col4;
---select * from t_col4_stat;
+--select * from t_col4;
+select theDominantSemanticType, NumberOfSemanticAnomalies, NumberOfSemanticNormalValues from DR_CSVfile_TabCol;
