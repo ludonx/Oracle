@@ -477,7 +477,7 @@ INSERT INTO DDRE VALUES ('DATE','DATE','DATE_USA', '(0[0-9]|1[0-2])-([0-2][0-9]|
 --jj/mm/aaaa fr
 --aaaa-mm-jj iso
 --mm-jj-aa usa
-INSERT INTO DDRE VALUES ('NUMBER','AGE','AGE','[0-9]{2}' );
+INSERT INTO DDRE VALUES ('NUMBER','AGE','AGE','^[0-9]{2}$' );
 
 INSERT INTO DDRE VALUES ('VARCHAR2','NAMES','FIRSTNAME', '^[[:alpha:] ]+$' );
 INSERT INTO DDRE VALUES ('VARCHAR2','NAMES','EMAIL', '^[A-Za-z]+[A-Za-z0-9.]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$' );

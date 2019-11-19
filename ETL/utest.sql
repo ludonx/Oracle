@@ -7,7 +7,7 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
   myInsertValue VARCHAR2(500);
 
   BEGIN
-   EXECUTE IMMEDIATE ' SELECT DISTINCT(CSVName) FROM ' || laTableReportByCol INTO dataReportTable.CSVName ;
+   --EXECUTE IMMEDIATE ' SELECT DISTINCT(CSVName) FROM ' || laTableReportByCol INTO dataReportTable.CSVName ;
    dataReportTable.OLDName := colName;
 	 -- NEWVALUES a apfaire apres dans un update
 	 dataReportTable.NEWName := 'INCONNU';
@@ -44,7 +44,7 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
    dataReportTable.theDominantSyntacticType ||'%'' '  INTO  dataReportTable.NumberOfSyntacticNormalValues ;
 
 
-   -- ces 3 données seront initialise plustard en fonction 
+   -- ces 3 données seront initialise plustard en fonction
    /*
    EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.theDominantSemanticType ;
    EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.NumberOfSemanticAnomalies ;

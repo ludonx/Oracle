@@ -1,0 +1,5 @@
+- erreur lorsque la table t_col4 est vide
++ solution non implemente : s'assure que la table n'est pas vide avant de faire des requete dessu
+
+- erreur lorsque pas assez d'espace alloué pour les var char
++ solution implemente : VARCHAR2(60) -> VARCHAR2(2000)

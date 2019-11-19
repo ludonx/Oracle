@@ -19,10 +19,59 @@ CREATE OR REPLACE FUNCTION getDataType(data in VARCHAR2)
    /
 
 ------------------------------------------------+
+------------- getDataCategory                   |
+------------------------------------------------+
+-- return la catégorie d'une chaine de caractére en fonction de son expression regulier
+CREATE OR REPLACE PROCEDURE getDataCategory(data IN VARCHAR2, category OUT VARCHAR2,subCategory OUT VARCHAR2, delimiteurOfCategory IN VARCHAR2)
+   AS
+   first_val BOOLEAN := TRUE;
+   nbr number;
+   BEGIN
+   category := 'INCONNU';
+   subCategory := 'INCONNU';
+      FOR i IN (SELECT * FROM DDRE)
+      LOOP
+        IF REGEXP_LIKE (UPPER(data),i.REGULAREXPRESSION) THEN
+          -- cas particulier , i.CATEGORY = CITY
+          -- donc la data peux être une ville ou un nom
+          IF (i.CATEGORY = 'NAMES' AND i.SUBCATEGORY = 'CITY') THEN
+            SELECT COUNT(*) INTO nbr FROM DICOPAYSVILLE WHERE VILLE = UPPER(data);
+            IF nbr > 0 THEN
+              category := i.CATEGORY ;
+              subCategory := i.SUBCATEGORY ;
+              -- if it is a cile we exit ,
+              -- @ludo this may not be the best solution
+              EXIT;
+            END IF;
+          -- on peu rajouter plusieur ELSIF en fonction des cas particuliers
+          ELSE
+            -- ci-bas les conditions général,
+            -- here we construct a list of CATEGORY if the data have mutiple CATEGORY
+            IF first_val = TRUE THEN
+              category := i.CATEGORY;
+              subCategory := i.SUBCATEGORY ;
+              first_val := FALSE;
+            ELSE
+              IF (category NOT LIKE '%'||i.CATEGORY ||'%') THEN
+                -- this condition is to not duplicate category if the liste i'm building
+                category := category ||delimiteurOfCategory|| i.CATEGORY;
+              END IF;
+              subCategory := subCategory ||delimiteurOfCategory|| i.SUBCATEGORY;
+
+            END IF;
+          END IF;
+
+        END IF;
+      END LOOP;
+   END;
+   /
+
+
+------------------------------------------------+
 ------------- GenerateReportTable                    |
 ------------------------------------------------+
 -- return le type d'une chaine de caractére en fonction de son expression regulier
-CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, colName in VARCHAR2, laTableReportTabale in VARCHAR2)
+CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, colName in VARCHAR2, laTableReportTable in VARCHAR2)
   AS
   --- la stucture de la table resultante sera la meme que DATAREPORT
   --- desc DATAREPORT --
@@ -31,36 +80,92 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
   myInsertValue VARCHAR2(500);
 
   BEGIN
-   EXECUTE IMMEDIATE ' SELECT DISTINCT(CVSName) INTO ' || dataReportTable.CSVName || ' FROM ' || laTableReportByCol ;
+   --EXECUTE IMMEDIATE ' SELECT DISTINCT(CSVName) FROM ' || laTableReportByCol INTO dataReportTable.CSVName ;
    dataReportTable.OLDName := colName;
-   --EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.NEWName || ' FROM ' || laTableReportByCol ;
+	 -- NEWVALUES a apfaire apres dans un update
+	 dataReportTable.NEWName := 'INCONNU';
+	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol INTO  dataReportTable.nbrRows ;
+
+   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE OLDVALUES IS NULL ' INTO  dataReportTable.nbrNullValues  ;
+	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE OLDVALUES IS NOT NULL ' INTO  dataReportTable.nbrNotNullValues  ;
+	 EXECUTE IMMEDIATE ' SELECT MIN(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.minLenght ;
+	 EXECUTE IMMEDIATE ' SELECT MAX(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.maxLength ;
+	 --EXECUTE IMMEDIATE ' SELECT MAX(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.nbrWords ;
+	 dataReportTable.nbrWords := -1;
+	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%VARCHAR2%'' ' INTO  dataReportTable.nbrValuesVarcharType ;
+   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%NUMBER%'' ' INTO  dataReportTable.nbrValuesNumberType ;
+   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%DATE%'' ' INTO  dataReportTable.nbrValuesDateType ;
+	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%BOOLEAN%'' ' INTO  dataReportTable.nbrValuesBooleanType ;
+	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  is NULL ' INTO  dataReportTable.nbrValuesNullType ;
+	 --EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%NUMBER%'' ' INTO  dataReportTable.nbrOfDifferenteValues ;
+   dataReportTable.nbrOfDifferenteValues := -1;
+
+   --EXECUTE IMMEDIATE ' SELECT SYNTACTICTYPE FROM ( SELECT SYNTACTICTYPE ) '|| laTableReportByCol INTO  dataReportTable.theDominantSyntacticType ;
+   EXECUTE IMMEDIATE ' CREATE OR REPLACE VIEW todelete as ( SELECT SYNTACTICTYPE, count(*) as nbr from '||laTableReportByCol||' GROUP BY SYNTACTICTYPE )';
+   EXECUTE IMMEDIATE ' SELECT SYNTACTICTYPE FROM todelete WHERE nbr = (SELECT MAX(nbr) FROM todelete)' INTO dataReportTable.theDominantSyntacticType;
+   EXECUTE IMMEDIATE ' DROP VIEW todelete';
+
+   -- c'est le nombre de valeur differente de la valeur syntaxique dominante
+   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol
+   || ' WHERE SYNTACTICTYPE IS NULL OR SYNTACTICTYPE NOT LIKE ''%'||
+   dataReportTable.theDominantSyntacticType ||'%'' '  INTO  dataReportTable.NumberOfSyntacticAnomalies ;
+
+   -- c'est le nombre de valeur egale à la valeur syntaxique dominante
+   -- ou c'est ( le nombre d'element total ) - dataReportTable.NumberOfSyntacticAnomalies
+   EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol
+   || ' WHERE SYNTACTICTYPE LIKE ''%'||
+   dataReportTable.theDominantSyntacticType ||'%'' '  INTO  dataReportTable.NumberOfSyntacticNormalValues ;
+
+
+   -- ces 3 données seront initialise plustard en fonction
    /*
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.nbrRows || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.nbrNullValues || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.nbrNotNullValues || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.minLenght || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.maxLength || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.nbrWords || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.nbrValuesVarcharType || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.nbrValuesNumberType || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.nbrValuesDateType || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.nbrValuesBooleanType || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.nbrValuesNullType || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.nbrOfDifferenteValues || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.theDominantSyntacticType || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.NumberOfSyntacticAnomalies || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.NumberOfSyntacticNormalValues || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.theDominantSemanticType || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.NumberOfSemanticAnomalies || ' FROM ' || laTableReportByCol ;
-   EXECUTE IMMEDIATE ' SELECT INTO ' || dataReportTable.NumberOfSemanticNormalValues || ' FROM ' || laTableReportByCol ;
- */
+   EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.theDominantSemanticType ;
+   EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.NumberOfSemanticAnomalies ;
+   EXECUTE IMMEDIATE ' SELECT FROM  '|| laTableReportByCol INTO  dataReportTable.NumberOfSemanticNormalValues ;
+   */
+   dataReportTable.theDominantSemanticType := 'INCONNU';
+   dataReportTable.NumberOfSemanticAnomalies := -1;
+   dataReportTable.NumberOfSemanticNormalValues := -1;
 
-  DBMS_OUTPUT.put_line ('dataReportTable.OLDName'||dataReportTable.OLDName);
-  myInsertValue := ' VALUES ('|| ' '||')';
 
-  myInsertQuery := ' INSERT INTO '||laTableReportTabale||' '||myInsertValue;
-  DBMS_OUTPUT.put_line (myInsertQuery);
-  --EXECUTE IMMEDIATE myInsertQuery;
+
+  --DBMS_OUTPUT.put_line ('dataReportTable.OLDName  : '||dataReportTable.OLDName);
+  myInsertValue := ' VALUES ('''|| dataReportTable.CSVName  ||''','''||
+				 dataReportTable.OLDName  ||''','''||
+				 dataReportTable.NEWName  ||''','||
+				 dataReportTable.nbrRows ||','||
+
+				 dataReportTable.nbrNullValues ||','||
+				 dataReportTable.nbrNotNullValues ||','||
+
+				 dataReportTable.minLenght ||','||
+				 dataReportTable.maxLength ||','||
+
+				 dataReportTable.nbrWords ||','||
+
+				 dataReportTable.nbrValuesVarcharType ||','||
+				 dataReportTable.nbrValuesNumberType ||','||
+				 dataReportTable.nbrValuesDateType ||','||
+				 dataReportTable.nbrValuesBooleanType ||','||
+				 dataReportTable.nbrValuesNullType ||','||
+
+				 dataReportTable.nbrOfDifferenteValues ||','''||
+
+				 dataReportTable.theDominantSyntacticType  ||''','||
+				 dataReportTable.NumberOfSyntacticAnomalies ||','||
+				 dataReportTable.NumberOfSyntacticNormalValues ||','''||
+
+				 dataReportTable.theDominantSemanticType  ||''','||
+				 dataReportTable.NumberOfSemanticAnomalies ||','||
+				 dataReportTable.NumberOfSemanticNormalValues ||
+				 ')';
+
+
+  dropTable(laTableReportTable);
+  EXECUTE IMMEDIATE ' CREATE TABLE '|| laTableReportTable || ' AS SELECT * FROM DATAREPORT';
+  myInsertQuery := ' INSERT INTO '||laTableReportTable||' '||myInsertValue;
+  --DBMS_OUTPUT.put_line (myInsertQuery);
+  EXECUTE IMMEDIATE myInsertQuery;
   END;
   /
 
@@ -68,12 +173,14 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
 -- Génération de la Data Report DR_CSVFile_Col_
 -- @param :
 --      +input :
---          +le nom de la table qui contient des anomalies : laTable
---          +le nom de la colonnes : colName
---          +le nom de la table de rapport syntaxique et éventuellement sémantique : laTableRes
+--          + laTable : le nom de la table qui contient des anomalies :
+--          + colName : le nom de la colonnes
+--          + laTableRes : le nom de la table de rapport syntaxique et éventuellement sémantique :
+--      +input/output :
+--          + dataReportTableName : the name of the table that containe the stat of all column in the table 'laTable'
 -----------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE PROCEDURE GenerateReportByCol(CSVName in VARCHAR2, laTable in VARCHAR2,  colName in VARCHAR2, laTableRes in VARCHAR2) AS
+CREATE OR REPLACE PROCEDURE GenerateReportByCol(CSVName in VARCHAR2, laTable in VARCHAR2,  colName in VARCHAR2, laTableRes in VARCHAR2,dataReportTableName IN OUT VARCHAR2 ) AS
 table_cursor SYS_REFCURSOR;
 myQuery VARCHAR2(500);
 myInsertQuerySyntaxique VARCHAR2(500);
@@ -87,7 +194,12 @@ colNbrMot NUMBER;
 myColValues VARCHAR2(60);
 myColValuesToInsert VARCHAR2(60);
 
-dataReportTableName VARCHAR2(60);
+colDataCategory VARCHAR2(2000);
+colDataSubCategory VARCHAR2(2000);
+delimiteurOfCategory VARCHAR2(60);
+
+
+--dataReportTableName VARCHAR2(60);
 --CSVName VARCHAR2(60); -- contiendra le nom du fichier csv : @ludo a modifier et mettre en parametre -- quoi que pas tres utilil ( voir prof)
 --- la stucture de la table resultante sera la meme que DATAREPORTBYCOL
 --- desc DATAREPORTBYCOL --
@@ -110,11 +222,16 @@ BEGIN
       EXIT WHEN table_cursor%NOTFOUND;
 
         IF myColValues is null THEN
+          ------------ SYNTAXIC -----------
           myColValuesToInsert := 'null';
           colDataType := 'null';
           colLength := 0;
           colNbrMot := 0;
+          ------------ SEMANTIC -----------
+          colDataCategory := 'null';
+          colDataSubCategory := 'null';
         ELSE
+          ------------ SYNTAXIC -----------
           -- ne pas oublie de rajouter les doubles cote pour les chaine de caractère
           myColValuesToInsert:=''''|| myColValues ||'''';
 
@@ -127,17 +244,26 @@ BEGIN
           -- je détermine le nombre de mot de la colonne (séparer par un espaces)
           colNbrMot := REGEXP_COUNT(myColValues, ' ') + 1;
 
+
+          ------------ SEMANTIC -----------
+          -- I determine the semantic type of the column
+          --delimiteurOfCategory := '_OR_';
+          delimiteurOfCategory := '/';
+          getDataCategory(myColValues,colDataCategory,colDataSubCategory,delimiteurOfCategory);
+          colDataCategory := ''''|| colDataCategory ||'''';
+          colDataSubCategory := ''''|| colDataSubCategory ||'''';
+
         END IF;
 
         -- pour le profilage syntaxique on insert les données car la table est vide
-        myInsertValueSyntaxique := ' VALUES ('''||CSVName||''','|| myColValuesToInsert ||','|| colDataType ||',' ||colLength ||', '|| colNbrMot ||',null,null,null,null)';
+        myInsertValueSyntaxique := ' VALUES ('''||CSVName||''','|| myColValuesToInsert ||','|| colDataType ||',' ||colLength ||', '|| colNbrMot ||',null,null,'|| colDataCategory||','|| colDataSubCategory||')';
         myInsertQuerySyntaxique := 'INSERT INTO ' || laTableRes ||myInsertValueSyntaxique;
-        DBMS_OUTPUT.put_line (myInsertQuerySyntaxique);
+        --DBMS_OUTPUT.put_line (myInsertQuerySyntaxique);
         EXECUTE IMMEDIATE myInsertQuerySyntaxique;
 
         -- je génére une partie de la table DATAREPORT pour le fichier CSV
         dataReportTableName := 'DR_'||CSVName||'_TabCol' ;
-
+        GenerateReportTable(laTableRes, colName, dataReportTableName);
 
 
         -- pour les données sémantique on fait un update car la lique contient déja des valeurs
@@ -145,11 +271,6 @@ BEGIN
 
      END loop;
  close table_cursor;
-
-
-
-
-
 
 END;
 /
