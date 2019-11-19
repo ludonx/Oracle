@@ -88,4 +88,4 @@ END;
 /
 
 select * from t_col4;
---select theDominantSemanticType from DR_CSVfile_TabCol;
+select theDominantSemanticType from DR_CSVfile_TabCol;
