@@ -57,7 +57,7 @@ colName := 'col4';
 laTableRes := 't_col4';
 CSVName := 'CSVfile';
 delimiteurOfCategory := '_OR_';
-dataReportTableName := laTableRes ||'_stat';
+dataReportTableName := 'DR_'||CSVName||'_TabCol';
 GenerateReportByCol(CSVName,laTable,colName, laTableRes,dataReportTableName );
 
 -----------------------------------------------------------------------------------------
@@ -87,5 +87,5 @@ dataReportTableName := laTableRes ||'_stat';
 END;
 /
 
-select * from t_col4;
-select theDominantSemanticType from DR_CSVfile_TabCol;
+--select * from t_col4;
+--select theDominantSemanticType from DR_CSVfile_TabCol;

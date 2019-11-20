@@ -141,16 +141,16 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
   BEGIN
    --EXECUTE IMMEDIATE ' SELECT DISTINCT(CSVName) FROM ' || laTableReportByCol INTO dataReportTable.CSVName ;
    dataReportTable.OLDName := colName;
-	 -- NEWVALUES a apfaire apres dans un update
-	 dataReportTable.NEWName := 'INCONNU';
+
 	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol INTO  dataReportTable.nbrRows ;
 
    EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE OLDVALUES IS NULL ' INTO  dataReportTable.nbrNullValues  ;
 	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE OLDVALUES IS NOT NULL ' INTO  dataReportTable.nbrNotNullValues  ;
 	 EXECUTE IMMEDIATE ' SELECT MIN(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.minLenght ;
 	 EXECUTE IMMEDIATE ' SELECT MAX(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.maxLength ;
-	 --EXECUTE IMMEDIATE ' SELECT MAX(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.nbrWords ;
-	 dataReportTable.nbrWords := -1;
+
+   EXECUTE IMMEDIATE ' SELECT MAX(NUMBEROFWORDS) FROM  '|| laTableReportByCol ||' WHERE ROWNUM = 1' INTO  dataReportTable.nbrWords ;
+	 --dataReportTable.nbrWords := -1;
 	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%VARCHAR2%'' ' INTO  dataReportTable.nbrValuesVarcharType ;
    EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%NUMBER%'' ' INTO  dataReportTable.nbrValuesNumberType ;
    EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE UPPER(SYNTACTICTYPE)  LIKE ''%DATE%'' ' INTO  dataReportTable.nbrValuesDateType ;
@@ -178,9 +178,6 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
 
 
    -- the dominante SEMANTICCATEGORY
-   --EXECUTE IMMEDIATE ' CREATE OR REPLACE VIEW todelete as ( SELECT SEMANTICCATEGORY, count(*) as nbr from '||laTableReportByCol||' GROUP BY SEMANTICCATEGORY )';
-   --EXECUTE IMMEDIATE ' SELECT SEMANTICCATEGORY FROM todelete WHERE nbr = (SELECT MAX(nbr) FROM todelete) AND ROWNUM = 1' INTO dataReportTable.theDominantSemanticType;
-   --EXECUTE IMMEDIATE ' DROP VIEW todelete';
    delimiteurOfCategory := '/';
    dataReportTable.theDominantSemanticType := getTheDominantSemanticType(laTableReportByCol,delimiteurOfCategory);
    --DBMS_OUTPUT.put_line ('------'||dataReportTable.theDominantSemanticType);
@@ -195,6 +192,9 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
    EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol
    || ' WHERE SEMANTICCATEGORY LIKE ''%'||
    dataReportTable.theDominantSemanticType ||'%'' '  INTO  dataReportTable.NumberOfSemanticNormalValues ;
+
+   -- NEWVALUES a apfaire apres dans un update
+	 dataReportTable.NEWName := dataReportTable.OLDName||'_'||dataReportTable.theDominantSemanticType;
 
 
 

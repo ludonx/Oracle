@@ -77,10 +77,10 @@ COLUMN nbrValuesDateType FORMAT 99
 COLUMN nbrValuesBooleanType FORMAT 99
 COLUMN nbrValuesNullType FORMAT 99
 COLUMN nbrOfDifferenteValues FORMAT 99
-COLUMN theDominantSyntacticType FORMAT A15
+COLUMN theDominantSyntacticType FORMAT A30
 COLUMN NumberOfSyntacticAnomalies FORMAT 99
 COLUMN NumberOfSyntacticNormalValues FORMAT 99
-COLUMN theDominantSemanticType FORMAT A15
+COLUMN theDominantSemanticType FORMAT A30
 COLUMN NumberOfSemanticAnomalies FORMAT 99
 COLUMN NumberOfSemanticNormalValues FORMAT 99
 /*------------------------------------------------+
