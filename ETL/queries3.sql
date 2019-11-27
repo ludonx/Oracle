@@ -1,9 +1,7 @@
 
 ----- DATA REPORT COL 4  ----
-select * from t_col4;
+select * from t_col3;
 
------ DATA REPORT STAT COL 4  ----
---select * from t_col4_stat; : remplacer par  DR_CSVfile_TabCol
 ----- DATA REPORT TABLE  ----
 --SELECT CSVName ,OLDName ,NEWName ,nbrRows ,nbrNullValues ,nbrNotNullValues ,minLenght ,maxLength ,nbrWords ,nbrValuesVarcharType ,nbrValuesNumberType ,nbrValuesDateType ,nbrValuesBooleanType ,nbrValuesNullType ,nbrOfDifferenteValues ,theDominantSyntacticType ,NumberOfSyntacticAnomalies ,NumberOfSyntacticNormalValues ,theDominantSemanticType ,NumberOfSemanticAnomalies ,NumberOfSemanticNormalValues FROM DR_CSVfile_TabCol;
 

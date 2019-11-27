@@ -231,6 +231,8 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
 				 ')';
 
 
+  dropTable(laTableReportTable);
+  EXECUTE IMMEDIATE ' CREATE TABLE '|| laTableReportTable || ' AS SELECT * FROM DATAREPORT';
   myInsertQuery := ' INSERT INTO '||laTableReportTable||' '||myInsertValue;
   --DBMS_OUTPUT.put_line (myInsertQuery);
   EXECUTE IMMEDIATE myInsertQuery;
@@ -274,9 +276,10 @@ END;
 --          + colName : le nom de la colonnes
 --          + laTableRes : le nom de la table de rapport syntaxique et éventuellement sémantique :
 --      +input/output :
+--          + dataReportTableName : the name of the table that containe the stat of all column in the table 'laTable'
 -----------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE PROCEDURE GenerateReportByCol(CSVName in VARCHAR2, laTable in VARCHAR2,  colName in VARCHAR2, laTableRes in VARCHAR2) AS
+CREATE OR REPLACE PROCEDURE GenerateReportByCol(CSVName in VARCHAR2, laTable in VARCHAR2,  colName in VARCHAR2, laTableRes in VARCHAR2,dataReportTableName IN OUT VARCHAR2 ) AS
 table_cursor SYS_REFCURSOR;
 myQuery VARCHAR2(500);
 myInsertQuerySyntaxique VARCHAR2(500);
@@ -298,6 +301,7 @@ observation VARCHAR2(60);
 newValues VARCHAR2(60);
 
 
+--dataReportTableName VARCHAR2(60);
 --CSVName VARCHAR2(60); -- contiendra le nom du fichier csv : @ludo a modifier et mettre en parametre -- quoi que pas tres utilil ( voir prof)
 --- la stucture de la table resultante sera la meme que DATAREPORTBYCOL
 --- desc DATAREPORTBYCOL --
@@ -371,6 +375,18 @@ BEGIN
 
      END loop;
  close table_cursor;
+
+
+ -- @ludo faire une autre fonction dans laque on apellera cette fonction et celle ci desous
+ -- je génére une partie de la table DATAREPORT pour le fichier CSV
+ --dataReportTableName := 'DR_'||CSVName||'_TabCol' ;
+ GenerateReportTable(laTableRes, colName, dataReportTableName);
+
+
+ -- pour les colonnes (observation et newValues) on fait un update car la clique contient déja des valeurs
+ UpdateReportByCol(laTableRes, colName, dataReportTableName);
+
+
 
 END;
 /
