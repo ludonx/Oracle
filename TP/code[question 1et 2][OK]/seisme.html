@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="lateralPanel.css">
+    <link rel="stylesheet" href="style.css">
+
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+
+    <!-- Nous chargeons les fichiers CDN de Leaflet. Le CSS AVANT le JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+      crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+      crossorigin=""></script>
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+                crossorigin=""></script>
+    <script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
+
+
+
+
+    <title>Seisme</title>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+  <!-- Sidebar -->
+  <nav id="sidebar">
+
+      <div id="dismiss">
+          <i class="fas fa-arrow-left"></i>
+      </div>
+
+      <div class="sidebar-header">
+          <h3>Option de recherche de séisme</h3>
+      </div>
+
+      <ul class="list-unstyled components">
+          <p>Rechercher un lieu</p>
+          <li class="paddingLR">
+
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="pills-lieu-tab" data-toggle="pill" href="#pills-lieu" role="tab" aria-controls="pills-lieu" aria-selected="true">Lieu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-coord-tab" data-toggle="pill" href="#pills-coord" role="tab" aria-controls="pills-coord" aria-selected="false">Coordonnées</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+
+              <div class="tab-pane fade show active" id="pills-lieu" role="tabpanel" aria-labelledby="pills-lieu-tab">
+                <form id="formCityCountry">
+                  <div class="form-group">
+                    <label for="City">Ville</label>
+                    <input id="formCity" type="text" class="form-control" name="city" placeholder="Ermont">
+                  </div>
+                  <div class="form-group">
+                    <label for="Country">Pays</label>
+                    <input id="formCountry" type="text" class="form-control" name="country" placeholder="France">
+                  </div>
+                  <button type="submit" class="btn btn-secondary">S'y rendre</button>
+                </form>
+              </div>
+
+              <div class="tab-pane fade" id="pills-coord" role="tabpanel" aria-labelledby="pills-coord-tab">
+                <form id="formLatLong">
+                  <div class="form-group">
+                    <label for="Latitude">Latitude</label>
+                    <input id="formLatitude" type="number" step="any" class="form-control" name="latitude" placeholder="48.8566101">
+                  </div>
+                  <div class="form-group">
+                    <label for="Longitude">Longitude</label>
+                    <input id="formLongitude" type="number" step="any" class="form-control" name="longitude" placeholder="2.3514992">
+                  </div>
+                  <button type="submit" class="btn btn-secondary">S'y rendre</button>
+                </form>
+              </div>
+
+            </div>
+          </li>
+
+          <p><br /><br />Option de la simulation</p>
+          <li class="paddingLR">
+            <form id="formOptionSeisme">
+              <div class="form-group">
+                <label for="DateDebutSeisme" class="col-form-label">Début de la simulation</label>
+                <input id="formDateDebutSeisme" class="form-control" type="datetime-local" name="debut" value="2018-04-30T12:00:00">
+              </div>
+              <div class="form-group">
+                <label for="DateFinSeisme" class="col-form-label">Fin de la simulation</label>
+                <input id="formDateFinSeisme" class="form-control" type="datetime-local" name="fin" value="2019-02-14T12:00:00">
+              </div>
+              <div class="form-group">
+                <label for="MagnitudeMin">Magnitude Minimal</label>
+                <input id="formMagnitudeMin" type="number" step="any" class="form-control" name="magnitudeMin" value="0">
+              </div>
+              <div class="form-group">
+                <label for="MagnitudeMax">Magnitude Maximal</label>
+                <input id="formMagnitudeMax" type="number" step="any" class="form-control" name="magnitudeMax" value="8">
+              </div>
+              <div class="form-group">
+                <label for="VitesseSimulation" class="col-form-label">Vitesse de la simulation (temps passé par sec)</label>
+                <div class="meme-ligne">
+                  <div class="col-xs-3">
+                    <input id="formValeurVitesse" type="number" min="1" class="form-control" name="vitesse" value="1" placeholder="1">
+                  </div>
+                  <div class="col-xs-5">
+                    <select id="formUniteVitesse" name="unite" class="custom-select">
+                      <option value="minutes">Minutes</option>
+                      <option value="heures">Heures</option>
+                      <option value="jours">Jours</option>
+                      <option value="mois" selected>Mois</option>
+                      <option value="annees">Années</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-secondary">Lancer la simulation</button>
+            </form>
+          </li>
+      </ul>
+  </nav>
+
+  <!-- Page Content -->
+  <div id="content">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+              <button type="button" id="sidebarCollapse" class="btn btn-info">
+                  <i class="fas fa-align-left"></i>
+              </button>
+              <h1>Visualisation des tremblements de terre</h1>
+          </div>
+      </nav>
+      <h5>Intervale et Magnitude de recherche</h5>
+      <div id="info_simul"></div>
+      <h4>Attention !!! il faut actualisé la Page 1 à 2 fois au début !! ( car le chargement des données peux prendre du temps )</h4>
+      <h4>Merci de patienter après le lancement d'une simulation</h4>
+
+      <div class="col-xs-12 div-carte">
+        <div id="map">
+          <!-- Ici s'affichera la carte -->
+        </div>
+      </div>
+      <!-- The output appears here -->
+
+      <div class="div_info">
+          <div><h3>Coordonnées : <span id="coordinate"></span></h3></div>
+          <div><h3>Lieu : <span id="place"></span></h3></div>
+          <div><h3>Info : </h3><span id="infoPlace"></span></div>
+      </div>
+
+
+
+
+
+
+
+  </div>
+
+
+
+  <!-- Dark Overlay element -->
+  <div class="overlay">
+  </div>
+
+
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!--script src="https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js"></script-->
+
+    <!-- Our Custom JS -->
+    <script src="map.js"></script>
+    <script src="lateralPanel.js"></script>
+
+</body>
+
+</html>

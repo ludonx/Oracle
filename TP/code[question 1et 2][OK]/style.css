@@ -1,0 +1,59 @@
+html, body
+{
+  height:100%;
+  margin:0;
+  padding:0;
+}
+
+h1
+{
+  text-align: center;
+}
+
+.paddingLR
+{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.nav-pills > li > a.active
+{
+  background-color: #6c757d!important;
+}
+
+.btn.btn-info
+{
+  background-color: #6c757d!important;
+  border-color: #6c757d!important;
+}
+
+.meme-ligne
+{
+  display: flex;
+}
+
+.wrapper
+{
+  height: 100%;
+}
+
+#content
+{
+  height: 100%;
+}
+
+.div-carte
+{
+  height:70%;
+}
+
+.div_info
+{
+  padding-top: 2%;
+}
+
+
+#map
+{ /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
+  height:100%;
+}

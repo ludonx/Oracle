@@ -1,0 +1,190 @@
+C018
+FEBRURAY -> FEBRUARY
+
+nouvelles données pour le systeme de Recommandation
+[961]
+FB.0i i>03 --> F1.00i
+some INSERT with out values [984,]
+
+validation insertions [1113]
+
+Affichage des table de la bd [1127]
+
+verification des TRIGGERS
+- Exemple avec 2 insertions et 2 mises � jour dans la table ARTICLES
+HISTORIQUE_PRIX non definit ( ce qui est normal : voir [282])
+HISTORIQUE_MVTS_ARTICLES [ok]
+
+Suppression et creation de la table comparaison_art
+[1483]
+PROMPT Suppression et creation de la table comparaison_art
+PROMPT Cette table va permettre de stocker les mouvements dans
+PROMPT la table ARTICLES, pendant une p�riode. Tout �a pour pouvoir ensuite
+PROMPT �tudier l impact de ces mouvements sur le chiffre d affaires durant
+PROMPT la p�riode consid�r�e.
+
+
+Suppression et creation de la table comparaison_chiffre_affaires.
+[1507]
+
+PROMPT =====================================================================
+PROMPT Suppression et creation de la table comparaison_chiffre_affaires.
+PROMPT Cette table va permettre de stocker les informations concernant
+PROMPT le chiffre d affaires moyen des diff�rents pays avant la p�riode o�
+PROMPT l on a d�cid� de regarder l impact des mouvements effectu�s sur
+PROMPT la table ARTICLES. De garder aussi le chiffre d affaires durant
+PROMPT la p�riode consid�r�e. Et aussi, d inscrire la variation au niveau
+PROMPT des chiffres d affaires.
+PROMPT =====================================================================
+PROMPT
+
+Creation de vue VUE_ART
+[1533]
+PROMPT =====================================================================
+PROMPT Creation de vue VUE_ART permettant de garder pour chaque article
+PROMPT de la table ARTICLES son prix de vente moyen, son prix d achat moyen
+PROMPT et sa quantit� en stock moyen.
+PROMPT =====================================================================
+PROMPT
+
+Creation de vue VUE_MVTS_ART
+[1551]
+PROMPT =====================================================================
+PROMPT Creation de vue VUE_MVTS_ART permettant de garder pour chaque article
+PROMPT de la table HISTORIQUE_MVTS_ARTICLES son prix de vente moyen, son
+PROMPT prix d achat moyen et sa quantit� en stock moyen.
+PROMPT =====================================================================
+PROMPT
+erreur 2007 -> 2020 génére des err ( incoherence) pas la suite plus bas
+
+PROMPT =====================================================================
+PROMPT Creation de vue CHIFFRE_AFFAIRES_AVANT permettant de calculer le
+PROMPT chiffre d affaires de chaque pays avant une p�riode consid�r�e.
+PROMPT =====================================================================
+PROMPT
+[1570]
+
+PROMPT =====================================================================
+PROMPT Creation de vue CHIFFRE_AFFAIRES_APRES permettant de calculer le
+PROMPT chiffre d affaires de chaque pays durant la p�riode consid�r�e.
+PROMPT =====================================================================
+PROMPT
+[1589]
+
+erreur [1594]
+CHIFFAFF,  -> CHIFFAFF
+CHIFFAFF -> CHIFFRE_AFFAIRE [ voir plus bas 1667]
+
+PROMPT =====================================================================
+PROMPT Creation de procedure MOYENNE_PRIX_ART permettant de calculer le prix
+PROMPT moyen d achat et de vente, et la quantit� moyenne en stock de chaque
+PROMPT article. Et ensuite de calculer le chiffre d affaires avant et pendant
+PROMPT une p�riode consid�r�e. Tout cela pour savoir si les mouvements
+PROMPT effectu�s, durant une p�riode consid�r�e, sur la table ARTICLES ont
+PROMPT apport� plus ou moins d argent.
+PROMPT =====================================================================
+PROMPT
+[1608]
+
+erreur
+CHIFFRE_AFFAIRE_APRES  -> CHIFFRE_AFFAIRES_APRES
+CHIFFRE_AFFAIRE_APRES -> CHIFFRE_AFFAIRES_APRES
+
+execution de la procedure
+EXECUTE MOYENNE_PRIX_ART;
+[1687]
+erreur : ( chiffre d'affaire du pays n'existe pas)
+solution : faire des tests
+
+Visualisation de la table COMPARAISON_ART
+[1718]
+
+Visualisation de la table COMPARAISON_CHIFFRE_AFFAIRES
+[1741]
+
+à faire :
+Requete: les articles qui sont toujours command�s ensemble
+[1772]
+
+verification de dépendance fonctionnelles
+creation de VILPAYSDF
+[1831]
+HOMOGENEISATION
+[1856]
+
+-- Algorithme pour v�rifier la DF entre 2 colonnes :
+[1864]
+-- REM Si MAXOCCUR > 1 Alors la DF n'est pas v�rifi�e !
+
+Exemple de proc�dures PL/SQL dynamique
+[1912]
+-- NBRLIGTAB Compte le nombre de lignes dans une table
+-- NBRNULLTABCOL Compte le nombre de valeurs nulles dans une colonne dans une table
+
+----- @ludo à teste les fonction mais normalement ok
+--= Manipulation intelligente des donn�es : Elimination des doubles et des similaires   === DEBUT =
+[1950]
+rem procedure d �limination des doubles exacts sur plusieurs attributs
+[2038]
+
+
+Elimination des doubles et des similaires
+Algo Data Deduplication
+[2084]
+
+Le d�but d'un syst�me de recommandation
+[2202]
+
+Les articles command�s par les clients !
+[2213]
+Les articles command�s pendant la p�riode concern�e (SEP 2018).
+VIEW V_CLIARTQTE
+[2221]
+
+Pour tout client Ci AYANT SATISFAIT certains crit�res !
+[2231]
+VIEW V_C001, C00i i >=1 <= 6
+
+
+Les articles command�s, � la fois, par les clients C001 et C002
+V_C001_C002_A
+[2251]
+
+
+-- 2�me Solution : Les articles command�s, � la fois, par les clients C001 et C002.
+V_C001_C002_B
+[2266]
+
+-- Le nombre d''articles communs � C001 et C002
+[2280]
+
+-- On recommande (on propose) alors � C002 les articles de C001 qu''il n''a pas command�s :
+[2288]
+
+
+
+-- MFB FFF ++++++++++++  Premi�re proposition/solution +++++++++++ ****** === ****** +++++++++++===
+
+
+-- Classification des clients selon les articles command�s
+Creation des vues des articles command�s par chaque client
+[2305]
+
+Creation des vues des articles command�s, � la fois, par deux clients.
+[2325]
+
+Le nombre d''articles communs entre deux clients
+[2340]
+
+-- Si NCOMM1 > n Alors C001 et C002 sont "amis" font partie de la m�me classe-(groupe-cluster)
+-- Comment calculer n ?
+-- n pourrait-�tre �gal � p% du max des cardinalit�s des vues !
+[2363]
+
+
+-- MFB FFF ++++++++++++  Deuxi�me proposition/solution +++++++++++ ****** === ****** +++++++++++===
+CREATION DUN SYSTEME DE RECOMMANDATION BASE SUR LES ARTICLES COMMANDES EN COMMUN
+[2397]
+
+
+--= Manipulation intelligente des donn�es : Qu'est-ce un syst�me de recommandation  ====== FIN ====
