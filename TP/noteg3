@@ -1,0 +1,205 @@
+CREATE TABLE CACLI (DATECA DATE, MONTANTCA NUMBER);
+[174]
+Etant donn� la table CACLI suivante :
+Elle est issue de plusieurs calculs sur les tables de la BD GesComI...
+Faire les requ�tes ci-dessous : Statistiques sur le chiffre d�affaires
+
+erreur sur le format de la DATE
+solution : supprimer la table du fichier car de toute facon inutiliser
+
+-- D�veloppez une proc�dure AJOUTECOLONNE qui permet d'ajouter � une table une colonne qui porte le nom de MAGASIN
+-- Le contenu de cette colonne est l'identifiant du magasin NUMMAG
+-- En entr�e le nom de la table et le contenu de la colonne ; En sortie une nouvelle table dont le nom est le nom de la table en entr�e concat�n� au _NUMMAG */
+[335]
+
+/*
+-- L'ex�cution de la proc�dure permet donc d'affecter les donn�es � un seul magasin
+-- On consid�re que les donn�es dans les tables CLIENTS, ARTICLES, COMMANDES et DETAILCOM sont celles du magasin FR01
+*/
+[351]
+
+Suppression des table
+[356]
+DETAILCOM;
+ARTICLES;
+COMMANDES;
+CLIENTS;
+
+création des tables
+[371]
+DETAILCOM;
+ARTICLES;
+COMMANDES;
+CLIENTS;
+
+DROP TABLE HISTORIQUE_MVTS_CLIENTS;
+CREATE TABLE HISTORIQUE_MVTS_CLIENTS
+[510]
+
+
+CREATE OR REPLACE TRIGGER MOUVEMENTS_CLIENTS
+[544]
+
+DROP TABLE HISTORIQUE_MVTS_ARTICLES;
+CREATE TABLE HISTORIQUE_MVTS_ARTICLES
+[593]
+
+DROP TRIGGER MOUVEMENTS_ARTICLES;
+CREATE OR REPLACE TRIGGER MOUVEMENTS_ARTICLES
+[609]
+
+Insertion dans la table CLIENTS
+[644]
+
+Insertion dans la table COMMANDES
+[703]
+
+Insertion dans la table COMMANDES
+[795]
+
+Insertion dans la table DETAILCOM
+[893]
+
+validation des insertions
+[1038]
+
+[1040]
+DROP TABLE CLIENTS_FR01;
+DROP TABLE COMMANDES_FR01;
+DROP TABLE DETAILCOM_FR01;
+DROP TABLE ARTICLES_FR01;
+DROP TABLE HISTORIQUE_MVTS_CLIENTS_FR01;
+DROP TABLE HISTORIQUE_MVTS_ARTICLES_FR01;
+
+[1047]
+EXEC AJOUTECOLONNE('CLIENTS', 'FR01');
+EXEC AJOUTECOLONNE('COMMANDES', 'FR01');
+EXEC AJOUTECOLONNE('DETAILCOM', 'FR01');
+EXEC AJOUTECOLONNE('ARTICLES', 'FR01');
+EXEC AJOUTECOLONNE('HISTORIQUE_MVTS_CLIENTS','FR01');
+EXEC AJOUTECOLONNE('HISTORIQUE_MVTS_ARTICLES','FR01');
+
+
+[1056]
+DROP TABLE DETAILCOM;
+DROP TABLE ARTICLES;
+DROP TABLE COMMANDES;
+DROP TABLE CLIENTS;
+
+
+CREATE TABLE CLIENTS (Col1 VARCHAR(50), Col2 VARCHAR(50), Col3 VARCHAR(50), Col4 VARCHAR(50), Col5 VARCHAR(50), Col6 VARCHAR(50), Col7 VARCHAR(50), Col8 VARCHAR(50), Col9 VARCHAR(50), Col10 VARCHAR(50), Col11 VARCHAR(20));
+CREATE TABLE ARTICLES (Col1 VARCHAR(50), Col2 VARCHAR(50), Col3 VARCHAR(50), Col4 VARCHAR(50), Col5 VARCHAR(50));
+CREATE TABLE COMMANDES (Col1 VARCHAR(50), Col2 VARCHAR(50), Col3 VARCHAR(50));
+CREATE TABLE DETAILCOM (Col1 VARCHAR(50), Col2 VARCHAR(50), Col3 VARCHAR(50), Col4 VARCHAR(50), Col5 VARCHAR(50));
+
+
+DROP TABLE HISTORIQUE_MVTS_CLIENTS;
+
+CREATE TABLE HISTORIQUE_MVTS_CLIENTS
+[1067]
+
+CREATE OR REPLACE TRIGGER MOUVEMENTS_CLIENTS
+[1103]
+
+DROP TABLE HISTORIQUE_MVTS_ARTICLES;
+CREATE TABLE HISTORIQUE_MVTS_ARTICLES
+[1152]
+
+DROP TRIGGER MOUVEMENTS_ARTICLES;
+CREATE OR REPLACE TRIGGER MOUVEMENTS_ARTICLES
+[1168]
+
+insertions dans la table CLIENTS
+[1203]
+
+insertions dans la table ARTICLES
+[1229]
+-- Les articles du magasin FR02 c est celui de Paris en France
+
+insertions dans la table COMMANDES
+[1256]
+-- Les commandes du magasin FR02 c est celui de Paris en France
+
+insertions dans la table DETAILCOM
+[1268]
+-- Les d�tails des commandes du magasin FR02 c est celui de Paris en France
+
+[1294]
+DROP TABLE CLIENTS_FR02;
+DROP TABLE COMMANDES_FR02;
+DROP TABLE DETAILCOM_FR02;
+DROP TABLE ARTICLES_FR02;
+DROP TABLE HISTORIQUE_MVTS_CLIENTS_FR02;
+DROP TABLE HISTORIQUE_MVTS_ARTICLES_FR02;
+
+EXEC AJOUTECOLONNE('CLIENTS', 'FR02');
+EXEC AJOUTECOLONNE('COMMANDES', 'FR02');
+EXEC AJOUTECOLONNE('DETAILCOM', 'FR02');
+EXEC AJOUTECOLONNE('ARTICLES', 'FR02');
+EXEC AJOUTECOLONNE('HISTORIQUE_MVTS_CLIENTS','FR02');
+EXEC AJOUTECOLONNE('HISTORIQUE_MVTS_ARTICLES','FR02');
+
+
+/*
+-- Corrigez le contenu de la nouvelle table CLIENTS_FR02 ; Comment savoir si elle contient des anomalies et lesquelles ?
+*/
+[1301]
+
+-- Les clients du magasin TN02 c est celui de Sousse en Tunisie
+[1305]
+[meme procedure que pour FR02]
+DROP TABLE DETAILCOM;
+DROP TABLE ARTICLES;
+DROP TABLE COMMANDES;
+DROP TABLE CLIENTS;
+
+CREATE TABLE CLIENTS (Col1 VARCHAR(50), Col2 VARCHAR(50), Col3 VARCHAR(50), Col4 VARCHAR(50), Col5 VARCHAR(50), Col6 VARCHAR(50), Col7 VARCHAR(50), Col8 VARCHAR(50), Col9 VARCHAR(50), Col10 VARCHAR(50), Col11 VARCHAR(20));
+CREATE TABLE ARTICLES (Col1 VARCHAR(50), Col2 VARCHAR(50), Col3 VARCHAR(50), Col4 VARCHAR(50), Col5 VARCHAR(50));
+CREATE TABLE COMMANDES (Col1 VARCHAR(50), Col2 VARCHAR(50), Col3 VARCHAR(50));
+CREATE TABLE DETAILCOM (Col1 VARCHAR(50), Col2 VARCHAR(50), Col3 VARCHAR(50), Col4 VARCHAR(50), Col5 VARCHAR(50));
+
+
+-- Assembler (int�grer, fusionner) dans une nouvelle table, de nom TOUSCLIENTS, tous les clients des diff�rents magasins
+[1552]
+DROP TABLE TOUSCLIENTS;
+CREATE TABLE TOUSCLIENTS
+
+DROP TABLE TOUS_HISTORIQUE_MVT_CLIENTS;
+CREATE TABLE TOUS_HISTORIQUE_MVT_CLIENTS
+erreur MOUVEMENTS_CLIENTS -> HISTORIQUE_MVTS_CLIENTS
+
+
+-- Corrigez le contenu de la nouvelle table TOUSCLIENTS ; Comment savoir si elle contient des anomalies et lesquelles ? et lesquelles ?
+-- Faire de m�me pour les toutes les autres tables !!!
+-- Assemblez (int�grer, fusionner) dans une nouvelle BDDWBD l'ensemble des tables des diff�rents magasins et tout le n�cessaire
+[1577]
+DROP TABLE TOUSARTICLES;
+CREATE TABLE TOUSARTICLES
+erreur
+substr(col3,1,instr(col3,' ')-1) ->
+REGEXP_REPLACE( substr(col3,1,instr(col3,' ')-1), '\.',',')
+substr(col5,1,instr(col5,' ')-1) ->
+REGEXP_REPLACE( substr(col5,1,instr(col5,' ')-1), '\.',',')
+
+substr(upper(col3),1,instr(upper(col3),upper('Dt'))-1) ->
+REGEXP_REPLACE( substr(upper(col3),1,instr(upper(col3),upper('Dt'))-1), '\.',',')
+
+substr(upper(col5),1,instr(upper(col5),upper('Dt'))-1) ->
+REGEXP_REPLACE( substr(upper(col5),1,instr(upper(col5),upper('Dt'))-1), '\.',',')
+
+
+DROP TABLE TOUS_HISTORIQUE_MVT_ARTICLES;
+CREATE TABLE TOUS_HISTORIQUE_MVT_ARTICLES
+[1608]
+erreur ->
+supprimer la premier parenth apres le as
+supprimer les ',' from HISTORIQUE_MVTS_ARTICLES_FR02 && HISTORIQUE_MVTS_ARTICLES_TN02
+ CAST(SUBSTR(PAART,1,INSTR(PAART,' '),-1) -> CAST(SUBSTR(PAART,1,INSTR(PAART,' ')-1)
+
+ normaliser les nombre , remplacer les . par des ,
+
+
+ DROP TABLE TOUSDETAILCOM;
+ CREATE TABLE TOUSDETAILCOM
+ [1624]
+  normaliser les nombre , remplacer les . par des ,

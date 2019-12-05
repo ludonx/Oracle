@@ -1,96 +1,96 @@
 -- ===============================================================================
--------- Université Sorbonne Paris Cité, Université Paris 13 , Institut Galiée
--------- Master 2, Informatique, Exploration Informatique des Données et Décisionnel, M2 EID2
--------- Ingénieurs en informatique
+-------- Universitï¿½ Sorbonne Paris Citï¿½, Universitï¿½ Paris 13 , Institut Galiï¿½e
+-------- Master 2, Informatique, Exploration Informatique des Donnï¿½es et Dï¿½cisionnel, M2 EID2
+-------- Ingï¿½nieurs en informatique
 
 -- ===============================================================================
 -------- La Data ; The Data
--------- La Donnée est le monde du futur ; Les données et le monde de l'avenir
+-------- La Donnï¿½e est le monde du futur ; Les donnï¿½es et le monde de l'avenir
 -------- The Data is the world of the future ;  The Data and the future's world
 -- ===============================================================================
--------- DATA -->>> 
--------- Bases de Données Avancées = Advanced Databases (BDA)
--------- Entrepôts de Données = Data Warehouses (DWH, EDON)
--------- Lacs de Données = Data Lakes
--------- Big Data, Dark Data, Open Data, Master Data... 
+-------- DATA -->>>
+-------- Bases de Donnï¿½es Avancï¿½es = Advanced Databases (BDA)
+-------- Entrepï¿½ts de Donnï¿½es = Data Warehouses (DWH, EDON)
+-------- Lacs de Donnï¿½es = Data Lakes
+-------- Big Data, Dark Data, Open Data, Master Data...
 -- ===============================================================================
 
--------- Directeur :  Dr. M. Faouzi Boufarès
--------- Enseignant-Chercheur Responsable      
+-------- Directeur :  Dr. M. Faouzi Boufarï¿½s
+-------- Enseignant-Chercheur Responsable
 
 -------- Page Web : http://www.lipn.univ-paris13.fr/~boufares
 
 -------- http://www.lipn.univ-paris13.fr/~boufares/Master2EID2/*.sql
 
 -- ===============================================================================
---   Projet  Smart Data : Big Data Management - Gestion des Données Massives
+--   Projet  Smart Data : Big Data Management - Gestion des Donnï¿½es Massives
 -- ===============================================================================
---   Projet  Smart Data : Gestion des Données Massives, Hétérogènes et de qualité variable
---   Données structurées ; Données Semi-structurées ; Données NON structurées
+--   Projet  Smart Data : Gestion des Donnï¿½es Massives, Hï¿½tï¿½rogï¿½nes et de qualitï¿½ variable
+--   Donnï¿½es structurï¿½es ; Donnï¿½es Semi-structurï¿½es ; Donnï¿½es NON structurï¿½es
 --   Structured data; Semi-structured data; NON-structured data
 
---   Data Integration (DI) - Intégration de Données
---   Data Manipulation (DM) - Manipulation de Données
+--   Data Integration (DI) - Intï¿½gration de Donnï¿½es
+--   Data Manipulation (DM) - Manipulation de Donnï¿½es
 
---   Master Data Management (MDM) - Gestion des Données de Référence
---   Data Quality Managment (DQM) - Gestion de la qualité des données
---   Data Cleaning - Nettayage des données
+--   Master Data Management (MDM) - Gestion des Donnï¿½es de Rï¿½fï¿½rence
+--   Data Quality Managment (DQM) - Gestion de la qualitï¿½ des donnï¿½es
+--   Data Cleaning - Nettayage des donnï¿½es
 --   Data deduplication - Elimination des doubles et des similaires
 
---   More semantics to better correct the data 
---   Plus de sémantique afin de mieux corriger les données
+--   More semantics to better correct the data
+--   Plus de sï¿½mantique afin de mieux corriger les donnï¿½es
 -- ===============================================================================
 -- ===============================================================================
 --
 -- Big Data & Clound Computing : Think DIFFERENTLY, BIGGER and SMARTER !
 -- The Excellence in Data Use !
--- EID : L'Excellence dans l'Investigation des Données
+-- EID : L'Excellence dans l'Investigation des Donnï¿½es
 -- EID : Excellence in Data Investigation
 --
--- =============================================================================== 
+-- ===============================================================================
 -- Think DIFFERENTLY, BIGGER and SMARTER ! The Excellence in Data Use !
 -- MISSION IMPOSSIBLE OU POSSIBLE ????? !!!!!!!!!!!
--- Votre mission, si vous l’acceptez, est : The Excellence in Data Use !
--- Si vous échouez, nous nierons avoir eu connaissance de vos agissements !
+-- Votre mission, si vous lï¿½acceptez, est : The Excellence in Data Use !
+-- Si vous ï¿½chouez, nous nierons avoir eu connaissance de vos agissements !
 
 -- ===============================================================================
 -- Les dictons du jour !
 --
--- Aujourd'hui, j'arrête de fumer
+-- Aujourd'hui, j'arrï¿½te de fumer
 -- Le TABAC t'ABAT
--- Fumer nuit grâvement à ta santé et à celle de ton entourage
+-- Fumer nuit grï¿½vement ï¿½ ta santï¿½ et ï¿½ celle de ton entourage
 --
 -- M   T   Dents
 -- SMILE and the World SMILES with you !
 --
 -- MANGER + MANGER = GROSSIR (??? M, A, N, G, E, R, O, S, S, I)
 --
--- Manger & Bouger, 
--- Pour votre santé mangez 5 fruits et légumes par jour
--- Pour votre santé ne mangez pas trop gras, trop salé, trop sucré
--- Pour votre santé faites une activité physique régulière
--- Pour votre santé faites 30 mn de marche par jour
--- Pour votre santé faites des BD !!!
+-- Manger & Bouger,
+-- Pour votre santï¿½ mangez 5 fruits et lï¿½gumes par jour
+-- Pour votre santï¿½ ne mangez pas trop gras, trop salï¿½, trop sucrï¿½
+-- Pour votre santï¿½ faites une activitï¿½ physique rï¿½guliï¿½re
+-- Pour votre santï¿½ faites 30 mn de marche par jour
+-- Pour votre santï¿½ faites des BD !!!
 --
--- Dr. M. Faouzi Boufarès
--- =============================================================================== 
--- =============================================================================== 
--- iDQMS ... Al ETL Al Jadyd 
---   A new ETL   ETL & DQ : Extract-Transform-Load & Data-Quality                 
+-- Dr. M. Faouzi Boufarï¿½s
+-- ===============================================================================
+-- ===============================================================================
+-- iDQMS ... Al ETL Al Jadyd
+--   A new ETL   ETL & DQ : Extract-Transform-Load & Data-Quality
 -- ===============================================================================
 -- ===============================================================================
 
--- =============================================================================== 
--- =============================================================================== 
--- ===============================================================================                   
---   Nom du SGBD/DBMS  : ORACLE  /  DB2  /  MySQL  /  MongoDB...        
+-- ===============================================================================
+-- ===============================================================================
+-- ===============================================================================
+--   Nom du SGBD/DBMS  : ORACLE  /  DB2  /  MySQL  /  MongoDB...
 --   Date de creation  : 28/11/2019
----  Lieu              : Université Sorbonne Paris Cité, Université Paris 13, Institut Galiée
--- =============================================================================== 
+---  Lieu              : Universitï¿½ Sorbonne Paris Citï¿½, Universitï¿½ Paris 13, Institut Galiï¿½e
+-- ===============================================================================
 -- ===============================================================================
 -------------------- Master 2 EID2 - Promotion 2019-2020 -------------------------
 
--- Groupe de Travail N° ??  : B??
+-- Groupe de Travail Nï¿½ ??  : B??
 
 -- NOM1 PRENOM1                  : np1
 -- NOM2 PRENOM2                  : np2
@@ -98,33 +98,33 @@
 -- ====>>> Vos fichiers sql devront s'appeler : Bxy-G2.sql
 
 
--- =============================================================================== 
 -- ===============================================================================
 -- ===============================================================================
---   Problématique    :  Intégration de données hétérogènes,  de qualité variable
-
---   Problématique    :  Traitement des anomalies éventuelles
---   Problématique    :  Plusieurs types d'anomalies INTRA-Colonne ; INTER-COLONNES ; INTER-LIGNES
-
---   Problématique    :  Standardisation de données hétérogènes
---   Problématique    :  Traitement des valeurs invalides syntaxiquement
---   Problématique    :  Traitement des valeurs invalides sémantiquement
---   Problématique    :  Traitement des valeurs nulles
---   Problématique    :  Traitement des redondances (Dépendances fonctionnelles)
---   Problématique    :  Elimination des doubles et similaires
-
--- =============================================================================== 
 -- ===============================================================================
--- ===============================================================================   
--- =============================================================================== 
+--   Problï¿½matique    :  Intï¿½gration de donnï¿½es hï¿½tï¿½rogï¿½nes,  de qualitï¿½ variable
+
+--   Problï¿½matique    :  Traitement des anomalies ï¿½ventuelles
+--   Problï¿½matique    :  Plusieurs types d'anomalies INTRA-Colonne ; INTER-COLONNES ; INTER-LIGNES
+
+--   Problï¿½matique    :  Standardisation de donnï¿½es hï¿½tï¿½rogï¿½nes
+--   Problï¿½matique    :  Traitement des valeurs invalides syntaxiquement
+--   Problï¿½matique    :  Traitement des valeurs invalides sï¿½mantiquement
+--   Problï¿½matique    :  Traitement des valeurs nulles
+--   Problï¿½matique    :  Traitement des redondances (Dï¿½pendances fonctionnelles)
+--   Problï¿½matique    :  Elimination des doubles et similaires
+
+-- ===============================================================================
+-- ===============================================================================
+-- ===============================================================================
+-- ===============================================================================
 -- ===============================================================================
 
 
 -- *******************************************************************************
 -- *******************************************************************************
 -- *******************************************************************************
---       SQL 2 --     SQL 2 -- --       SQL 2 --     SQL 2 -- 
---       SQL 2 --     SQL 2 -- --       SQL 2 --     SQL 2 -- 
+--       SQL 2 --     SQL 2 -- --       SQL 2 --     SQL 2 --
+--       SQL 2 --     SQL 2 -- --       SQL 2 --     SQL 2 --
 -- *******************************************************************************
 -- *******************************************************************************
 -- *******************************************************************************
@@ -136,11 +136,11 @@ SET TIMING ON;
 SET LINES 1000
 SET PAGES 1000
 
-PROMPT 
+PROMPT
 PROMPT =========================================================
 PROMPT |                                                       |
 PROMPT |     Exercice 3 :  BD GESCOMI avec SQL 2               |
-PROMPT |     Intégration de BD                                 |
+PROMPT |     Intï¿½gration de BD                                 |
 PROMPT |                                                       |
 PROMPT =========================================================
 PROMPT
@@ -163,14 +163,14 @@ PROMPT =========================================================
 
 /*
 
-Entre parenthèses hihi haha FFF !
+Entre parenthï¿½ses hihi haha FFF !
 
-Etant donné la table CACLI suivante :
-Elle est issue de plusieurs calculs sur les tables de la BD GesComI... 
-Faire les requêtes ci-dessous : Statistiques sur le chiffre d’affaires
+Etant donnï¿½ la table CACLI suivante :
+Elle est issue de plusieurs calculs sur les tables de la BD GesComI...
+Faire les requï¿½tes ci-dessous : Statistiques sur le chiffre dï¿½affaires
 */
 
-
+/*
 CREATE TABLE CACLI (DATECA DATE, MONTANTCA NUMBER);
 INSERT INTO CACLI VALUES ('01-01-2010', 72);
 INSERT INTO CACLI VALUES ('01-02-2010', 88);
@@ -278,26 +278,26 @@ INSERT INTO CACLI VALUES ('01-07-2018', 11);
 INSERT INTO CACLI VALUES ('01-08-2018', 10);
 INSERT INTO CACLI VALUES ('01-09-2018', 13);
 COMMIT;
-
+*/
 /*
 A vous les requetes suivantes :
-Donnez la représentation graphique sous EXCEL !
+Donnez la reprï¿½sentation graphique sous EXCEL !
 Gestion des "Reporting"
 
-Chiffre d’affaires pour l’année 2010
-Chiffre d’affaires pour l’année 2011
+Chiffre dï¿½affaires pour lï¿½annï¿½e 2010
+Chiffre dï¿½affaires pour lï¿½annï¿½e 2011
 
-Chiffre d’affaires pour l’année 2018
-Chiffre d’affaires de 2018 par trimestre
-Chiffre d’affaires de 2018 par semestre
+Chiffre dï¿½affaires pour lï¿½annï¿½e 2018
+Chiffre dï¿½affaires de 2018 par trimestre
+Chiffre dï¿½affaires de 2018 par semestre
 
-Chiffre d’affaires pour les deux années 2012 et 2013
-Chiffre d’affaires de 2010 à 2018
+Chiffre dï¿½affaires pour les deux annï¿½es 2012 et 2013
+Chiffre dï¿½affaires de 2010 ï¿½ 2018
 
-Chiffre d’affaires de 2010 à 2018 par trimestre
-Chiffre d’affaires de 2010 à 2018 par semestre
+Chiffre dï¿½affaires de 2010 ï¿½ 2018 par trimestre
+Chiffre dï¿½affaires de 2010 ï¿½ 2018 par semestre
 
-Statistiques sur le chiffre d’affaires – Période de 2010 à 2018
+Statistiques sur le chiffre dï¿½affaires ï¿½ Pï¿½riode de 2010 ï¿½ 2018
 
 */
 
@@ -309,13 +309,13 @@ Statistiques sur le chiffre d’affaires – Période de 2010 à 2018
 
 
 -- ===============================================================================
--- Définition de la structure des données ================= DEBUT    =============
+-- Dï¿½finition de la structure des donnï¿½es ================= DEBUT    =============
 -- en SQL 2 ======================================================================
 -- Utilisation des tables ========== Magasin FR01 ====== PARIS   =================
 -- CLIENTS, ARTICLES, COMMANDES et DETAILCOM
 
--- Création des tables ============= Magasin FR02 ====== PARIS   =================
--- Création des tables ============= Magasin TN02 ====== SOUSSE  =================
+-- Crï¿½ation des tables ============= Magasin FR02 ====== PARIS   =================
+-- Crï¿½ation des tables ============= Magasin TN02 ====== SOUSSE  =================
 
 
 -- INTEGRATION DE BASES DE DONNEES ; DATA INTEGRATION
@@ -326,31 +326,31 @@ Statistiques sur le chiffre d’affaires – Période de 2010 à 2018
 --======================================================================================
 
 /*
--- Etant donné l'ensemble des magasins
+-- Etant donnï¿½ l'ensemble des magasins
 
--- Chaque binôme aura à céer sa propore BD GesComI (On verra ultérieurement!)!
+-- Chaque binï¿½me aura ï¿½ cï¿½er sa propore BD GesComI (On verra ultï¿½rieurement!)!
 
 -- Afficher la table MAGASINS
 
--- Développez une procédure AJOUTECOLONNE qui permet d'ajouter à une table une colonne qui porte le nom de MAGASIN
+-- Dï¿½veloppez une procï¿½dure AJOUTECOLONNE qui permet d'ajouter ï¿½ une table une colonne qui porte le nom de MAGASIN
 -- Le contenu de cette colonne est l'identifiant du magasin NUMMAG
--- En entrée le nom de la table et le contenu de la colonne ; En sortie une nouvelle table dont le nom est le nom de la table en entrée concaténé au _NUMMAG */
+-- En entrï¿½e le nom de la table et le contenu de la colonne ; En sortie une nouvelle table dont le nom est le nom de la table en entrï¿½e concatï¿½nï¿½ au _NUMMAG */
 
-CREATE OR REPLACE PROCEDURE AJOUTECOLONNE (p_table IN VARCHAR2,p_numag in VARCHAR2) 
+CREATE OR REPLACE PROCEDURE AJOUTECOLONNE (p_table IN VARCHAR2,p_numag in VARCHAR2)
 AUTHID CURRENT_USER IS
 TABLE2 VARCHAR2(50);
 BEGIN
 TABLE2 := p_table||'_'||p_numag ;
 --EXECUTE IMMEDIATE 'DROP TABLE '||TABLE2;
-EXECUTE IMMEDIATE 'CREATE TABLE '||TABLE2||' AS SELECT * FROM '||p_table; 
+EXECUTE IMMEDIATE 'CREATE TABLE '||TABLE2||' AS SELECT * FROM '||p_table;
 EXECUTE IMMEDIATE 'ALTER TABLE '||TABLE2||' ADD (MAGASIN VARCHAR2(25))';
 EXECUTE IMMEDIATE 'UPDATE '||TABLE2||' SET MAGASIN= :1' USING p_numag;
 END;
 /
 
 /*
--- L'exécution de la procédure permet donc d'affecter les données à un seul magasin
--- On considère que les données dans les tables CLIENTS, ARTICLES, COMMANDES et DETAILCOM sont celles du magasin FR01
+-- L'exï¿½cution de la procï¿½dure permet donc d'affecter les donnï¿½es ï¿½ un seul magasin
+-- On considï¿½re que les donnï¿½es dans les tables CLIENTS, ARTICLES, COMMANDES et DETAILCOM sont celles du magasin FR01
 */
 
 DROP TABLE DETAILCOM;
@@ -361,16 +361,16 @@ PROMPT
 Pause Tapez sur Enter...
 PROMPT
 PROMPT =========================================================
-PROMPT Création des tables de la bd GESCOMI EN SQL 2
+PROMPT Crï¿½ation des tables de la bd GESCOMI EN SQL 2
 PROMPT =========================================================
 PROMPT
 PROMPT =========================================================
-PROMPT >> Table : CLIENTS                                             
+PROMPT >> Table : CLIENTS
 PROMPT =========================================================
 PROMPT
 CREATE TABLE CLIENTS
 (
-	CODCLI		VARCHAR2(10), 
+	CODCLI		VARCHAR2(10),
 	CIVCLI		VARCHAR2(12),
 	NOMCLI		VARCHAR2(20),
 	PRENCLI		VARCHAR2(20),
@@ -400,7 +400,7 @@ PROMPT =========================================================
 PROMPT
 CREATE TABLE COMMANDES
 (
-	NUMCOM 		VARCHAR2(10), 
+	NUMCOM 		VARCHAR2(10),
 	CODCLI		VARCHAR2(10),
 	DATCOM		DATE,
 	CONSTRAINT PK_COMMANDES					PRIMARY KEY(NUMCOM),
@@ -416,7 +416,7 @@ PROMPT =========================================================
 PROMPT
 CREATE TABLE ARTICLES
 (
-	REFART 		VARCHAR2(10), 
+	REFART 		VARCHAR2(10),
 	NOMART		VARCHAR2(50),
 	PVART		NUMBER(10, 2),
 	QSART		NUMBER(3),
@@ -434,7 +434,7 @@ PROMPT =========================================================
 PROMPT
 CREATE TABLE DETAILCOM
 (
-	NUMCOM 		VARCHAR2(10), 
+	NUMCOM 		VARCHAR2(10),
 	REFART		VARCHAR2(10),
 	QTCOM		NUMBER(3),
 	PUART		NUMBER(10, 2),
@@ -451,9 +451,9 @@ CREATE TABLE DETAILCOM
 DROP TABLE HISTORIQUE_MVTS_CLIENTS;
 CREATE TABLE HISTORIQUE_MVTS_CLIENTS
 (
-	NOMUSER		VARCHAR2(15), 
-	TYPEMVT		VARCHAR2(15), 
-	CODCLI		VARCHAR2(10), 
+	NOMUSER		VARCHAR2(15),
+	TYPEMVT		VARCHAR2(15),
+	CODCLI		VARCHAR2(10),
 	CIVCLI		VARCHAR2(12),
 	NOMCLI		VARCHAR2(20),
 	PRENCLI		VARCHAR2(20),
@@ -488,19 +488,19 @@ DECLARE
 	VI_PAYSCLI		VARCHAR2(30)	:= :NEW.PAYSCLI;
 	VI_MAILCLI		VARCHAR2(30)	:= :NEW.MAILCLI;
 	VI_TELCLI		VARCHAR2(20)	:= :NEW.TELCLI;
-	
+
 BEGIN
 	IF UPDATING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER,TYPEMVT,CODCLI,CIVCLI,ADNCLI,ADRCLI,CPCLI,VILCLI,PAYSCLI,MAILCLI,TELCLI,DATMVT)
 		VALUES (USER, 'UPDATE', V_ADNCLI, V_ADRCLI, V_CPCLI, V_VILCLI, V_PAYSCLI,V_MAILCLI,V_TELCLI, SYSDATE);
 	END IF;
 
-	IF DELETING THEN 
+	IF DELETING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER,TYPEMVT,CODCLI,CIVCLI,ADNCLI,ADRCLI,CPCLI,VILCLI,PAYSCLI,MAILCLI,TELCLI,DATMVT)
 		VALUES (USER, 'DELETE', V_ADNCLI, V_ADRCLI, V_CPCLI, V_VILCLI, V_PAYSCLI,V_MAILCLI,V_TELCLI, SYSDATE);
 	END IF;
-			
-	IF INSERTING THEN 
+
+	IF INSERTING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER,TYPEMVT,CODCLI,CIVCLI,ADNCLI,ADRCLI,CPCLI,VILCLI,PAYSCLI,MAILCLI,TELCLI,DATMVT)
 		VALUES (USER, 'INSERT', VI_ADNCLI, VI_ADRCLI, VI_CPCLI, VI_VILCLI, VI_PAYSCLI,VI_MAILCLI,VI_TELCLI, SYSDATE);
 	END IF;
@@ -511,9 +511,9 @@ DROP TABLE HISTORIQUE_MVTS_CLIENTS;
 
 CREATE TABLE HISTORIQUE_MVTS_CLIENTS
 (
-	NOMUSER	        VARCHAR2(15), 
-	TYPEMVT	        VARCHAR2(15), 
-	CODCLI          VARCHAR2(10), 
+	NOMUSER	        VARCHAR2(15),
+	TYPEMVT	        VARCHAR2(15),
+	CODCLI          VARCHAR2(10),
 	OLDCIVCLI	 	VARCHAR2(12),
 	OLDNOMCLI	 	VARCHAR2(20),
 	OLDPRENCLI 		VARCHAR2(20),
@@ -524,7 +524,7 @@ CREATE TABLE HISTORIQUE_MVTS_CLIENTS
 	OLDVILCLI	 	VARCHAR2(20),
 	OLDPAYSCLI	 	VARCHAR2(30),
 	OLDMAILCLI	 	VARCHAR2(30),
-	OLDTELCLI	 	VARCHAR2(20), 
+	OLDTELCLI	 	VARCHAR2(20),
 	NEWCIVCLI	 	VARCHAR2(12),
 	NEWNOMCLI	 	VARCHAR2(20),
 	NEWPRENCLI 		VARCHAR2(20),
@@ -545,7 +545,7 @@ CREATE OR REPLACE TRIGGER MOUVEMENTS_CLIENTS
 	AFTER UPDATE OR INSERT OR DELETE ON CLIENTS
 	FOR EACH ROW
 DECLARE
-	V_CODCLI        VARCHAR2(10) := :OLD.CODCLI; 
+	V_CODCLI        VARCHAR2(10) := :OLD.CODCLI;
 	V_CIVCLI	 	VARCHAR2(12) := :OLD.CIVCLI;
 	V_NOMCLI	 	VARCHAR2(20) := :OLD.NOMCLI;
 	V_PRENCLI 		VARCHAR2(20) := :OLD.PRENCLI;
@@ -558,7 +558,7 @@ DECLARE
 	V_MAILCLI	 	VARCHAR2(30) := :OLD.MAILCLI;
 	V_TELCLI	 	VARCHAR2(20) := :OLD.TELCLI;
 
-	VI_CODCLI               VARCHAR2(10) := :NEW.CODCLI; 
+	VI_CODCLI               VARCHAR2(10) := :NEW.CODCLI;
 	VI_CIVCLI	 	VARCHAR2(12) := :NEW.CIVCLI;
 	VI_NOMCLI	 	VARCHAR2(20) := :NEW.NOMCLI;
 	VI_PRENCLI 		VARCHAR2(20) := :NEW.PRENCLI;
@@ -570,20 +570,20 @@ DECLARE
 	VI_PAYSCLI	 	VARCHAR2(30) := :NEW.PAYSCLI;
 	VI_MAILCLI	 	VARCHAR2(30) := :NEW.MAILCLI;
 	VI_TELCLI	 	VARCHAR2(20) := :NEW.TELCLI;
-	
+
 BEGIN
 	IF UPDATING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, OLDCATCLI, OLDADNCLI, OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, NEWCATCLI, NEWADNCLI, NEWADRCLI, NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT)
 		VALUES (USER, 'UPDATE', V_CODCLI, V_CIVCLI, V_NOMCLI, V_PRENCLI, V_CATCLI, V_ADNCLI, V_ADRCLI, V_CPCLI, V_VILCLI, V_PAYSCLI,V_MAILCLI, V_TELCLI, VI_CIVCLI, VI_NOMCLI, VI_PRENCLI, VI_CATCLI, VI_ADNCLI, VI_ADRCLI, VI_CPCLI, VI_VILCLI, VI_PAYSCLI, VI_MAILCLI, VI_TELCLI, SYSDATE);
 	END IF;
 
-	IF DELETING THEN 
+	IF DELETING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, OLDCATCLI, OLDADNCLI, OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, DATMVT)
 		VALUES (USER, 'DELETE', V_CODCLI, V_CIVCLI, V_NOMCLI, V_PRENCLI, V_CATCLI, V_ADNCLI, V_ADRCLI, V_CPCLI, V_VILCLI, V_PAYSCLI,V_MAILCLI, V_TELCLI, SYSDATE);
 
 	END IF;
-			
-	IF INSERTING THEN 
+
+	IF INSERTING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER, TYPEMVT, CODCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, NEWCATCLI, NEWADNCLI, NEWADRCLI, NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT)
 		VALUES (USER, 'INSERT', VI_CODCLI, VI_CIVCLI, VI_NOMCLI, VI_PRENCLI, VI_CATCLI, VI_ADNCLI, VI_ADRCLI, VI_CPCLI, VI_VILCLI, VI_PAYSCLI, VI_MAILCLI, VI_TELCLI, SYSDATE);
 	END IF;
@@ -593,9 +593,9 @@ END;
 DROP TABLE HISTORIQUE_MVTS_ARTICLES;
 CREATE TABLE HISTORIQUE_MVTS_ARTICLES
 (
-	NOMUSER		VARCHAR2(15), 
-	TYPEMVT		VARCHAR2(15), 
-	REFART 		VARCHAR2(10), 
+	NOMUSER		VARCHAR2(15),
+	TYPEMVT		VARCHAR2(15),
+	REFART 		VARCHAR2(10),
 	NOMART		VARCHAR2(50),
 	PVART		NUMBER(10, 2),
 	PAART		NUMBER(10, 2),
@@ -622,19 +622,19 @@ DECLARE
 	VI_PVART	NUMBER(10, 2)	:= :NEW.PVART;
 	VI_PAART	NUMBER(10, 2)	:= :NEW.PAART;
 	VI_QSART	NUMBER(3)	:= :NEW.QSART;
-	
+
 BEGIN
 	IF UPDATING THEN
 		INSERT INTO HISTORIQUE_MVTS_ARTICLES (NOMUSER, TYPEMVT, REFART, NOMART, PVART, PAART, QSART, DATMVT)
 		VALUES (USER, 'UPDATE', V_REFART, V_NOMART, V_PVART, V_PAART, V_QSART, SYSDATE);
 	END IF;
 
-	IF DELETING THEN 
+	IF DELETING THEN
 		INSERT INTO HISTORIQUE_MVTS_ARTICLES (NOMUSER, TYPEMVT, REFART, NOMART, PVART, PAART, QSART, DATMVT)
 		VALUES (USER, 'DELETE', V_REFART, V_NOMART, V_PVART, V_PAART, V_QSART, SYSDATE);
 	END IF;
-			
-	IF INSERTING THEN 
+
+	IF INSERTING THEN
 		INSERT INTO HISTORIQUE_MVTS_ARTICLES (NOMUSER, TYPEMVT, REFART, NOMART, PVART, PAART, QSART, DATMVT)
 		VALUES (USER, 'INSERT', VI_REFART, VI_NOMART, VI_PVART, VI_PAART, VI_QSART, SYSDATE);
 	END IF;
@@ -681,7 +681,7 @@ INSERT INTO CLIENTS (CODCLI, CIVCLI, NOMCLI, PRENCLI, CATCLI, ADNCLI, ADRCLI, CP
 VALUES ('C013', 'Monsieur', 'FORT', 'GABRIEL', 5, '1', 'AVENUE DE CARTAGE', '99000', 'TUNIS', 'TUNISIE','gabriel.fort@yahoo.fr', '+21624801777');
 
 INSERT INTO CLIENTS (CODCLI, CIVCLI, NOMCLI, PRENCLI, CATCLI, ADNCLI, ADRCLI, CPCLI, VILCLI, PAYSCLI, MAILCLI, TELCLI)
-VALUES ('C014', 'Monsieur', 'ADAM', 'DAVID', 5, '1', 'AVENUE DE ROME', '99001', 'ROME', 'ITALIE','david.adamé@gmail com', '');
+VALUES ('C014', 'Monsieur', 'ADAM', 'DAVID', 5, '1', 'AVENUE DE ROME', '99001', 'ROME', 'ITALIE','david.adamï¿½@gmail com', '');
 
 INSERT INTO CLIENTS (CODCLI, CIVCLI, NOMCLI, PRENCLI, CATCLI, ADNCLI, ADRCLI, CPCLI, VILCLI, PAYSCLI, MAILCLI, TELCLI)
 VALUES ('C015', 'Monsieur', 'Labsent', 'pala', 7, '1', 'rue des absents', '000', 'BAGDAD', 'IRAQ','pala-labsent@paici', '');
@@ -1032,7 +1032,7 @@ INSERT INTO DETAILCOM(NUMCOM, REFART, QTCOM, PUART, REMISE)
 VALUES ('20181AB', 'FB.001', 7, 17.77, 0.00);
 
 PROMPT =========================================================
-PROMPT Validation des insertions dans la bd EN SQL 2 
+PROMPT Validation des insertions dans la bd EN SQL 2
 PROMPT =========================================================
 
 COMMIT;
@@ -1068,9 +1068,9 @@ DROP TABLE HISTORIQUE_MVTS_CLIENTS;
 
 CREATE TABLE HISTORIQUE_MVTS_CLIENTS
 (
-	NOMUSER	        VARCHAR2(15), 
-	TYPEMVT	        VARCHAR2(15), 
-	CODCLI          VARCHAR2(10), 
+	NOMUSER	        VARCHAR2(15),
+	TYPEMVT	        VARCHAR2(15),
+	CODCLI          VARCHAR2(10),
 	OLDCIVCLI	 	VARCHAR2(12),
 	OLDNOMCLI	 	VARCHAR2(20),
 	OLDPRENCLI 		VARCHAR2(20),
@@ -1081,7 +1081,7 @@ CREATE TABLE HISTORIQUE_MVTS_CLIENTS
 	OLDVILCLI	 	VARCHAR2(20),
 	OLDPAYSCLI	 	VARCHAR2(30),
 	OLDMAILCLI	 	VARCHAR2(30),
-	OLDTELCLI	 	VARCHAR2(20), 
+	OLDTELCLI	 	VARCHAR2(20),
 	NEWCIVCLI	 	VARCHAR2(12),
 	NEWNOMCLI	 	VARCHAR2(20),
 	NEWPRENCLI 		VARCHAR2(20),
@@ -1104,7 +1104,7 @@ CREATE OR REPLACE TRIGGER MOUVEMENTS_CLIENTS
 	AFTER UPDATE OR INSERT OR DELETE ON CLIENTS
 	FOR EACH ROW
 DECLARE
-	V_CODCLI                VARCHAR2(10) := :OLD.COL1; 
+	V_CODCLI                VARCHAR2(10) := :OLD.COL1;
 	V_CIVCLI	 	VARCHAR2(12) := :OLD.COL2;
 	V_NOMCLI	 	VARCHAR2(20) := :OLD.COL3;
 	V_PRENCLI 		VARCHAR2(20) := :OLD.COL4;
@@ -1116,7 +1116,7 @@ DECLARE
 	V_MAILCLI	 	VARCHAR2(30) := :OLD.COL10;
 	V_TELCLI	 	VARCHAR2(20) := :OLD.COL11;
 
-	VI_CODCLI               VARCHAR2(10) := :NEW.COL1; 
+	VI_CODCLI               VARCHAR2(10) := :NEW.COL1;
 	VI_CIVCLI	 	VARCHAR2(12) := :NEW.COL2;
 	VI_NOMCLI	 	VARCHAR2(20) := :NEW.COL3;
 	VI_PRENCLI 		VARCHAR2(20) := :NEW.COL4;
@@ -1127,34 +1127,34 @@ DECLARE
 	VI_PAYSCLI	 	VARCHAR2(30) := :NEW.COL9;
 	VI_MAILCLI	 	VARCHAR2(30) := :NEW.COL10;
 	VI_TELCLI	 	VARCHAR2(20) := :NEW.COL11;
-	
+
 BEGIN
 	IF UPDATING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, OLDCATCLI, OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, NEWCATCLI, NEWADRCLI, NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT)
 		VALUES (USER, 'UPDATE', V_CODCLI, V_CIVCLI, V_NOMCLI, V_PRENCLI, V_CATCLI, V_ADRCLI, V_CPCLI, V_VILCLI, V_PAYSCLI,V_MAILCLI, V_TELCLI, VI_CIVCLI, VI_NOMCLI, VI_PRENCLI, VI_CATCLI, VI_ADRCLI, VI_CPCLI, VI_VILCLI, VI_PAYSCLI, VI_MAILCLI, VI_TELCLI, SYSDATE);
 	END IF;
 
-	IF DELETING THEN 
+	IF DELETING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, OLDCATCLI, OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, DATMVT)
 		VALUES (USER, 'DELETE', V_CODCLI, V_CIVCLI, V_NOMCLI, V_PRENCLI, V_CATCLI, V_ADRCLI, V_CPCLI, V_VILCLI, V_PAYSCLI,V_MAILCLI, V_TELCLI, SYSDATE);
 
 	END IF;
-			
-	IF INSERTING THEN 
+
+	IF INSERTING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER, TYPEMVT, CODCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, NEWCATCLI, NEWADRCLI, NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT)
 		VALUES (USER, 'INSERT', VI_CODCLI, VI_CIVCLI, VI_NOMCLI, VI_PRENCLI, VI_CATCLI, VI_ADRCLI, VI_CPCLI, VI_VILCLI, VI_PAYSCLI, VI_MAILCLI, VI_TELCLI, SYSDATE);
 	END IF;
 END;
 /
- 
+
 --COL1    COL2    COL3   COL4   COL5
 --REFART, NOMART, PVART, QSART, PAART
 DROP TABLE HISTORIQUE_MVTS_ARTICLES;
 CREATE TABLE HISTORIQUE_MVTS_ARTICLES
 (
-	NOMUSER		VARCHAR2(15), 
-	TYPEMVT		VARCHAR2(15), 
-	REFART 		VARCHAR2(10), 
+	NOMUSER		VARCHAR2(15),
+	TYPEMVT		VARCHAR2(15),
+	REFART 		VARCHAR2(10),
 	NOMART		VARCHAR2(50),
 	PVART		VARCHAR2(20),
 	PAART		VARCHAR2(20),
@@ -1181,19 +1181,19 @@ DECLARE
 	VI_PVART	VARCHAR2(20)	:= :NEW.COL3;
 	VI_PAART	VARCHAR2(20)	:= :NEW.COL5;
 	VI_QSART	VARCHAR2(20)	:= :NEW.COL4;
-	
+
 BEGIN
 	IF UPDATING THEN
 		INSERT INTO HISTORIQUE_MVTS_ARTICLES (NOMUSER, TYPEMVT, REFART, NOMART, PVART, PAART, QSART, DATMVT)
 		VALUES (USER, 'UPDATE', V_REFART, V_NOMART, V_PVART, V_PAART, V_QSART, SYSDATE);
 	END IF;
 
-	IF DELETING THEN 
+	IF DELETING THEN
 		INSERT INTO HISTORIQUE_MVTS_ARTICLES (NOMUSER, TYPEMVT, REFART, NOMART, PVART, PAART, QSART, DATMVT)
 		VALUES (USER, 'DELETE', V_REFART, V_NOMART, V_PVART, V_PAART, V_QSART, SYSDATE);
 	END IF;
-			
-	IF INSERTING THEN 
+
+	IF INSERTING THEN
 		INSERT INTO HISTORIQUE_MVTS_ARTICLES (NOMUSER, TYPEMVT, REFART, NOMART, PVART, PAART, QSART, DATMVT)
 		VALUES (USER, 'INSERT', VI_REFART, VI_NOMART, VI_PVART, VI_PAART, VI_QSART, SYSDATE);
 	END IF;
@@ -1208,7 +1208,7 @@ INSERT INTO CLIENTS VALUES ('2998500', 'Monsieur', 'CHEVALIER', 'INES', '1', '13
 INSERT INTO CLIENTS VALUES ('3001777', 'Monsieur', 'LE BON', 'Adam', '1', '186, AVENUE D ITALIE', '75013', 'PARIS', 'FRANCE', 'adam.le bon@up13.fr', '0717586561');
 INSERT INTO CLIENTS VALUES ('2998505', 'Mademoiselle', 'TRAIFOR', 'ALICE', '2', '6, RUE DE LA ROSIERE', '75015', 'PARIS', '', 'alice.traifor@up13.fr', '0717586562');
 INSERT INTO CLIENTS VALUES ('3000106', 'Monsieur', 'HARISSA', 'FORD', '1', '16, AVENUE FOCH', '75016', 'PARIS', 'FRANCE', 'ford.harissa@up13.fr', '0606');
-INSERT INTO CLIENTS VALUES ('3000107', 'MO NSIEUR', 'ONRI', 'PANDA', '2', '77, RUE DE LA LIBERTE', '13001', 'MARSEILLE', 'FRANCE', 'panda.onri@up13.fr', '+33');
+INSERT INTO CLIENTS VALUES ('3000107', 'MOï¿½NSIEUR', 'ONRI', 'PANDA', '2', '77, RUE DE LA LIBERTE', '13001', 'MARSEILLE', 'FRANCE', 'panda.onri@up13.fr', '+33');
 INSERT INTO CLIENTS VALUES ('3000108', 'Madame', 'EDITE', 'FIAT', '1', '21, AVENUE D ITALIE', '75013', 'PARIS', '', 'fiat.edite@up13.fr', '');
 INSERT INTO CLIENTS VALUES ('3000109', 'Madame', 'TOYOTA', 'JACKSON', '3', '55, RUE DU JAPON', '94310', 'ORLY VILLE', 'FRANCE', 'jackson.toyota@up13.fr', '');
 INSERT INTO CLIENTS VALUES ('3000110', 'MADAME', 'ONRI', 'HONDA', '2', '77, RUE DE LA LIBERTE', '13001', 'MARSEILLE', 'FRANC', 'honda.onri@up13.fr', '');
@@ -1228,30 +1228,30 @@ INSERT INTO CLIENTS VALUES ('3001786', 'Madame', 'MERQUELLE', 'Ange', '1', '', '
 
 -- Les articles du magasin FR02 c est celui de Paris en France
 
-INSERT INTO ARTICLES VALUES ('00.37291', 'SIEGE DE TABLE', '55.00 ¤', '10', '26.43 ¤');
-INSERT INTO ARTICLES VALUES ('00.37325', 'CASQUE CYCLISTE PROTECTION', '27.00 ¤', '20', '20.00 ¤');
-INSERT INTO ARTICLES VALUES ('00.37341', 'BONNET PARE-CHOCS', '10.71 ¤', '100', '05.71 ¤');
-INSERT INTO ARTICLES VALUES ('00.37366', 'STORE DE PROTECTION', '07.43 ¤', '5', '04.29 ¤');
-INSERT INTO ARTICLES VALUES ('00.37408', 'COINS DE PROTECTION', '04.00 ¤', '100', '01.71 ¤');
-INSERT INTO ARTICLES VALUES ('00.37424', 'CACHE PRISE DE COURANT', '02.29 ¤', '500', '00.71 ¤');
-INSERT INTO ARTICLES VALUES ('00.37432', 'BLOQUE PORTE', '05.00 ¤', '4', '02.29 ¤');
-INSERT INTO ARTICLES VALUES ('00.37457', 'BANDE DE FERMETURE', '02.29 ¤', '4', '01.71 ¤');
-INSERT INTO ARTICLES VALUES ('00.37465', 'PROTECTION DE FOUR', '37.86 ¤', '10', '26.43 ¤');
-INSERT INTO ARTICLES VALUES ('00.37473', 'PROTECTION DE CUISINIERE', '30.71 ¤', '10', '22.86 ¤');
-INSERT INTO ARTICLES VALUES ('00.37515', 'BABY PHONE', '80.71 ¤', '3', '45.71 ¤');
-INSERT INTO ARTICLES VALUES ('00.37630', 'BRETELLE DE SECURITE REMOND', '15.57 ¤', '8', '11.43 ¤');
-INSERT INTO ARTICLES VALUES ('00.39321', 'HAUSSE-CHAISE', '42.71 ¤', '1', '25.43 ¤');
-INSERT INTO ARTICLES VALUES ('00.39495', 'COUVRE ROBINETTERIE', '07.86 ¤', '12', '04.29 ¤');
-INSERT INTO ARTICLES VALUES ('11.36613', 'BARRIERE DE PORTE, EN BOIS', '32.71 ¤', '2', '25.71 ¤');
-INSERT INTO ARTICLES VALUES ('11.36639', 'BARRIERE DE PORTE, EN METAL', '79.14 ¤', '3', '28.43 ¤');
-INSERT INTO ARTICLES VALUES ('11.36860', 'BARRIERE DE LIT', '23.71 ¤', '10', '15.71 ¤');
-INSERT INTO ARTICLES VALUES ('11.37108', 'PORTE-BEBE', '44.86 ¤', '6', '34.29 ¤');
-INSERT INTO ARTICLES VALUES ('11.37173', 'SIEGE-AUTO COSMOS', '126.86 ¤', '2', '71.43 ¤');
-INSERT INTO ARTICLES VALUES ('11.37280', 'SIEGE-AUTO EUROSEAT', '121.29 ¤', '2', '71.43 ¤');
-INSERT INTO ARTICLES VALUES ('WD.001', 'K7 VIDEO - TOY STORY', '21.29 ¤', '10', '09.29 ¤');
-INSERT INTO ARTICLES VALUES ('WD.002', 'DVD - TOY STORY 2', '34.29 ¤', '10', '12.14 ¤');
-INSERT INTO ARTICLES VALUES ('WD.003', 'K7 VIDEO - WINNIE L OURSON', '32.86 ¤', '5', '09.29 ¤');
-INSERT INTO ARTICLES VALUES ('MV.001', 'Jeux Vidéo PS4 SPIDER-MAN', '59.00 ¤', '250', '19.00 ¤');
+INSERT INTO ARTICLES VALUES ('00.37291', 'SIEGE DE TABLE', '55.00 ï¿½', '10', '26.43 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37325', 'CASQUE CYCLISTE PROTECTION', '27.00 ï¿½', '20', '20.00 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37341', 'BONNET PARE-CHOCS', '10.71 ï¿½', '100', '05.71 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37366', 'STORE DE PROTECTION', '07.43 ï¿½', '5', '04.29 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37408', 'COINS DE PROTECTION', '04.00 ï¿½', '100', '01.71 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37424', 'CACHE PRISE DE COURANT', '02.29 ï¿½', '500', '00.71 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37432', 'BLOQUE PORTE', '05.00 ï¿½', '4', '02.29 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37457', 'BANDE DE FERMETURE', '02.29 ï¿½', '4', '01.71 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37465', 'PROTECTION DE FOUR', '37.86 ï¿½', '10', '26.43 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37473', 'PROTECTION DE CUISINIERE', '30.71 ï¿½', '10', '22.86 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37515', 'BABY PHONE', '80.71 ï¿½', '3', '45.71 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.37630', 'BRETELLE DE SECURITE REMOND', '15.57 ï¿½', '8', '11.43 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.39321', 'HAUSSE-CHAISE', '42.71 ï¿½', '1', '25.43 ï¿½');
+INSERT INTO ARTICLES VALUES ('00.39495', 'COUVRE ROBINETTERIE', '07.86 ï¿½', '12', '04.29 ï¿½');
+INSERT INTO ARTICLES VALUES ('11.36613', 'BARRIERE DE PORTE, EN BOIS', '32.71 ï¿½', '2', '25.71 ï¿½');
+INSERT INTO ARTICLES VALUES ('11.36639', 'BARRIERE DE PORTE, EN METAL', '79.14 ï¿½', '3', '28.43 ï¿½');
+INSERT INTO ARTICLES VALUES ('11.36860', 'BARRIERE DE LIT', '23.71 ï¿½', '10', '15.71 ï¿½');
+INSERT INTO ARTICLES VALUES ('11.37108', 'PORTE-BEBE', '44.86 ï¿½', '6', '34.29 ï¿½');
+INSERT INTO ARTICLES VALUES ('11.37173', 'SIEGE-AUTO COSMOS', '126.86 ï¿½', '2', '71.43 ï¿½');
+INSERT INTO ARTICLES VALUES ('11.37280', 'SIEGE-AUTO EUROSEAT', '121.29 ï¿½', '2', '71.43 ï¿½');
+INSERT INTO ARTICLES VALUES ('WD.001', 'K7 VIDEO - TOY STORY', '21.29 ï¿½', '10', '09.29 ï¿½');
+INSERT INTO ARTICLES VALUES ('WD.002', 'DVD - TOY STORY 2', '34.29 ï¿½', '10', '12.14 ï¿½');
+INSERT INTO ARTICLES VALUES ('WD.003', 'K7 VIDEO - WINNIE L OURSON', '32.86 ï¿½', '5', '09.29 ï¿½');
+INSERT INTO ARTICLES VALUES ('MV.001', 'Jeux Vidï¿½o PS4 SPIDER-MAN', '59.00 ï¿½', '250', '19.00 ï¿½');
 
 -- Les commandes du magasin FR02 c est celui de Paris en France
 
@@ -1263,24 +1263,24 @@ INSERT INTO COMMANDES VALUES ('20120156BB0001', '2996100', '16/01/2012');
 INSERT INTO COMMANDES VALUES ('20120157BB0007', '2996100', '17/01/2012');
 INSERT INTO COMMANDES VALUES ('20180917BB0007', '3001777', '17/09/2018');
 
--- Les détails des commandes du magasin FR02 c est celui de Paris en France
+-- Les dï¿½tails des commandes du magasin FR02 c est celui de Paris en France
 
-INSERT INTO DETAILCOM VALUES ('20150917BB0001', '00.37291', '2', '35.00 ¤', '10.00%');
-INSERT INTO DETAILCOM VALUES ('20150917BB0001', '00.37341', '4', '10.71 ¤', '10.00%');
-INSERT INTO DETAILCOM VALUES ('20150917BB0001', '11.36639', '2', '49.14 ¤', '00.00%');
-INSERT INTO DETAILCOM VALUES ('20150917BB0001', 'WD.001', '1', '21.29 ¤', '00.00%');
-INSERT INTO DETAILCOM VALUES ('20150917BB0002', '00.37291', '2', '35.00 ¤', '00.00%');
-INSERT INTO DETAILCOM VALUES ('20150917BB0002', 'WD.001', '1', '21.29 ¤', '00.00%');
-INSERT INTO DETAILCOM VALUES ('20150917BB0002', 'WD.002', '1', '34.29 ¤', '00.00%');
-INSERT INTO DETAILCOM VALUES ('20150917BB0002', 'WD.003', '1', '22.86 ¤', '00.00%');
-INSERT INTO DETAILCOM VALUES ('20151016BB0001', 'WD.001', '1', '21.29 ¤', '20.00%');
-INSERT INTO DETAILCOM VALUES ('20151016BB0001', 'WD.002', '1', '34.29 ¤', '00.00%');
-INSERT INTO DETAILCOM VALUES ('20151016BB0001', 'WD.003', '1', '22.86 ¤', '00.00%');
-INSERT INTO DETAILCOM VALUES ('20151024BB0001', '00.37457', '2', '03.29 ¤', '00.00%');
-INSERT INTO DETAILCOM VALUES ('20120156BB0001', 'WD.003', '2', '25.00 ¤', '00.00%');
-INSERT INTO DETAILCOM VALUES ('20120157BB0007', 'WD.001', '5', '22.00 ¤', '50.00%');
-INSERT INTO DETAILCOM VALUES ('20120157BB0007', 'WD.002', '10', '34.29 ¤', '50.00%');
-INSERT INTO DETAILCOM VALUES ('20180917BB0007', 'MV.001', '2', '59.00 ¤', '10.00%');
+INSERT INTO DETAILCOM VALUES ('20150917BB0001', '00.37291', '2', '35.00 ï¿½', '10.00%');
+INSERT INTO DETAILCOM VALUES ('20150917BB0001', '00.37341', '4', '10.71 ï¿½', '10.00%');
+INSERT INTO DETAILCOM VALUES ('20150917BB0001', '11.36639', '2', '49.14 ï¿½', '00.00%');
+INSERT INTO DETAILCOM VALUES ('20150917BB0001', 'WD.001', '1', '21.29 ï¿½', '00.00%');
+INSERT INTO DETAILCOM VALUES ('20150917BB0002', '00.37291', '2', '35.00 ï¿½', '00.00%');
+INSERT INTO DETAILCOM VALUES ('20150917BB0002', 'WD.001', '1', '21.29 ï¿½', '00.00%');
+INSERT INTO DETAILCOM VALUES ('20150917BB0002', 'WD.002', '1', '34.29 ï¿½', '00.00%');
+INSERT INTO DETAILCOM VALUES ('20150917BB0002', 'WD.003', '1', '22.86 ï¿½', '00.00%');
+INSERT INTO DETAILCOM VALUES ('20151016BB0001', 'WD.001', '1', '21.29 ï¿½', '20.00%');
+INSERT INTO DETAILCOM VALUES ('20151016BB0001', 'WD.002', '1', '34.29 ï¿½', '00.00%');
+INSERT INTO DETAILCOM VALUES ('20151016BB0001', 'WD.003', '1', '22.86 ï¿½', '00.00%');
+INSERT INTO DETAILCOM VALUES ('20151024BB0001', '00.37457', '2', '03.29 ï¿½', '00.00%');
+INSERT INTO DETAILCOM VALUES ('20120156BB0001', 'WD.003', '2', '25.00 ï¿½', '00.00%');
+INSERT INTO DETAILCOM VALUES ('20120157BB0007', 'WD.001', '5', '22.00 ï¿½', '50.00%');
+INSERT INTO DETAILCOM VALUES ('20120157BB0007', 'WD.002', '10', '34.29 ï¿½', '50.00%');
+INSERT INTO DETAILCOM VALUES ('20180917BB0007', 'MV.001', '2', '59.00 ï¿½', '10.00%');
 
 COMMIT;
 
@@ -1299,7 +1299,7 @@ EXEC AJOUTECOLONNE('HISTORIQUE_MVTS_CLIENTS','FR02');
 EXEC AJOUTECOLONNE('HISTORIQUE_MVTS_ARTICLES','FR02');
 
 /*
--- Corrigez le contenu de la nouvelle table CLIENTS_FR02 ; Comment savoir si elle contient des anomalies et lesquelles ? 
+-- Corrigez le contenu de la nouvelle table CLIENTS_FR02 ; Comment savoir si elle contient des anomalies et lesquelles ?
 */
 
 -- Les clients du magasin TN02 c est celui de Sousse en Tunisie
@@ -1318,9 +1318,9 @@ DROP TABLE HISTORIQUE_MVTS_CLIENTS;
 
 CREATE TABLE HISTORIQUE_MVTS_CLIENTS
 (
-	NOMUSER	        VARCHAR2(15), 
-	TYPEMVT	        VARCHAR2(15), 
-	CODCLI          VARCHAR2(10), 
+	NOMUSER	        VARCHAR2(15),
+	TYPEMVT	        VARCHAR2(15),
+	CODCLI          VARCHAR2(10),
 	OLDCIVCLI	 	VARCHAR2(12),
 	OLDNOMCLI	 	VARCHAR2(20),
 	OLDPRENCLI 		VARCHAR2(20),
@@ -1331,7 +1331,7 @@ CREATE TABLE HISTORIQUE_MVTS_CLIENTS
 	OLDVILCLI	 	VARCHAR2(20),
 	OLDPAYSCLI	 	VARCHAR2(30),
 	OLDMAILCLI	 	VARCHAR2(30),
-	OLDTELCLI	 	VARCHAR2(20), 
+	OLDTELCLI	 	VARCHAR2(20),
 	NEWCIVCLI	 	VARCHAR2(12),
 	NEWNOMCLI	 	VARCHAR2(20),
 	NEWPRENCLI 		VARCHAR2(20),
@@ -1354,7 +1354,7 @@ CREATE OR REPLACE TRIGGER MOUVEMENTS_CLIENTS
 	AFTER UPDATE OR INSERT OR DELETE ON CLIENTS
 	FOR EACH ROW
 DECLARE
-	V_CODCLI        VARCHAR2(10) := :OLD.COL1; 
+	V_CODCLI        VARCHAR2(10) := :OLD.COL1;
 	V_CIVCLI	 	VARCHAR2(12) := :OLD.COL2;
 	V_NOMCLI	 	VARCHAR2(20) := :OLD.COL3;
 	V_PRENCLI 		VARCHAR2(20) := :OLD.COL4;
@@ -1366,7 +1366,7 @@ DECLARE
 	V_MAILCLI	 	VARCHAR2(30) := :OLD.COL10;
 	V_TELCLI	 	VARCHAR2(20) := :OLD.COL11;
 
-	VI_CODCLI       VARCHAR2(10) := :NEW.COL1; 
+	VI_CODCLI       VARCHAR2(10) := :NEW.COL1;
 	VI_CIVCLI	 	VARCHAR2(12) := :NEW.COL2;
 	VI_NOMCLI	 	VARCHAR2(20) := :NEW.COL3;
 	VI_PRENCLI 		VARCHAR2(20) := :NEW.COL4;
@@ -1377,34 +1377,34 @@ DECLARE
 	VI_PAYSCLI	 	VARCHAR2(30) := :NEW.COL9;
 	VI_MAILCLI	 	VARCHAR2(30) := :NEW.COL10;
 	VI_TELCLI	 	VARCHAR2(20) := :NEW.COL11;
-	
+
 BEGIN
 	IF UPDATING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, OLDCATCLI, OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, NEWCATCLI, NEWADRCLI, NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT)
 		VALUES (USER, 'UPDATE', V_CODCLI, V_CIVCLI, V_NOMCLI, V_PRENCLI, V_CATCLI, V_ADRCLI, V_CPCLI, V_VILCLI, V_PAYSCLI,V_MAILCLI, V_TELCLI, VI_CIVCLI, VI_NOMCLI, VI_PRENCLI, VI_CATCLI, VI_ADRCLI, VI_CPCLI, VI_VILCLI, VI_PAYSCLI, VI_MAILCLI, VI_TELCLI, SYSDATE);
 	END IF;
 
-	IF DELETING THEN 
+	IF DELETING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, OLDCATCLI, OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, DATMVT)
 		VALUES (USER, 'DELETE', V_CODCLI, V_CIVCLI, V_NOMCLI, V_PRENCLI, V_CATCLI, V_ADRCLI, V_CPCLI, V_VILCLI, V_PAYSCLI,V_MAILCLI, V_TELCLI, SYSDATE);
 
 	END IF;
-			
-	IF INSERTING THEN 
+
+	IF INSERTING THEN
 		INSERT INTO HISTORIQUE_MVTS_CLIENTS (NOMUSER, TYPEMVT, CODCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, NEWCATCLI, NEWADRCLI, NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT)
 		VALUES (USER, 'INSERT', VI_CODCLI, VI_CIVCLI, VI_NOMCLI, VI_PRENCLI, VI_CATCLI, VI_ADRCLI, VI_CPCLI, VI_VILCLI, VI_PAYSCLI, VI_MAILCLI, VI_TELCLI, SYSDATE);
 	END IF;
 END;
 /
- 
+
 --COL1    COL2    COL3   COL4   COL5
 --REFART, NOMART, PVART, QSART, PAART
 DROP TABLE HISTORIQUE_MVTS_ARTICLES;
 CREATE TABLE HISTORIQUE_MVTS_ARTICLES
 (
-	NOMUSER		VARCHAR2(15), 
-	TYPEMVT		VARCHAR2(15), 
-	REFART 		VARCHAR2(10), 
+	NOMUSER		VARCHAR2(15),
+	TYPEMVT		VARCHAR2(15),
+	REFART 		VARCHAR2(10),
 	NOMART		VARCHAR2(50),
 	PVART		VARCHAR2(20),
 	PAART		VARCHAR2(20),
@@ -1431,19 +1431,19 @@ DECLARE
 	VI_PVART	VARCHAR2(20)	:= :NEW.COL3;
 	VI_PAART	VARCHAR2(20)	:= :NEW.COL5;
 	VI_QSART	VARCHAR2(20)	:= :NEW.COL4;
-	
+
 BEGIN
 	IF UPDATING THEN
 		INSERT INTO HISTORIQUE_MVTS_ARTICLES (NOMUSER, TYPEMVT, REFART, NOMART, PVART, PAART, QSART, DATMVT)
 		VALUES (USER, 'UPDATE', V_REFART, V_NOMART, V_PVART, V_PAART, V_QSART, SYSDATE);
 	END IF;
 
-	IF DELETING THEN 
+	IF DELETING THEN
 		INSERT INTO HISTORIQUE_MVTS_ARTICLES (NOMUSER, TYPEMVT, REFART, NOMART, PVART, PAART, QSART, DATMVT)
 		VALUES (USER, 'DELETE', V_REFART, V_NOMART, V_PVART, V_PAART, V_QSART, SYSDATE);
 	END IF;
-			
-	IF INSERTING THEN 
+
+	IF INSERTING THEN
 		INSERT INTO HISTORIQUE_MVTS_ARTICLES (NOMUSER, TYPEMVT, REFART, NOMART, PVART, PAART, QSART, DATMVT)
 		VALUES (USER, 'INSERT', VI_REFART, VI_NOMART, VI_PVART, VI_PAART, VI_QSART, SYSDATE);
 	END IF;
@@ -1502,7 +1502,7 @@ INSERT INTO ARTICLES VALUES ('11.37280', 'SIEGE-AUTO EUROSEAT', '257.15 Dt', '2'
 INSERT INTO ARTICLES VALUES ('WD.001', 'K7 VIDEO - TOY STORY', '33.44 Dt', '10', '27.87 Dt');
 INSERT INTO ARTICLES VALUES ('WD.002', 'DVD - TOY STORY 2', '43.70 Dt', '10', '36.42 Dt');
 INSERT INTO ARTICLES VALUES ('WD.003', 'K7 VIDEO - WINNIE L OURSON', '33.44 Dt', '5', '27.87 Dt');
-INSERT INTO ARTICLES VALUES ('MV.001', 'Jeu Vidéo PS4 SPIDER-MAN', '68.40 Dt', '250', '57.00 Dt');
+INSERT INTO ARTICLES VALUES ('MV.001', 'Jeu Vidï¿½o PS4 SPIDER-MAN', '68.40 Dt', '250', '57.00 Dt');
 
 -- Les commandes du magasin TN02 c est celui de Sousse en Tunisie
 
@@ -1514,7 +1514,7 @@ INSERT INTO COMMANDES VALUES ('KTN005', 'TN0001', '16/01/2012');
 INSERT INTO COMMANDES VALUES ('KTN006', 'TN0022', '17/01/2017');
 INSERT INTO COMMANDES VALUES ('KTN007', 'TN0022', '17/09/2018');
 
--- Les détails des commandes du magasin TN02 c est celui de Sousse en Tunisie
+-- Les dï¿½tails des commandes du magasin TN02 c est celui de Sousse en Tunisie
 
 INSERT INTO DETAILCOM VALUES ('KTN001', '00.37291', '2', '95.15 Dt', '30.00%');
 INSERT INTO DETAILCOM VALUES ('KTN001', '00.37341', '4', '20.56 Dt', '30.00%');
@@ -1549,75 +1549,94 @@ EXEC AJOUTECOLONNE('ARTICLES', 'TN02');
 EXEC AJOUTECOLONNE('HISTORIQUE_MVTS_CLIENTS','TN02');
 EXEC AJOUTECOLONNE('HISTORIQUE_MVTS_ARTICLES','TN02');
 
--- Assembler (intégrer, fusionner) dans une nouvelle table, de nom TOUSCLIENTS, tous les clients des différents magasins
+-- Assembler (intï¿½grer, fusionner) dans une nouvelle table, de nom TOUSCLIENTS, tous les clients des diffï¿½rents magasins
 /*DROP TABLE TOUSCLIENTS;
-create table TOUSCLIENTS AS 
+create table TOUSCLIENTS AS
 (select * from CLIENTS_FR01
-union all 
+union all
 select col1,col2,col3,col4,cast(col5 as number(1)),substr(COL6,1,instr(COL6,',')-1),substr(COL6,instr(COL6,',',-1)+1),col7,col8,col9,col10,col11,MAGASIN FROM CLIENTS_FR02
 union all
 select col1,col2,col3,col4,cast(col5 as number(1)),substr(COL6,1,instr(COL6,',')-1),substr(COL6,instr(COL6,',',-1)+1),col7,col8,col9,col10,col11,MAGASIN FROM CLIENTS_TN02);*/
 
 DROP TABLE TOUSCLIENTS;
-CREATE TABLE TOUSCLIENTS AS 
+CREATE TABLE TOUSCLIENTS AS
 (select CODCLI,CIVCLI,NOMCLI,PRENCLI,CATCLI,concat(concat(ADNCLI,', '),ADRCLI) as ADRCLI,CPCLI,VILCLI,PAYSCLI,MAILCLI,TELCLI,MAGASIN from CLIENTS_FR01
-union all 
+union all
 select col1,col2,col3,col4,cast(col5 as number(1)),COL6,col7,col8,col9,col10,col11,MAGASIN FROM CLIENTS_FR02
 union all
 select col1,col2,col3,col4,cast(col5 as number(1)),COL6,col7,col8,col9,col10,col11,MAGASIN FROM CLIENTS_TN02);
 
 DROP TABLE TOUS_HISTORIQUE_MVT_CLIENTS;
-CREATE TABLE TOUS_HISTORIQUE_MVT_CLIENTS AS 
-(SELECT NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, OLDCATCLI,concat(concat(OLDADNCLI,', '),OLDADRCLI) as OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, NEWCATCLI,concat(concat(NEWADNCLI,', '),NEWADRCLI) as NEWADRCLI , NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT,MAGASIN FROM MOUVEMENTS_CLIENTS_FR01
-UNION ALL 
-SELECT NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, CAST(OLDCATCLI as number(1)), OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, CAST(NEWCATCLI as number(1)), NEWADRCLI, NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT,MAGASIN FROM MOUVEMENTS_CLIENTS_FR02
+CREATE TABLE TOUS_HISTORIQUE_MVT_CLIENTS AS
+(SELECT NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, OLDCATCLI,concat(concat(OLDADNCLI,', '),OLDADRCLI) as OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, NEWCATCLI,concat(concat(NEWADNCLI,', '),NEWADRCLI) as NEWADRCLI , NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT,MAGASIN FROM HISTORIQUE_MVTS_CLIENTS_FR01
 UNION ALL
-SELECT NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, CAST(OLDCATCLI as number(1)), OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, CAST(NEWCATCLI as number(1)), NEWADRCLI, NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT,MAGASIN FROM MOUVEMENTS_CLIENTS_TN02);
+SELECT NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, CAST(OLDCATCLI as number(1)), OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, CAST(NEWCATCLI as number(1)), NEWADRCLI, NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT,MAGASIN FROM HISTORIQUE_MVTS_CLIENTS_FR02
+UNION ALL
+SELECT NOMUSER, TYPEMVT, CODCLI, OLDCIVCLI, OLDNOMCLI, OLDPRENCLI, CAST(OLDCATCLI as number(1)), OLDADRCLI, OLDCPCLI, OLDVILCLI, OLDPAYSCLI,OLDMAILCLI, OLDTELCLI, NEWCIVCLI, NEWNOMCLI, NEWPRENCLI, CAST(NEWCATCLI as number(1)), NEWADRCLI, NEWCPCLI, NEWVILCLI, NEWPAYSCLI, NEWMAILCLI, NEWTELCLI, DATMVT,MAGASIN FROM HISTORIQUE_MVTS_CLIENTS_TN02);
 
 -- Corrigez le contenu de la nouvelle table TOUSCLIENTS ; Comment savoir si elle contient des anomalies et lesquelles ? et lesquelles ?
--- Faire de même pour les toutes les autres tables !!!
+-- Faire de mï¿½me pour les toutes les autres tables !!!
 
--- Assemblez (intégrer, fusionner) dans une nouvelle BDDWBD l'ensemble des tables des différents magasins et tout le nécessaire
+-- Assemblez (intï¿½grer, fusionner) dans une nouvelle BDDWBD l'ensemble des tables des diffï¿½rents magasins et tout le nï¿½cessaire
 DROP TABLE TOUSCOMMANDES;
 CREATE TABLE TOUSCOMMANDES AS
 select NUMCOM,CODCLI,DATCOM,MAGASIN from commandes_FR01
 union all
 select col1,col2,To_date(To_Date(col3,'DD/MM/YYYY'),'DAY DD-MONTH-YYYY'),MAGASIN from commandes_FR02
-union all 
+union all
 select col1,col2,To_date(To_Date(col3,'DD/MM/YYYY'),'DAY DD-MONTH-YYYY'),MAGASIN from commandes_TN02;
 
 DROP TABLE TOUSARTICLES;
-CREATE TABLE TOUSARTICLES AS 
+CREATE TABLE TOUSARTICLES AS
 select * from articles_FR01
 union all
-SELECT COL1,col2,cast(substr(col3,1,instr(col3,' ')-1) as number(10,2)) as COL3,cast(col4 as NUMBER(3)) as COL4,cast(substr(col5,1,instr(col5,' ')-1) as number(10,2)) as COL5,MAGASIN  from articles_FR02
+SELECT COL1,col2,
+cast(REGEXP_REPLACE( substr(col3,1,instr(col3,' ')-1), '\.',',') as number(10,2)) as COL3,
+cast(col4 as NUMBER(3)) as COL4,
+cast(REGEXP_REPLACE( substr(col5,1,instr(col5,' ')-1), '\.',',') as number(10,2)) as COL5,
+MAGASIN  from articles_FR02
 union all
-SELECT COL1,col2,cast(substr(upper(col3),1,instr(upper(col3),upper('Dt'))-1)*0.31 as number(10,2)),cast(col4 as number(3)) as col4,cast(substr(upper(col5),1,instr(upper(col5),upper('Dt'))-1)*0.31 as number(10,2)),MAGASIN from articles_TN02;
+SELECT
+COL1,col2,
+cast(REGEXP_REPLACE( substr(upper(col3),1,instr(upper(col3),upper('Dt'))-1), '\.',',')*0.31 as number(10,2))as col3,
+cast(col4 as number(3)) as col4,
+cast(REGEXP_REPLACE( substr(upper(col5),1,instr(upper(col5),upper('Dt'))-1), '\.',',')*0.31 as number(10,2))as col5,
+MAGASIN
+from articles_TN02;
+
 
 DROP TABLE TOUS_HISTORIQUE_MVT_ARTICLES;
 CREATE TABLE TOUS_HISTORIQUE_MVT_ARTICLES AS
-(SELECT * FROM HISTORIQUE_MVTS_ARTICLES_FR01
-UNION ALL 
-SELECT NOMUSER, TYPEMVT, REFART, NOMART, CAST(SUBSTR(PVART,1,INSTR(PVART,' ')-1) AS number(10,2)) AS PVART,CAST(SUBSTR(PAART,1,INSTR(PAART,' '),-1) AS number(10,2)) AS PAART, CAST(QSART as number(3)) as QSART, DATMVT , MAGASIN FROM HISTORIQUE_MVTS_ARTICLES_FR02
+SELECT * FROM HISTORIQUE_MVTS_ARTICLES_FR01
 UNION ALL
-SELECT NOMUSER, TYPEMVT, REFART, NOMART, CAST(SUBSTR(PVART,1,INSTR(PVART,' ')-1) AS number(10,2)) AS PVART,CAST(SUBSTR(PAART,1,INSTR(PAART,' '),-1) AS number(10,2)) AS PAART, CAST(QSART as number(3)) as QSART, DATMVT , MAGASIN FROM HISTORIQUE_MVTS_ARTICLES_TN02;
-
+SELECT NOMUSER, TYPEMVT, REFART, NOMART,
+ CAST(REGEXP_REPLACE( SUBSTR(PVART,1,INSTR(PVART,' ')-1), '\.',',') AS number(10,2)) AS PVART,
+ CAST(REGEXP_REPLACE( SUBSTR(PAART,1,INSTR(PAART,' ')-1), '\.',',') AS number(10,2)) AS PAART,
+ CAST(QSART as number(3)) as QSART, DATMVT ,
+ MAGASIN FROM HISTORIQUE_MVTS_ARTICLES_FR02
+ UNION ALL
+ SELECT NOMUSER, TYPEMVT, REFART, NOMART,
+ CAST(REGEXP_REPLACE( SUBSTR(PVART,1,INSTR(PVART,' ')-1), '\.',',') AS number(10,2)) AS PVART,
+ CAST(REGEXP_REPLACE( SUBSTR(PAART,1,INSTR(PAART,' ')-1), '\.',',') AS number(10,2)) AS PAART,
+ CAST(QSART as number(3)) as QSART, DATMVT ,
+ MAGASIN FROM HISTORIQUE_MVTS_ARTICLES_TN02;
 
 DROP TABLE TOUSDETAILCOM;
 CREATE TABLE TOUSDETAILCOM AS
 select * from detailcom_fr01
 union all
-SELECT COL1,COL2,cast(col3 as number(3)),cast(substr(col4,1,instr(col4,' ')-1) as number(10,2)),cast(substr(col5,1,instr(col5,'%')-1) as number(4,2)),MAGASIN from detailcom_FR02
+SELECT COL1,COL2,
+cast(col3 as number(3)),
+cast(REGEXP_REPLACE( substr(col4,1,instr(col4,' ')-1), '\.',',') as number(10,2)),
+cast(REGEXP_REPLACE( substr(col5,1,instr(col5,'%')-1), '\.',',') as number(4,2)),
+MAGASIN from detailcom_FR02
 union all
-SELECT COL1,COL2,cast(col3 as number(3)),cast(substr(upper(col4),1,instr(upper(col4),upper('Dt'))-1) as number(10,2)),cast(substr(col5,1,instr(col5,'%')-1) as number(4,2)),MAGASIN from detailcom_TN02;
-
--- Le résultat est : TOUSCLIENTS (avec l'historique des mouvements), TOUSARTICLES (avec l'historique des mouvements), TOUSCOMMANDES, TOUSDETAILSCOM, TOUSMAGASINS (avec l'historique des mouvements), etc...
-
---=====================================================================================================================
---=====================================================================================================================
--- NOUVELLES DONNEES == NOUVELLES DONNEES  == NOUVELLES DONNEES
---=====================================================================================================================
---=====================================================================================================================
+SELECT COL1,COL2,
+cast(col3 as number(3)),
+cast(REGEXP_REPLACE( substr(upper(col4),1,instr(upper(col4),upper('Dt'))-1), '\.',',') as number(10,2)),
+cast(REGEXP_REPLACE( substr(col5,1,instr(col5,'%')-1) , '\.',',') as number(4,2)),
+MAGASIN from detailcom_TN02;
+-- Le rï¿½sultat est : TOUSCLIENTS (avec l'historique des mouvements), TOUSARTICLES (avec l'historique des mouvements), TOUSCOMMANDES, TOUSDETAILSCOM, TOUSMAGASINS (avec l'historique des mouvements), etc...
 
 --=====================================================================================================================
 --=====================================================================================================================
@@ -1625,3 +1644,8 @@ SELECT COL1,COL2,cast(col3 as number(3)),cast(substr(upper(col4),1,instr(upper(c
 --=====================================================================================================================
 --=====================================================================================================================
 
+--=====================================================================================================================
+--=====================================================================================================================
+-- NOUVELLES DONNEES == NOUVELLES DONNEES  == NOUVELLES DONNEES
+--=====================================================================================================================
+--=====================================================================================================================

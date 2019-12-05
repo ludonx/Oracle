@@ -1,9 +1,33 @@
-C018
-FEBRURAY -> FEBRUARY
+DESTRUCTION DES TABLE
+[167]
+client, article, commande detailcom
+
+Création des tables
+[182]
+
+historique des movement des articles
+[355]
++ ajouter de trigger
+
+ajout d'index sur PAYSCLI
+[427]
+
+creation de profil
+[436]
+nouveau role -> droit insuffisant
+
+ajout de commantaire pour les tables et les colonnes
+[474]
+
+
+insertion des données
+[556]
+erreur -> prenom [client C018]
+erreur date FEBRURAY -> FEBRUARY
 
 nouvelles données pour le systeme de Recommandation
 [961]
-FB.0i i>03 --> F1.00i
+erreur FB.0i i>03 --> F1.00i car FB.0i i>03 n'est pas défini dans la table article
 some INSERT with out values [984,]
 
 validation insertions [1113]

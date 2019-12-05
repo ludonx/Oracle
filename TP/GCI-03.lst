@@ -1,0 +1,1456 @@
+
+=========================================================
+|                                                       |
+|     Exercice 3 :  BD GESCOMI avec SQL 2               |
+|     Int�gration de BD                                 |
+|                                                       |
+=========================================================
+
+
+=========================================================
+Ceci permet d initialiser le type de la date
+=========================================================
+
+Session altered.
+
+Elapsed: 00:00:00.01
+
+Session altered.
+
+Elapsed: 00:00:00.00
+=========================================================
+
+Procedure created.
+
+Elapsed: 00:00:00.01
+
+Table dropped.
+
+Elapsed: 00:00:00.05
+
+Table dropped.
+
+Elapsed: 00:00:00.07
+
+Table dropped.
+
+Elapsed: 00:00:00.05
+
+Table dropped.
+
+Elapsed: 00:00:00.11
+
+Tapez sur Enter...
+
+
+=========================================================
+Cr�ation des tables de la bd GESCOMI EN SQL 2
+=========================================================
+
+=========================================================
+>> Table : CLIENTS
+=========================================================
+
+
+Table created.
+
+Elapsed: 00:00:00.03
+
+Tapez sur Enter...
+
+
+=========================================================
+>> Table : COMMANDES
+=========================================================
+
+
+Table created.
+
+Elapsed: 00:00:00.03
+
+Tapez sur Enter...
+
+
+=========================================================
+>> Table : ARTICLES
+=========================================================
+
+
+Table created.
+
+Elapsed: 00:00:00.04
+
+Tapez sur Enter...
+
+
+=========================================================
+>> Table : DETAILCOM
+=========================================================
+
+
+Table created.
+
+Elapsed: 00:00:00.03
+
+Table dropped.
+
+Elapsed: 00:00:00.05
+
+Table created.
+
+Elapsed: 00:00:00.03
+
+Trigger created.
+
+Elapsed: 00:00:00.05
+
+Table dropped.
+
+Elapsed: 00:00:00.04
+
+Table created.
+
+Elapsed: 00:00:00.03
+SQL> @ga.sql
+DROP TRIGGER MOUVEMENTS_ARTICLES
+*
+ERROR at line 1:
+ORA-04080: trigger 'MOUVEMENTS_ARTICLES' does not exist 
+
+
+Elapsed: 00:00:00.01
+SQL> @ga.sql
+
+Trigger created.
+
+Elapsed: 00:00:00.03
+SQL> @ga.sql
+
+1 row created.
+
+Elapsed: 00:00:00.08
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+SQL> @ga.sql
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+SQL> @ga.sql
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+SQL> @ga.sql
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+SQL> @ga.sql
+
+Commit complete.
+
+Elapsed: 00:00:00.04
+SQL> @ga.sql
+DROP TABLE CLIENTS_FR01
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.02
+DROP TABLE COMMANDES_FR01
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.01
+DROP TABLE DETAILCOM_FR01
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.01
+DROP TABLE ARTICLES_FR01
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.01
+DROP TABLE HISTORIQUE_MVTS_CLIENTS_FR01
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.01
+DROP TABLE HISTORIQUE_MVTS_ARTICLES_FR01
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.02
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.10
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.05
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.04
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.03
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.05
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.03
+
+Table dropped.
+
+Elapsed: 00:00:00.11
+
+Table dropped.
+
+Elapsed: 00:00:00.12
+
+Table dropped.
+
+Elapsed: 00:00:00.10
+
+Table dropped.
+
+Elapsed: 00:00:00.15
+
+Table created.
+
+Elapsed: 00:00:00.02
+
+Table created.
+
+Elapsed: 00:00:00.02
+
+Table created.
+
+Elapsed: 00:00:00.02
+
+Table created.
+
+Elapsed: 00:00:00.02
+
+Table dropped.
+
+Elapsed: 00:00:00.07
+
+Table created.
+
+Elapsed: 00:00:00.04
+SQL> @ga.sql
+
+Trigger created.
+
+Elapsed: 00:00:00.05
+SQL> @ga.sql
+
+Table dropped.
+
+Elapsed: 00:00:00.09
+
+Table created.
+
+Elapsed: 00:00:00.03
+DROP TRIGGER MOUVEMENTS_ARTICLES
+*
+ERROR at line 1:
+ORA-04080: trigger 'MOUVEMENTS_ARTICLES' does not exist 
+
+
+Elapsed: 00:00:00.00
+
+Trigger created.
+
+Elapsed: 00:00:00.03
+SQL> @ga.sql
+
+1 row created.
+
+Elapsed: 00:00:00.04
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+SQL> @ga.sql
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+SQL> @ga.sql
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+SQL> @ga.sql
+DROP TABLE CLIENTS_FR02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.02
+DROP TABLE COMMANDES_FR02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.02
+DROP TABLE DETAILCOM_FR02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.01
+DROP TABLE ARTICLES_FR02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.02
+DROP TABLE HISTORIQUE_MVTS_CLIENTS_FR02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.01
+DROP TABLE HISTORIQUE_MVTS_ARTICLES_FR02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.02
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.05
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.03
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.03
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.04
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.04
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.04
+SQL> @ga.sql
+
+Table dropped.
+
+Elapsed: 00:00:00.03
+
+Table dropped.
+
+Elapsed: 00:00:00.07
+
+Table dropped.
+
+Elapsed: 00:00:00.03
+
+Table dropped.
+
+Elapsed: 00:00:00.10
+
+Table created.
+
+Elapsed: 00:00:00.03
+
+Table created.
+
+Elapsed: 00:00:00.03
+
+Table created.
+
+Elapsed: 00:00:00.03
+
+Table created.
+
+Elapsed: 00:00:00.02
+SQL> @ga.sql
+
+Table dropped.
+
+Elapsed: 00:00:00.04
+
+Table created.
+
+Elapsed: 00:00:00.03
+
+Trigger created.
+
+Elapsed: 00:00:00.04
+
+Table dropped.
+
+Elapsed: 00:00:00.04
+
+Table created.
+
+Elapsed: 00:00:00.03
+DROP TRIGGER MOUVEMENTS_ARTICLES
+*
+ERROR at line 1:
+ORA-04080: trigger 'MOUVEMENTS_ARTICLES' does not exist 
+
+
+Elapsed: 00:00:00.01
+
+Trigger created.
+
+Elapsed: 00:00:00.03
+
+1 row created.
+
+Elapsed: 00:00:00.02
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.01
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+1 row created.
+
+Elapsed: 00:00:00.00
+
+Commit complete.
+
+Elapsed: 00:00:00.01
+DROP TABLE CLIENTS_TN02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.02
+DROP TABLE COMMANDES_TN02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.02
+DROP TABLE DETAILCOM_TN02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.01
+DROP TABLE ARTICLES_TN02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.01
+DROP TABLE HISTORIQUE_MVTS_CLIENTS_TN02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.02
+DROP TABLE HISTORIQUE_MVTS_ARTICLES_TN02
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+Elapsed: 00:00:00.01
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 
