@@ -1,214 +1,240 @@
-DESTRUCTION DES TABLE
 [167]
-client, article, commande detailcom
+DESTRUCTION DES TABLES
+client, article, commande et detailcom
 
-CrÃ©ation des tables
 [182]
+Création des tables
+client, article, commande et detailcom
 
-historique des movement des articles
 [355]
-+ ajouter de trigger
+Création de table Historique des movement des articles
 
-ajout d'index sur PAYSCLI
+-----------------------------------------------------------------
+
+[384]
+Ajouter de trigger
+- MOUVEMENTS_ARTICLES
+
 [427]
+Ajout d'index sur PAYSCLI
 
-creation de profil
-[436]
-nouveau role -> droit insuffisant
 
-ajout de commantaire pour les tables et les colonnes
+[438]
+Creation de profil
+ERREUR ET CORRECTION 
+Droit insuffisant pour la creation de rôle
+
+------------------------------------------------------------ 
+
 [474]
+Ajout de commantaire pour les tables et les colonnes
 
-
-insertion des donnÃ©es
 [556]
-erreur -> prenom [client C018]
-erreur date FEBRURAY -> FEBRUARY
+insertion des données
 
-nouvelles donnÃ©es pour le systeme de Recommandation
+ERREUR ET CORRECTION 
+- données un prénom au client [client C018] sinon c'est une violation de la contrainte d'intégrité
+- FEBRURAY -> FEBRUARY
+
+-------------------------------------------------------------------
+
 [961]
-erreur FB.0i i>03 --> F1.00i car FB.0i i>03 n'est pas dÃ©fini dans la table article
-some INSERT with out values [984,]
+Nouvelles données pour le systeme de Recommandation
 
-validation insertions [1113]
+ERREUR ET CORRECTION 
+- Les articles de reference FB.0i avec (i > 03) n'existe pas 
+ solution :  FB.0i avec (i > 03) -> F1.00i 
 
-Affichage des table de la bd [1127]
+- INSERT without values [984]
+ solution supprimmer cette ligne
 
-verification des TRIGGERS
-- Exemple avec 2 insertions et 2 mises ï¿½ jour dans la table ARTICLES
-HISTORIQUE_PRIX non definit ( ce qui est normal : voir [282])
+[1114]
+Validation des insertions 
+
+[1127]
+Affichage des données des table de la base de données 
+
+----------------------------------------------------------------------
+
+[1205]
+Verification des TRIGGERS
+- Exemple avec 2 insertions et 2 mises à jour dans la table ARTICLES
+ERREUR ET CORRECTION 
+- la table HISTORIQUE_PRIX n'est pas définie ( voir [282])
+  ( plus préciseement, elle a été mise en commentaire) donc on ne peux pas faire de 
+  select * from HISTORIQUE_PRIX
+  solution : mettre en commentaire toules les ligne qui impliquerais cette table 
+
+[1373]
 HISTORIQUE_MVTS_ARTICLES [ok]
 
-Suppression et creation de la table comparaison_art
+------------------------------------------------------------------------
+
 [1483]
+Suppression et creation de la table COMPARAISON_ART
+
 PROMPT Suppression et creation de la table comparaison_art
 PROMPT Cette table va permettre de stocker les mouvements dans
-PROMPT la table ARTICLES, pendant une pï¿½riode. Tout ï¿½a pour pouvoir ensuite
-PROMPT ï¿½tudier l impact de ces mouvements sur le chiffre d affaires durant
-PROMPT la pï¿½riode considï¿½rï¿½e.
+PROMPT la table ARTICLES, pendant une période. Tout ca pour pouvoir ensuite
+PROMPT étudier l impact de ces mouvements sur le chiffre d affaires durant
+PROMPT la période considérée .
 
-
-Suppression et creation de la table comparaison_chiffre_affaires.
 [1507]
+Suppression et creation de la table COMPARAISON_CHIFFRE_AFFAIRES.
 
-PROMPT =====================================================================
 PROMPT Suppression et creation de la table comparaison_chiffre_affaires.
 PROMPT Cette table va permettre de stocker les informations concernant
-PROMPT le chiffre d affaires moyen des diffï¿½rents pays avant la pï¿½riode oï¿½
-PROMPT l on a dï¿½cidï¿½ de regarder l impact des mouvements effectuï¿½s sur
+PROMPT le chiffre d affaires moyen des différents pays avant la période ou
+PROMPT l on a décidé de regarder l impact des mouvements effectués sur
 PROMPT la table ARTICLES. De garder aussi le chiffre d affaires durant
-PROMPT la pï¿½riode considï¿½rï¿½e. Et aussi, d inscrire la variation au niveau
+PROMPT la période considérée. Et aussi, d inscrire la variation au niveau
 PROMPT des chiffres d affaires.
-PROMPT =====================================================================
-PROMPT
 
-Creation de vue VUE_ART
+
 [1533]
-PROMPT =====================================================================
+Creation de la vue VUE_ART
+
 PROMPT Creation de vue VUE_ART permettant de garder pour chaque article
 PROMPT de la table ARTICLES son prix de vente moyen, son prix d achat moyen
-PROMPT et sa quantitï¿½ en stock moyen.
-PROMPT =====================================================================
-PROMPT
+PROMPT et sa quantité en stock moyen.
+
 
 Creation de vue VUE_MVTS_ART
 [1551]
-PROMPT =====================================================================
 PROMPT Creation de vue VUE_MVTS_ART permettant de garder pour chaque article
 PROMPT de la table HISTORIQUE_MVTS_ARTICLES son prix de vente moyen, son
-PROMPT prix d achat moyen et sa quantitï¿½ en stock moyen.
-PROMPT =====================================================================
-PROMPT
-erreur 2007 -> 2020 gÃ©nÃ©re des err ( incoherence) pas la suite plus bas
+PROMPT prix d achat moyen et sa quantité en stock moyen.
 
-PROMPT =====================================================================
-PROMPT Creation de vue CHIFFRE_AFFAIRES_AVANT permettant de calculer le
-PROMPT chiffre d affaires de chaque pays avant une pï¿½riode considï¿½rï¿½e.
-PROMPT =====================================================================
-PROMPT
+
+ERREUR ET CORRECTION
+- Entre 2016 et  2017 on n'aura pas d'artique donc on vas plustot faire 2016 - 2020
+  sinon cela générera des erreurs ( incoherence) pas la suite (voir plus bas )
+  2007 -> 2020 
+
 [1570]
+PROMPT Creation de vue CHIFFRE_AFFAIRES_AVANT permettant de calculer le
+PROMPT chiffre d affaires de chaque pays avant une période considérée.
 
-PROMPT =====================================================================
-PROMPT Creation de vue CHIFFRE_AFFAIRES_APRES permettant de calculer le
-PROMPT chiffre d affaires de chaque pays durant la pï¿½riode considï¿½rï¿½e.
-PROMPT =====================================================================
-PROMPT
+
 [1589]
+PROMPT Creation de vue CHIFFRE_AFFAIRES_APRES permettant de calculer le
+PROMPT chiffre d affaires de chaque pays durant la période considérée.
 
-erreur [1594]
-CHIFFAFF,  -> CHIFFAFF
-CHIFFAFF -> CHIFFRE_AFFAIRE [ voir plus bas 1667]
+--------------------------------------------------------------------------
 
-PROMPT =====================================================================
-PROMPT Creation de procedure MOYENNE_PRIX_ART permettant de calculer le prix
-PROMPT moyen d achat et de vente, et la quantitï¿½ moyenne en stock de chaque
-PROMPT article. Et ensuite de calculer le chiffre d affaires avant et pendant
-PROMPT une pï¿½riode considï¿½rï¿½e. Tout cela pour savoir si les mouvements
-PROMPT effectuï¿½s, durant une pï¿½riode considï¿½rï¿½e, sur la table ARTICLES ont
-PROMPT apportï¿½ plus ou moins d argent.
-PROMPT =====================================================================
-PROMPT
+[1594]
+ERREUR ET CORRECTION 
+- CHIFFAFF,  -> CHIFFAFF
+- CHIFFAFF -> CHIFFRE_AFFAIRE [ voir plus bas 1667 ]
+
 [1608]
+PROMPT Creation de procedure MOYENNE_PRIX_ART permettant de calculer le prix
+PROMPT moyen d achat et de vente, et la quantité moyenne en stock de chaque
+PROMPT article. Et ensuite de calculer le chiffre d affaires avant et pendant
+PROMPT une période considérée. Tout cela pour savoir si les mouvements
+PROMPT effectués, durant une période considérée, sur la table ARTICLES ont
+PROMPT apporté plus ou moins d argent.
 
-erreur
-CHIFFRE_AFFAIRE_APRES  -> CHIFFRE_AFFAIRES_APRES
-CHIFFRE_AFFAIRE_APRES -> CHIFFRE_AFFAIRES_APRES
 
+ERREUR ET CORRECTION
+- CHIFFRE_AFFAIRE_APRES  -> CHIFFRE_AFFAIRES_APRES
+- CHIFFRE_AFFAIRE_APRES -> CHIFFRE_AFFAIRES_APRES
+
+[1687]
 execution de la procedure
 EXECUTE MOYENNE_PRIX_ART;
-[1687]
-erreur : ( chiffre d'affaire du pays n'existe pas)
-solution : faire des tests
 
-Visualisation de la table COMPARAISON_ART
+ERREUR ET CORRECTION : 
+- LEs chiffre d'affaire du pays n'existe pas
+  solution : faire des tests
+
 [1718]
+Visualisation de la table COMPARAISON_ART
 
-Visualisation de la table COMPARAISON_CHIFFRE_AFFAIRES
 [1741]
+Visualisation de la table COMPARAISON_CHIFFRE_AFFAIRES
 
-Ã  faire :
-Requete: les articles qui sont toujours commandï¿½s ensemble
 [1772]
+A  faire :
+Requete: les articles qui sont toujours commandés ensemble
 
-verification de dÃ©pendance fonctionnelles
-creation de VILPAYSDF
 [1831]
-HOMOGENEISATION
+Verification de dÃ©pendance fonctionnelles
+creation de VILPAYSDF
+
 [1856]
+HOMOGENEISATION
 
--- Algorithme pour vï¿½rifier la DF entre 2 colonnes :
 [1864]
--- REM Si MAXOCCUR > 1 Alors la DF n'est pas vï¿½rifiï¿½e !
+-- Algorithme pour vérifier la DF entre 2 colonnes :
+--  Si MAXOCCUR > 1 Alors la DF n'est pas vérifiée !
 
-Exemple de procï¿½dures PL/SQL dynamique
+Exemple de procédures PL/SQL dynamique
 [1912]
 -- NBRLIGTAB Compte le nombre de lignes dans une table
 -- NBRNULLTABCOL Compte le nombre de valeurs nulles dans une colonne dans une table
 
------ @ludo Ã  teste les fonction mais normalement ok
---= Manipulation intelligente des donnï¿½es : Elimination des doubles et des similaires   === DEBUT =
 [1950]
-rem procedure d ï¿½limination des doubles exacts sur plusieurs attributs
+--= Manipulation intelligente des données : Elimination des doubles et des similaires   === DEBUT =
 [2038]
+procedure d élimination des doubles exacts sur plusieurs attributs
 
 
+[2084]
 Elimination des doubles et des similaires
 Algo Data Deduplication
-[2084]
 
-Le dï¿½but d'un systï¿½me de recommandation
 [2202]
+Le début d'un systéme de recommandation
 
-Les articles commandï¿½s par les clients !
 [2213]
-Les articles commandï¿½s pendant la pï¿½riode concernï¿½e (SEP 2018).
-VIEW V_CLIARTQTE
-[2221]
+Les articles commandés par les clients !
 
-Pour tout client Ci AYANT SATISFAIT certains critï¿½res !
+[2221]
+Les articles commandés pendant la période concernée (SEP 2018).
+VIEW V_CLIARTQTE
+
 [2231]
+Pour tout client Ci AYANT SATISFAIT certains critéres !
 VIEW V_C001, C00i i >=1 <= 6
 
-
-Les articles commandï¿½s, ï¿½ la fois, par les clients C001 et C002
-V_C001_C002_A
 [2251]
+Les articles commandés, é la fois, par les clients C001 et C002
+V_C001_C002_A
 
 
--- 2ï¿½me Solution : Les articles commandï¿½s, ï¿½ la fois, par les clients C001 et C002.
-V_C001_C002_B
 [2266]
+-- 2éme Solution : Les articles commandés, é la fois, par les clients C001 et C002.
+V_C001_C002_B
 
--- Le nombre d''articles communs ï¿½ C001 et C002
 [2280]
+-- Le nombre d''articles communs é C001 et C002
 
--- On recommande (on propose) alors ï¿½ C002 les articles de C001 qu''il n''a pas commandï¿½s :
 [2288]
+-- On recommande (on propose) alors é C002 les articles de C001 qu''il n''a pas commandés :
 
+-- MFB FFF ++++++++++++  Premiére proposition/solution +++++++++++ ****** === ****** +++++++++++===
 
-
--- MFB FFF ++++++++++++  Premiï¿½re proposition/solution +++++++++++ ****** === ****** +++++++++++===
-
-
--- Classification des clients selon les articles commandï¿½s
-Creation des vues des articles commandï¿½s par chaque client
 [2305]
+-- Classification des clients selon les articles commandés
+Creation des vues des articles commandés par chaque client
 
-Creation des vues des articles commandï¿½s, ï¿½ la fois, par deux clients.
 [2325]
+Creation des vues des articles commandés, é la fois, par deux clients.
 
-Le nombre d''articles communs entre deux clients
 [2340]
+Le nombre d''articles communs entre deux clients
 
--- Si NCOMM1 > n Alors C001 et C002 sont "amis" font partie de la mï¿½me classe-(groupe-cluster)
--- Comment calculer n ?
--- n pourrait-ï¿½tre ï¿½gal ï¿½ p% du max des cardinalitï¿½s des vues !
 [2363]
+-- Si NCOMM1 > n Alors C001 et C002 sont "amis" font partie de la méme classe-(groupe-cluster)
+-- Comment calculer n ?
+-- n pourrait-étre égal é p% du max des cardinalités des vues !
 
 
--- MFB FFF ++++++++++++  Deuxiï¿½me proposition/solution +++++++++++ ****** === ****** +++++++++++===
-CREATION DUN SYSTEME DE RECOMMANDATION BASE SUR LES ARTICLES COMMANDES EN COMMUN
 [2397]
+-- MFB FFF ++++++++++++  Deuxiéme proposition/solution +++++++++++ ****** === ****** +++++++++++===
+CREATION DUN SYSTEME DE RECOMMANDATION BASE SUR LES ARTICLES COMMANDES EN COMMUN
 
 
---= Manipulation intelligente des donnï¿½es : Qu'est-ce un systï¿½me de recommandation  ====== FIN ====
+
+--= Manipulation intelligente des données : Qu'est-ce un systéme de recommandation  ====== FIN ====
