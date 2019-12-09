@@ -1,21 +1,36 @@
-Solved â€“ How to fix ORA-00054 resource busy and acquire with NOWAIT specified or timeout expired?
+connecte toi avec un autre compte 
+M2EID_23/M2EID_23
+
+select 
+USERNAME,
+BLOCKING_SESSION,
+SID,SERIAL#,
+program 
+from v$session 
+where username like '%M2EID%';
+
+alter system kill session '13,36543';
+
+
+https://www.vitalsofttech.com/ora-00054-resource-busy-and-acquire-with-nowait-specified-or-timeout-expired/
+Solved – How to fix ORA-00054 resource busy and acquire with NOWAIT specified or timeout expired?
 
 January 15, 2017 by Natik Ameen   /  DBtips, Oracle, Oracle-Blog
-Question: What is the cause of the Oracle error â€œORA-00054 resource busy and acquire with NOWAIT specified or timeout expiredâ€?
+Question: What is the cause of the Oracle error “ORA-00054 resource busy and acquire with NOWAIT specified or timeout expired”?
 
 The error is raised when the following statement is executed against the Oracle Database.
 
     SQL> ALTER TABLE vst.account ADD (update_date varchar2(100));
     *
     ERROR at line 1:
-    ORA-00054: resource busy and acquire with NOWAIT specified
+    ORA-00054: resource busy and acquire with NOWAIT specified 
 
 Answer: The Oracle error utility oerr shows this description for the ORA error.
 
-    00054, 00000, â€œresource busy and acquire with NOWAIT specified or timeout expiredâ€
+    00054, 00000, “resource busy and acquire with NOWAIT specified or timeout expired”
     Interested resource is busy.
 
-    Retry if necessary or increase timeout.
+    Retry if necessary or increase timeout. 
 
 Cause: The statement requires an exclusive lock on the table.
 
@@ -25,7 +40,7 @@ Solution
 There are three workarounds to address this.
 Using DDL_LOCK_TIMEOUT
 
-You can increased the timeout by modifying the DDL_LOCK_TIMEOUT parameter in your session. Once this is set Oracle will wait for the new TIMEOUT before returning the â€œORA-00054: resource busy and acquire with NOWAIT specifiedâ€ error.
+You can increased the timeout by modifying the DDL_LOCK_TIMEOUT parameter in your session. Once this is set Oracle will wait for the new TIMEOUT before returning the “ORA-00054: resource busy and acquire with NOWAIT specified” error.
 
     SQL> ALTER SESSION SET ddl_lock_timeout=900;
     Session altered.
@@ -48,7 +63,7 @@ Using a LOOP
     END;
     dbms_lock.sleep(0.01);
     END LOOP;
-    LOOP;
+    LOOP; 
 
 Kill Session Or Shutdown Application
 
@@ -59,7 +74,7 @@ Who is holding the lock? To determine what Session and SQL is operating against 
     s.program, s.logon_time
     FROM v$access a, v$session s
     WHERE a.sid = s.sid
-    AND a.owner = â€˜&ownerâ€™
-    AND a.object = â€˜&object_nameâ€™;
+    AND a.owner = ‘&owner’
+    AND a.object = ‘&object_name’; 
 
-After determining the user who is accessing the table, determine if the DML being performed can be stopped temporarily or the session killed.
+After determining the user who is accessing the table, determine if the DML being performed can be stopped temporarily or the session killed. 

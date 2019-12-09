@@ -1,2 +1,5 @@
 ﻿- select the first élément (ROWNUM = 1)
 SELECT SEMANTICCATEGORY FROM todelete WHERE ROWNUM = 1
+
+- ISO 8859-2
+- UTF- 16 LE

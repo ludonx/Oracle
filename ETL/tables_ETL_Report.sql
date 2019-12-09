@@ -1,6 +1,4 @@
-﻿set sqlblanklines on
-/* tables_ETL_Report.sql */
-exec dropTable('ETL_REPORT');
+﻿EXEC dropTable('ETL_REPORT');
 CREATE TABLE ETL_REPORT
 (
 CSVName VARCHAR2(100),
@@ -16,3 +14,5 @@ COLUMN laTable FORMAT A15
 COLUMN laColonne FORMAT A15
 COLUMN dataReportTable FORMAT A20
 COLUMN dataReportColonne FORMAT A20
+
+COMMIT;
