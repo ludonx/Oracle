@@ -9,7 +9,7 @@ COLUMN BLOCKINGKEY    FORMAT A20
 --@tables_RegexMFB.sql
 --@tables_Data_Reporte.sql
 --@functions_profil_columns.sql
---@functions_Detection_Anomalies.sql
+@functions_Detection_Anomalies.sql
 
 
 --@tables_liste_villes.sql

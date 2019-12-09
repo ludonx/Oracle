@@ -1,0 +1,2 @@
+﻿- select the first élément (ROWNUM = 1)
+SELECT SEMANTICCATEGORY FROM todelete WHERE ROWNUM = 1

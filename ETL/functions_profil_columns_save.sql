@@ -139,7 +139,7 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
   myInsertValue VARCHAR2(500);
   delimiteurOfCategory VARCHAR2(50);
   BEGIN
-   --EXECUTE IMMEDIATE ' SELECT DISTINCT(CSVName) FROM ' || laTableReportByCol INTO dataReportTable.CSVName ;
+   EXECUTE IMMEDIATE ' SELECT DISTINCT(CSVName) FROM ' || laTableReportByCol ' WHERE ROWNUM = 1' INTO dataReportTable.CSVName ;
    dataReportTable.OLDName := colName;
 
 	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol INTO  dataReportTable.nbrRows ;
@@ -242,7 +242,6 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
   ------------------------------------------------+
   -------------      UpdateReportByCol               |
   ------------------------------------------------+
-
 CREATE OR REPLACE PROCEDURE UpdateReportByCol(laTableReportByCol in VARCHAR2, colName in VARCHAR2,dataReportTableName in VARCHAR2)
 AS
 
@@ -278,7 +277,6 @@ END;
 --      +input/output :
 --          + dataReportTableName : the name of the table that containe the stat of all column in the table 'laTable'
 -----------------------------------------------------------------------------------------------
-
 CREATE OR REPLACE PROCEDURE GenerateReportByCol(CSVName in VARCHAR2, laTable in VARCHAR2,  colName in VARCHAR2, laTableRes in VARCHAR2,dataReportTableName IN OUT VARCHAR2 ) AS
 table_cursor SYS_REFCURSOR;
 myQuery VARCHAR2(500);
