@@ -153,6 +153,12 @@ BEGIN
                 --newValueCol := xxx(oldValueCol,oldValueCol_new,theDominantSemanticType);
                 -- remarque : si c'est une chaine ne pas oublier les ''
                 newValueCol := 'EN COURS ... ';
+                newValueCol := getNewCleanValue(
+                    oldValueCol,
+                    CSVName,
+                    colName,
+                    dataReportTableNameByCol,
+                    dataReportTableName);
 
                 -- sauvegarde de la nouvelle données
                 myUpdateQuery := 'UPDATE '||laTable||' SET '||newColName||' = '||newValueCol||' WHERE '|| colName || ' = '||oldValueCol;

@@ -23,8 +23,9 @@ COLUMN BLOCKINGKEY    FORMAT A20
 
 
 --@tables_liste_villes.sql
---@utest.sql
---functions_NormaliserAndCleanData
+@utest.sql
+@functions_NormaliserAndCleanData.sql
+
 --@tables_ETL_Report1.sql
 
 DECLARE
@@ -70,6 +71,8 @@ newTable := 'mytable';
 colName := 'col3';
 NormaliserAndCleanData(csvTable,newTable);
 
+colName := 'zéèçà';
+DBMS_OUTPUT.put_line(colName ||'---'||UPPER(colName));
 
 laTable := newTable;
 CSVName := 'CSVfile1';
