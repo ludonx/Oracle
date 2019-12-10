@@ -1,33 +1,29 @@
+-- test getInfoCol(...)
 set serveroutput on
---DetectAnomaly(CSVName,laTable);
-
 SET TIMING ON;
 SET LINES 1000
 SET PAGES 1000
 COLUMN BLOCKINGKEY    FORMAT A20
--- M2EID_13/M2EID_13
-@drop_tables.sql
-@functions_basics.sql
-@tables_data_csv_file1.sql
-@functions_transforme_csv2table.sql
+-- M2EID_23/M2EID_23
+-- @functions_basics.sql
+-- @tables_data_csv_file.sql
+-- @functions_transforme_csv2table.sql
 
---@tables_data_csv_file.sql
---@tables_data_csv_file1.sql
+-- --@tables_data_csv_file.sql
+-- @tables_data_csv_file1.sql
 
-@tables_RegexMFB.sql
-@tables_liste_villes.sql
+-- @tables_RegexMFB.sql
+-- @tables_liste_villes.sql
 
-@tables_Data_Reporte.sql
---@tables_ETL_Report.sql 
-@tables_ETL_Report1.sql 
-@functions_profil_columns.sql
-@functions_Detection_Anomalies.sql
-
-@format_colonnes.sql
+-- @tables_Data_Reporte.sql
+-- @tables_ETL_Report.sql 
+-- @tables_ETL_Report1.sql 
+-- @functions_profil_columns.sql
+-- @functions_Detection_Anomalies.sql
 
 
 --@tables_liste_villes.sql
---@utest.sql
+@utest.sql
 
 --@tables_ETL_Report1.sql
 
@@ -55,6 +51,11 @@ delimiteurOfCategory VARCHAR2(60) ;
 dataReportTableName VARCHAR2(60) ;
 
 CSVName VARCHAR2(60);
+
+theDominantSemanticType  VARCHAR2(200);
+theDominantSyntacticType  VARCHAR2(200); 
+maxLength  VARCHAR2(200);
+
 BEGIN
 laTable := 'TE';
 nbrData := 15;
@@ -66,18 +67,23 @@ csvTable := 'CSVfile1';
 delimiteur := ';';
 newTable := 'mytable';
 
-
-nbrLigne := CSV2TAB(csvTable,delimiteur,newTable);
+colName := 'col3';
+getInfoCol(
+    csvTable,
+    colName,
+    theDominantSemanticType,
+    theDominantSyntacticType,
+    maxLength);
+DBMS_OUTPUT.put_line (theDominantSemanticType||'--'||theDominantSyntacticType||'--'||maxLength);
 
 laTable := newTable;
 CSVName := 'CSVfile1';
 
---dropTable('ETL_REPORT');
 
-DetectAnomaly(CSVName,laTable);
 
 END;
 /
 --select SEMANTICCATEGORY from DR_CSVfile_COL3;
 --select * from t_col4;
 --select theDominantSemanticType from DR_CSVfile_TabCol;
+--SELECT theDominantSemanticType, theDominantSyntacticType, maxLength FROM DR_CSVfile1_TabCol WHERE UPPER(CSVName) = UPPER('CSVfile1') AND  UPPER(OLDName) = UPPER('col3') AND ROWNUM = 1;

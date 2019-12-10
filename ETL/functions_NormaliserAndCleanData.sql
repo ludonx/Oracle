@@ -150,7 +150,7 @@ BEGIN
                 EXIT when table_cursor_col%NOTFOUND;
 
                 -- nettoyage
-                --newValueCol := xxx(oldValueCol,theDominantSemanticType);
+                --newValueCol := xxx(oldValueCol,oldValueCol_new,theDominantSemanticType);
                 -- remarque : si c'est une chaine ne pas oublier les ''
                 newValueCol := 'EN COURS ... ';
 
@@ -165,15 +165,17 @@ BEGIN
             end loop;
             close table_cursor_col;
             --------------------------------------
+
+            -- suppression de l'ancienne colonne
+            --alterDropCol(laTable,colName);
+
+            --DBMS_OUTPUT.put_line ('[------------------------ FIN ----------------------------]');
+        
         ELSE
-            DBMS_OUTPUT.put_line ('[ Colonnes: '||colName||' -> VIDE :( ]');
+            DBMS_OUTPUT.put_line ('[ Colonnes: '||colName||'  VIDE ... ]');
 
         END IF;
         
-        -- suppression de l'ancienne colonne
-        --alterDropCol(laTable,colName);
-
-        --DBMS_OUTPUT.put_line ('[------------------------ FIN ----------------------------]');
     end loop;
     close table_cursor;
 

@@ -6,9 +6,7 @@ laTable VARCHAR2(100),
 laColonne VARCHAR2(100),
 dataReportTable VARCHAR2(100),
 dataReportColonne VARCHAR2(100)
-
 );
-
 COLUMN CSVName FORMAT A15
 COLUMN laTable FORMAT A15
 COLUMN laColonne FORMAT A15

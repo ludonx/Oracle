@@ -139,7 +139,7 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
   myInsertValue VARCHAR2(500);
   delimiteurOfCategory VARCHAR2(50);
   BEGIN
-   --EXECUTE IMMEDIATE ' SELECT DISTINCT(CSVName) FROM ' || laTableReportByCol INTO dataReportTable.CSVName ;
+   EXECUTE IMMEDIATE ' SELECT DISTINCT(CSVName) FROM ' || laTableReportByCol INTO dataReportTable.CSVName ;
    dataReportTable.OLDName := colName;
 
 	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol INTO  dataReportTable.nbrRows ;

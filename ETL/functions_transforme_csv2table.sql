@@ -130,6 +130,7 @@ BEGIN
   -- je determine le nombre de colonne
   nbrDelimiteur := getMaxLength(csvTable,'col',delimiter);
   -- je crée une table avec le nom csvTable et le nombre de colonnes = nbrDelimiteur
+  dropTable(newTable);
   createTable(newTable,nbrDelimiteur+1);
 
   myQuery := 'SELECT * FROM '||csvTable;
