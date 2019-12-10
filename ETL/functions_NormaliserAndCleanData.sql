@@ -149,7 +149,7 @@ BEGIN
                 fetch table_cursor_col into oldValueCol, oldValueCol_new ;
                 EXIT when table_cursor_col%NOTFOUND;
 
-                -- nettoyage
+                -- nettoyage #TODO
                 --newValueCol := xxx(oldValueCol,oldValueCol_new,theDominantSemanticType);
                 -- remarque : si c'est une chaine ne pas oublier les ''
                 newValueCol := 'EN COURS ... ';

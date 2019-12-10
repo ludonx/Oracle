@@ -1,2 +1,8 @@
-﻿- modifier pour prendre en compte le genre et plus le names (col3)
+﻿TODO : 
+-- nettoyage 
+--newValueCol := xxx(oldValueCol,oldValueCol_new,theDominantSemanticType);
+-- remarque : si c'est une chaine ne pas oublier les ''
+newValueCol := 'EN COURS ... ';
+
+[ok] modifier pour prendre en compte le genre et plus le names (col3)
 [ok] crées une table qui regroupe les tables de stat pour chaque colonnes
