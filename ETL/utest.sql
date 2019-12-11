@@ -52,6 +52,85 @@ BEGIN
 END;
 /
 ----------------------------------------------------------------
+CREATE OR REPLACE FUNCTION CleanData_Temperature(data IN VARCHAR2)
+    RETURN VARCHAR2
+AS
+newData VARCHAR2(500);
+subSemanticType VARCHAR2(500);
+BEGIN
+    -- on transfome 
+    -- temperature F : xx °F
+    -- en temperature C : xx °C
+    -- tempC := (TO_NUMBER(tempF) -32)*5/9;
+
+    --TEMPERATURE_CELSIUS', '^([\+-]?[0-9]+((\.|,)\d+)?\s?(°C|°CELSIUS|CELSIUS))$');
+    --TEMPERATURE_FAHRENHEIT', '^([\+-]?[0-9]+((\.|,)\d+)?\s?(°F|°FAHRENHEIT|FAHRENHEIT°))$');
+    --TEMPERATURE_KELVIN', '^[\+-]?[0-9]+((\.|,)\d+)?\s?((K|KELVIN))$');
+    -- 0 K − 273,15 = -273,1 °C
+    -- (32 °F − 32) × 5/9 = 0 °C
+
+    newData := null;
+
+    SELECT SUBCATEGORY INTO subSemanticType 
+    FROM DDRE 
+    WHERE REGEXP_LIKE (UPPER(data),REGULAREXPRESSION) 
+    AND CATEGORY = 'TEMPERATURE'
+    AND ROWNUM = 1;
+   
+    
+    IF(subSemanticType LIKE 'TEMPERATURE_CELSIUS') THEN
+        newData := REGEXP_REPLACE(data,
+                        '([\+-]?[0-9]+((\.|,)\d+)?)(\s?(°C|°CELSIUS|CELSIUS))',
+                        '\1');
+        
+    ELSIF (subSemanticType LIKE 'TEMPERATURE_FAHRENHEIT') THEN
+        newData := REGEXP_REPLACE(data,
+                    '^([\+-]?[0-9]+((\.|,)\d+)?)(\s?(°F|°FAHRENHEIT|FAHRENHEIT°))$',
+                    '\1');
+        --(32 °F − 32) × 5/9 = 0 °C
+        newData := ( TO_NUMBER(newData) - 32 ) * 5/9 ;
+        
+    ELSIF (subSemanticType LIKE 'TEMPERATURE_KELVIN') THEN
+        newData := REGEXP_REPLACE(data,
+                    '^([\+-]?[0-9]+((\.|,)\d+)?)(\s?((K|KELVIN)))$',
+                    '\1');
+        --0 K − 273,15 = -273,1 °C
+        newData := TO_NUMBER(newData) - 273.15;
+
+    END IF;
+
+    RETURN (newData);
+END;
+/
+----------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION CleanData_Age(data IN VARCHAR2)
+    RETURN VARCHAR2
+AS
+newData VARCHAR2(500);
+subSemanticType VARCHAR2(500);
+BEGIN
+    
+    newData := null;
+
+    SELECT SUBCATEGORY INTO subSemanticType 
+    FROM DDRE 
+    WHERE REGEXP_LIKE (UPPER(data),REGULAREXPRESSION) 
+    AND CATEGORY = 'AGE'
+    AND ROWNUM = 1;
+   
+    
+    IF(subSemanticType LIKE 'AGE') THEN
+        newData := TO_NUMBER(data);
+    ELSIF (subSemanticType LIKE 'AGE') THEN
+        newData := TO_NUMBER(data);
+
+    END IF;
+
+    RETURN (newData);
+END;
+/
+----------------------------------------------------------------
 CREATE OR REPLACE FUNCTION CleanData(
     data IN VARCHAR2,
     semanticType IN VARCHAR2,
@@ -66,7 +145,9 @@ BEGIN
     IF(semanticType LIKE 'DATE') THEN
         newData := CleanData_Date(data);
     ELSIF (semanticType LIKE 'TEMPERATURE') THEN
-        newData := null;
+        newData := CleanData_Temperature(data);
+    ELSIF (semanticType LIKE 'AGE') THEN
+        newData := CleanData_Age(data);
     END IF;
 
     RETURN (newData);
@@ -129,11 +210,16 @@ BEGIN
             newData := CleanData(data,theDominantSemanticType,theDominantSyntacticType);
             DBMS_OUTPUT.put_line ('*    [--'||dataSemanticType||'--'||dataSyntacticType||'--]'||data||' -> '||newData);
 
-
-        ELSE
+        ELSIF ((dataSyntacticType <> theDominantSyntacticType) AND (dataSemanticType NOT LIKE '%'||theDominantSemanticType||'%')) THEN 
             newData := null;
 
+        ELSIF ((dataSyntacticType <> theDominantSyntacticType)) THEN 
+            -- TODO fctsyn
+            newData := null;
 
+        ELSIF ((dataSyntacticType = theDominantSyntacticType) AND (dataSemanticType NOT LIKE '%'||theDominantSemanticType||'%')) THEN 
+            -- TODO fctsem
+            newData := null;
         END IF;
 
 

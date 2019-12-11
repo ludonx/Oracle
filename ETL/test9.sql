@@ -24,7 +24,7 @@ COLUMN BLOCKINGKEY    FORMAT A20
 
 --@tables_liste_villes.sql
 @utest.sql
-@functions_NormaliserAndCleanData.sql
+--@functions_NormaliserAndCleanData.sql
 
 --@tables_ETL_Report1.sql
 
