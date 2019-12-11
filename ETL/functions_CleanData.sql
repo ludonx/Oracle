@@ -230,7 +230,7 @@ newData VARCHAR2(500);
 subSemanticType VARCHAR2(500);
 
 regularExpresion VARCHAR2(500);
-nbrVille NUMBER;
+nbr NUMBER;
 firstName VARCHAR2(50);
 lastName VARCHAR2(50);
 civility VARCHAR2(50);
@@ -244,11 +244,33 @@ BEGIN
     AND CATEGORY = 'NAMES'
     AND ROWNUM = 1;
 
-    nbrVille := 0;
-    SELECT COUNT(*) INTO nbrVille FROM DICOPAYSVILLE WHERE VILLE = UPPER(data) OR VILLE = data;
-    IF nbrVille > 0 THEN
+    ---------------------------------------------------------------------------------------
+    nbr := 0;
+    SELECT COUNT(*) INTO nbr FROM DICOPAYSVILLE
+    WHERE VILLE = UPPER(data) OR VILLE = data
+    OR VILLE_EN = UPPER(data) OR VILLE_EN = data;
+    IF nbr > 0 THEN
       subSemanticType := 'CITY';
     END IF;
+    ---------------------------------------------------------------------------------------
+    nbr := 0;
+    SELECT COUNT(*) INTO nbr FROM DICOPAYSVILLE
+    WHERE PAYS = UPPER(data) OR PAYS = data
+    OR PAYS_EN = UPPER(data) OR PAYS_EN = data;
+    IF nbr > 0 THEN
+      subSemanticType := 'CITY';
+    END IF;
+    ---------------------------------------------------------------------------------------
+    nbr := 0;
+    SELECT COUNT(*) INTO nbr FROM DICOPAYSVILLE
+    WHERE CONTINENT = UPPER(data) OR CONTINENT = data
+    OR CONTINENT_EN = UPPER(data) OR CONTINENT_EN = data;
+    IF nbr > 0 THEN
+      subSemanticType := 'CITY';
+    END IF;
+    ---------------------------------------------------------------------------------------
+
+
 
     IF(subSemanticType LIKE 'LASTNAME') THEN
 
