@@ -9,7 +9,7 @@ CREATE OR REPLACE FUNCTION getDataType(data in VARCHAR2)
    BEGIN
       FOR i IN (SELECT * FROM DDRE)
       LOOP
-        IF REGEXP_LIKE (UPPER(data),i.REGULAREXPRESSION) THEN
+        IF ( REGEXP_LIKE (data,i.REGULAREXPRESSION) OR REGEXP_LIKE (UPPER(data),i.REGULAREXPRESSION)) THEN
           typeData := i.TYPE;
           EXIT;
         END IF;
@@ -31,11 +31,11 @@ CREATE OR REPLACE PROCEDURE getDataCategory(data IN VARCHAR2, category OUT VARCH
    subCategory := 'INCONNU';
       FOR i IN (SELECT * FROM DDRE)
       LOOP
-        IF REGEXP_LIKE (UPPER(data),i.REGULAREXPRESSION) THEN
+        IF (REGEXP_LIKE (UPPER(data),i.REGULAREXPRESSION) OR REGEXP_LIKE (data,i.REGULAREXPRESSION)) THEN
           -- cas particulier , i.CATEGORY = CITY
           -- donc la data peux être une ville ou un nom
           IF (i.CATEGORY = 'NAMES' AND i.SUBCATEGORY = 'CITY') THEN
-            SELECT COUNT(*) INTO nbr FROM DICOPAYSVILLE WHERE VILLE = UPPER(data);
+            SELECT COUNT(*) INTO nbr FROM DICOPAYSVILLE WHERE VILLE = UPPER(data) OR VILLE = data;
             IF nbr > 0 THEN
               category := i.CATEGORY ;
               subCategory := i.SUBCATEGORY ;
@@ -254,9 +254,9 @@ BEGIN
   EXECUTE IMMEDIATE 'SELECT theDominantSyntacticType FROM  '||dataReportTableName
   || ' WHERE OLDName  = '''||colName||''' ' INTO theDominantSyntacticType;
 
-  observation := '''<!?!>ANOMALIES_SYS''';
+  observation := '''<!?!>ANOMALIES_SYNTACTIC''';
   theDominantSyntacticType := ''''|| theDominantSyntacticType ||'''';
-  newValues := '''|<!?!>ANOMALIES_SYS''';
+  newValues := '''|<!?!>ANOMALIES_SYNTACTIC''';
 
   EXECUTE IMMEDIATE 'UPDATE '|| laTableReportByCol
   ||' SET observation = '||observation||', newValues = concat(newValues,'||newValues||')'

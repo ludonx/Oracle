@@ -12,19 +12,23 @@ COLUMN BLOCKINGKEY    FORMAT A20
 -- --@tables_data_csv_file.sql
 -- @tables_data_csv_file1.sql
 
--- @tables_RegexMFB.sql
+--@tables_RegexMFB.sql
 -- @tables_liste_villes.sql
 
 -- @tables_Data_Reporte.sql
--- @tables_ETL_Report.sql 
--- @tables_ETL_Report1.sql 
--- @functions_profil_columns.sql
+-- @tables_ETL_Report.sql
+-- @tables_ETL_Report1.sql
+ --@functions_profil_columns.sql
 -- @functions_Detection_Anomalies.sql
 
 
 --@tables_liste_villes.sql
-@utest.sql
---@functions_NormaliserAndCleanData.sql
+--@tables_liste_mois.sql
+@functions_CleanData.sql
+--@utest.sql
+
+
+@functions_NormaliserAndCleanData.sql
 
 --@tables_ETL_Report1.sql
 
@@ -54,7 +58,7 @@ dataReportTableName VARCHAR2(60) ;
 CSVName VARCHAR2(60);
 
 theDominantSemanticType  VARCHAR2(200);
-theDominantSyntacticType  VARCHAR2(200); 
+theDominantSyntacticType  VARCHAR2(200);
 maxLength  VARCHAR2(200);
 
 BEGIN
@@ -74,8 +78,18 @@ NormaliserAndCleanData(csvTable,newTable);
 colName := 'zéèçà';
 DBMS_OUTPUT.put_line(colName ||'---'||UPPER(colName));
 
-laTable := newTable;
-CSVName := 'CSVfile1';
+data := CleanData_Date('05/février/2000');
+DBMS_OUTPUT.put_line('05/février/2000'||data);
+
+data := CleanData_Names('M. iAdaym SAIyyTOUT');
+DBMS_OUTPUT.put_line(data);
+
+data := CleanData_Names('Anne MAhgiop');
+DBMS_OUTPUT.put_line(data);
+data := CleanData_Names('PARIS');
+DBMS_OUTPUT.put_line(data);
+
+
 
 
 

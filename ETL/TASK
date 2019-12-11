@@ -1,5 +1,9 @@
-﻿TODO : 
--- nettoyage 
+﻿TODO :
+- add table for continent
+- check date 4 premier char ou 3 premier char
+- the dominante subCategory
+[ok]
+-- nettoyage
 --newValueCol := xxx(oldValueCol,oldValueCol_new,theDominantSemanticType);
 -- remarque : si c'est une chaine ne pas oublier les ''
 newValueCol := 'EN COURS ... ';

@@ -9,3 +9,4 @@
     - crées une query pour drop toutes les procedures et fonctions
 - pour chaque fichier, preciser les fichier donc il depant
 
+- ajouter NEWVALUES et eventuelement OBSERVATION pour semanticType

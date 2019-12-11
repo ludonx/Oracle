@@ -471,15 +471,17 @@ INSERT INTO DDRE VALUES ('NUMBER','HEARTBEAT', 'HEARTBEAT_EN', '^([0-9]+(\.\d+)?
 
 -- @ludo ++
 -- new column for type
-INSERT INTO DDRE VALUES ('DATE','DATE','DATE_FR', '([0-2][0-9]|3[0-1])-(0[0-9]|1[0-2])-[0-9]{4}');
-INSERT INTO DDRE VALUES ('DATE','DATE','DATE_ISO', '[0-9]{4}-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])');
-INSERT INTO DDRE VALUES ('DATE','DATE','DATE_USA', '(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])-[0-9]{2}');
+INSERT INTO DDRE VALUES ('DATE','DATE','DATE_FR', '([0-2][0-9]|3[0-1])(-|/)(0[0-9]|1[0-2])(-|/)[0-9]{4}');
+INSERT INTO DDRE VALUES ('DATE','DATE','DATE_FR_2', '([0-2][0-9]|3[0-1])(-|/)([A-Zéæçàa-zéèçàuû]{2,10})(-|/)[0-9]{4}');
+INSERT INTO DDRE VALUES ('DATE','DATE','DATE_ISO', '[0-9]{4}-(0[0-9]|1[0-2])(-|/)([0-2][0-9]|3[0-1])');
+INSERT INTO DDRE VALUES ('DATE','DATE','DATE_USA', '(0[0-9]|1[0-2])(-|/)([0-2][0-9]|3[0-1])(-|/)[0-9]{2}');
 --jj/mm/aaaa fr
 --aaaa-mm-jj iso
 --mm-jj-aa usa
 INSERT INTO DDRE VALUES ('NUMBER','AGE','AGE','^[0-9]{2}$' );
 
-
+INSERT INTO DDRE VALUES ('VARCHAR2','NAMES','FULLNAME_CIVILITY', '^(M\.|Mme|m)( )?[A-Za-zéèçà]{2,50}(-| )?([A-Za-zéèçà]{2,50})?$' );
+INSERT INTO DDRE VALUES ('VARCHAR2','NAMES','FULLNAME', '^[A-Za-zéèçà]{2,50}(-| )?([A-Za-zéèçà]{2,50})?$' );
 INSERT INTO DDRE VALUES ('VARCHAR2','NAMES','FIRSTNAME', '^[a-zéèçà]{2,50}$' );
 INSERT INTO DDRE VALUES ('VARCHAR2','NAMES','LASTNAME', '^[A-Zéæçà]{2,50}$' );
 INSERT INTO DDRE VALUES ('VARCHAR2','EMAIL','EMAIL', '^[A-Za-z]+[A-Za-z0-9.]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$' );
@@ -487,6 +489,9 @@ INSERT INTO DDRE VALUES ('VARCHAR2','EMAIL','EMAIL', '^[A-Za-z]+[A-Za-z0-9.]+@[A
 INSERT INTO DDRE VALUES ('VARCHAR2','NAMES','CITY', '^[[:alpha:] ]+$' );
 
 INSERT INTO DDRE VALUES ('VARCHAR2','GENDER', 'GENDER_FR', '^(m|f|masculin|feminin|F|M|MASCULIN|FEMININ|FEMELLE|MALE)$');
+
+INSERT INTO DDRE VALUES ('VARCHAR2','NAMES', 'CIVILITY_FR', '^(M\.|MME|MLLE|MONSIEUR|MADAME|MADEMOISELLE)$');
+INSERT INTO DDRE VALUES ('VARCHAR2','NAMES', 'CIVILITY_EN', '^(M \.|MRS|MS|MISTER|MISS)$');
 
 
 

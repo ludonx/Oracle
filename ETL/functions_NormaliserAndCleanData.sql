@@ -1,5 +1,5 @@
 --@functions_profil_columns.sql
---@tables_ETL_Report.sql 
+--@tables_ETL_Report.sql
 --@tables_Data_Reporte.sql
 -------------------------------------------------------------------------------------
 -- Génération de la Data Report DR_CSVFile_Col_
@@ -15,9 +15,9 @@ CREATE OR REPLACE FUNCTION getInfoCol(
     CSVName IN VARCHAR2,
     laColonne IN VARCHAR2,
 
-    newColName OUT VARCHAR2, 
+    newColName OUT VARCHAR2,
     theDominantSemanticType OUT VARCHAR2,
-    theDominantSyntacticType OUT VARCHAR2, 
+    theDominantSyntacticType OUT VARCHAR2,
     maxLength OUT NUMBER)
 
     RETURN NUMBER
@@ -32,22 +32,22 @@ BEGIN
     dataReportTableName := 'DR_'||CSVName||'_TabCol';
 
     myQuery := ' SELECT COUNT(*) FROM '||
-    dataReportTableName || 
+    dataReportTableName ||
     ' WHERE UPPER(CSVName) = UPPER('''|| CSVName ||''') AND  UPPER(OLDName) = UPPER(''' ||laColonne || ''')' ;
     EXECUTE IMMEDIATE myQuery INTO nbrValue;
 
-    IF (nbrValue <= 0) THEN 
+    IF (nbrValue <= 0) THEN
 
-        newColName := 'INCONNU' ; 
+        newColName := 'INCONNU' ;
         theDominantSemanticType := 'INCONNU' ;
-        theDominantSyntacticType := 'INCONNU' ; 
+        theDominantSyntacticType := 'INCONNU' ;
         maxLength := 0 ;
 
-    ELSE 
+    ELSE
         myQuery := ' SELECT NEWName, theDominantSemanticType, theDominantSyntacticType, maxLength FROM '||
-        dataReportTableName || 
+        dataReportTableName ||
         ' WHERE UPPER(CSVName) = UPPER('''|| CSVName ||''') AND  UPPER(OLDName) = UPPER(''' ||laColonne || ''') AND ROWNUM = 1' ;
-        
+
         --DBMS_OUTPUT.put_line (myQuery);
 
         EXECUTE IMMEDIATE myQuery INTO newColName,theDominantSemanticType, theDominantSyntacticType, maxLength;
@@ -57,12 +57,12 @@ BEGIN
 
     RETURN (nbrValue);
 
-    
+
 END;
 /
 
 CREATE OR REPLACE PROCEDURE getNewtype(
-    theDominantSyntacticType IN VARCHAR2, 
+    theDominantSyntacticType IN VARCHAR2,
     maxLength IN VARCHAR2,
     newType OUT VARCHAR2)
 AS
@@ -71,14 +71,108 @@ dataReportTableName VARCHAR2(500);
 
 BEGIN
     newType := theDominantSyntacticType;
-    IF (UPPER(newType) = 'VARCHAR2' ) THEN 
+    IF (UPPER(newType) = 'VARCHAR2' ) THEN
         newType := newType||'('||maxLength ||')';
     END IF;
 END;
 /
 
+------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION getNewCleanValue(
+    data IN VARCHAR2,
+    CSVName IN VARCHAR2,
+    laColonne IN VARCHAR2,
+
+    DR_CSVfile_Coli IN VARCHAR2,
+    DR_CSVfile_TabCol IN VARCHAR2)
 
 
+    RETURN VARCHAR2
+AS
+myQuery VARCHAR2(500);
+dataReportTableName VARCHAR2(500);
+
+dataSemanticType VARCHAR2(500);
+dataSyntacticType VARCHAR2(500);
+
+theDominantSemanticType VARCHAR2(500);
+theDominantSyntacticType VARCHAR2(500);
+
+newData VARCHAR2(500);
+doNotCare VARCHAR2(500);
+
+nbrValue NUMBER;
+
+BEGIN
+    newData := null;
+    nbrValue := 0; -- à ce niveau c'est pas nécessaire car on est sur que nbrValue >=1
+
+    -- je récupére le type semantic et syntactic de la data
+    EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM '||
+        DR_CSVfile_Coli ||' WHERE UPPER(OLDVALUES) = UPPER('''|| data
+        ||''') AND  UPPER(CSVName) = UPPER('''|| CSVName ||''') AND ROWNUM = 1' INTO nbrValue;
+    IF(nbrValue = 0) THEN
+        newData := null;
+    ELSE
+        EXECUTE IMMEDIATE ' SELECT SEMANTICCATEGORY, SYNTACTICTYPE FROM '||
+            DR_CSVfile_Coli ||' WHERE UPPER(OLDVALUES) = UPPER('''|| data
+            ||''') AND  UPPER(CSVName) = UPPER('''|| CSVName ||''') AND ROWNUM = 1' INTO dataSemanticType,dataSyntacticType;
+        --DBMS_OUTPUT.put_line ('-         [--'||dataSemanticType||'--'||dataSyntacticType||'--]'||data);
+
+        -- je récupére le type semantic et syntactic dominant de la colonne de la data
+        nbrValue := getInfoCol(CSVName,laColonne,doNotCare,theDominantSemanticType,theDominantSyntacticType,doNotCare);
+        --DBMS_OUTPUT.put_line ('+         [--'||theDominantSemanticType||'--'||theDominantSyntacticType||'--]');
+
+        ------------------------------------------------------------------------------------------------------------
+        -- Début de la partie sur la correction
+        ------------------------------------------------------------------------------------------------------------
+        IF((dataSyntacticType = theDominantSyntacticType) AND (dataSemanticType LIKE '%'||theDominantSemanticType||'%')) THEN
+
+            newData := CleanData(data,theDominantSemanticType,theDominantSyntacticType);
+            --DBMS_OUTPUT.put_line ('*    [--'||dataSemanticType||'--'||dataSyntacticType||'--]'||data||' -> '||newData);
+
+        ELSIF ((dataSyntacticType <> theDominantSyntacticType) AND (dataSemanticType NOT LIKE '%'||theDominantSemanticType||'%')) THEN
+            newData := null;--data;
+
+        ELSIF ((dataSyntacticType <> theDominantSyntacticType)) THEN
+            -- TODO fctsyn
+            newData := null;--data;
+
+        ELSIF ((dataSyntacticType = theDominantSyntacticType) AND (dataSemanticType NOT LIKE '%'||theDominantSemanticType||'%')) THEN
+            -- TODO fctsem
+            newData := null;--data;
+        END IF;
+
+
+    END IF;
+
+    RETURN (newData);
+END;
+/
+-------------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION NormaliserSyntacticType(data IN VARCHAR2,syntacticType IN VARCHAR2)
+    RETURN VARCHAR2
+AS
+newData VARCHAR2(500);
+BEGIN
+
+
+    IF(data IS NULL) THEN
+        newData := 'null';
+    ELSIF(syntacticType ='VARCHAR2' OR syntacticType ='DATE' ) THEN
+        newData := ''''||data||'''';
+    ELSE
+      newData := data;
+    END IF;
+
+    RETURN (newData);
+END;
+/
+
+
+---------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE NormaliserAndCleanData(CSVName in VARCHAR2, laTable in VARCHAR2) AS
 dataReportTableName VARCHAR2(200);
 
@@ -90,7 +184,7 @@ colName VARCHAR2(60);
 
 newColName VARCHAR2(60);
 theDominantSemanticType  VARCHAR2(200);
-theDominantSyntacticType  VARCHAR2(200); 
+theDominantSyntacticType  VARCHAR2(200);
 maxLength  NUMBER;
 
 nbrValue NUMBER;
@@ -111,6 +205,7 @@ myUpdateQuery VARCHAR2(500);
 BEGIN
 
     dataReportTableName := 'DR_'||CSVName||'_TabCol';
+    EXECUTE IMMEDIATE 'ALTER SESSION SET NLS_DATE_FORMAT = ''YYYY-MM-DD'' ';
 
     --- cette requête permet de récupérer les colonnes qu'une table passer en paramètres
     selected_values := ' COLUMN_NAME ';
@@ -118,17 +213,17 @@ BEGIN
     myQuery := 'SELECT '|| selected_values ||' FROM user_tab_columns'|| where_conditions;
 
 
-   
+
     DBMS_OUTPUT.put_line ('[ Normalisation et Nettoyage des données ]');
 
     open table_cursor for myQuery;
     loop
         fetch table_cursor into colName ;
         EXIT when table_cursor%NOTFOUND;
-       
+
         nbrValue :=0;
         nbrValue := getInfoCol(CSVName,colName,newColName,theDominantSemanticType,theDominantSyntacticType,maxLength);
-        IF (nbrValue > 0 ) THEN 
+        IF (nbrValue > 0 ) THEN
 
             DBMS_OUTPUT.put_line ('['|| newColName || '--'||theDominantSemanticType||'--'||theDominantSyntacticType||'--'||maxLength||']');
 
@@ -138,7 +233,7 @@ BEGIN
 
             dataReportTableNameByCol := 'DR_'||CSVName||'_'||colName;
             DBMS_OUTPUT.put_line ('[ Colonnes: '||colName||' -> '||newColName||' ]');
-            
+
             --------------------------------------
 
             myQuery_col := ' SELECT OLDVALUES, NEWVALUES FROM '|| dataReportTableNameByCol ;
@@ -160,12 +255,15 @@ BEGIN
                     dataReportTableNameByCol,
                     dataReportTableName);
 
+                newValueCol := NormaliserSyntacticType(newValueCol,theDominantSyntacticType);
+                oldValueCol_new := ''''||oldValueCol_new||'''';
+
                 -- sauvegarde de la nouvelle données
-                myUpdateQuery := 'UPDATE '||laTable||' SET '||newColName||' = '||newValueCol||' WHERE '|| colName || ' = '||oldValueCol;
+                myUpdateQuery := 'UPDATE '||laTable||' SET '||newColName||' = '||newValueCol||' WHERE '|| colName || ' = '||oldValueCol_new;
 
                 --DBMS_OUTPUT.put_line(myUpdateQuery);
 
-                --EXECUTE IMMEDIATE myUpdateQuery;
+                EXECUTE IMMEDIATE myUpdateQuery;
 
 
             end loop;
@@ -176,12 +274,12 @@ BEGIN
             --alterDropCol(laTable,colName);
 
             --DBMS_OUTPUT.put_line ('[------------------------ FIN ----------------------------]');
-        
+
         ELSE
             DBMS_OUTPUT.put_line ('[ Colonnes: '||colName||'  VIDE ... ]');
 
         END IF;
-        
+
     end loop;
     close table_cursor;
 
