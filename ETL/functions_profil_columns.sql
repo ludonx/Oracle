@@ -34,15 +34,27 @@ CREATE OR REPLACE PROCEDURE getDataCategory(data IN VARCHAR2, category OUT VARCH
         IF (REGEXP_LIKE (UPPER(data),i.REGULAREXPRESSION) OR REGEXP_LIKE (data,i.REGULAREXPRESSION)) THEN
           -- cas particulier , i.CATEGORY = CITY
           -- donc la data peux être une ville ou un nom
-          IF (i.CATEGORY = 'NAMES' AND i.SUBCATEGORY = 'CITY') THEN
-            SELECT COUNT(*) INTO nbr FROM DICOPAYSVILLE WHERE VILLE = UPPER(data) OR VILLE = data;
-            IF nbr > 0 THEN
-              category := i.CATEGORY ;
-              subCategory := i.SUBCATEGORY ;
-              -- if it is a cile we exit ,
+          IF (i.CATEGORY = 'NAMES' AND ( i.SUBCATEGORY = 'CITY' OR i.SUBCATEGORY = 'COUNTRY' OR i.SUBCATEGORY = 'CONTINENT') ) THEN
+            category := i.CATEGORY ;
+            ---------------------------------------------------------------------------------------
+            IF isCity(data) = true THEN
+              subCategory := 'CITY';
+              -- if it is a city we exit ,
               -- @ludo this may not be the best solution
               EXIT;
             END IF;
+            ---------------------------------------------------------------------------------------
+            IF isCountry(data) = true THEN
+              subCategory := 'COUNTRY';
+              EXIT;
+            END IF;
+            ---------------------------------------------------------------------------------------
+            IF isContinent(data) = true THEN
+              subCategory := 'CONTINENT';
+              EXIT;
+            END IF;
+            ---------------------------------------------------------------------------------------
+
           -- on peu rajouter plusieur ELSIF en fonction des cas particuliers
           ELSE
             -- ci-bas les conditions général,

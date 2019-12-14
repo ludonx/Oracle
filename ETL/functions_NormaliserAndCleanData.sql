@@ -48,10 +48,10 @@ BEGIN
         dataReportTableName ||
         ' WHERE UPPER(CSVName) = UPPER('''|| CSVName ||''') AND  UPPER(OLDName) = UPPER(''' ||laColonne || ''') AND ROWNUM = 1' ;
 
-        --DBMS_OUTPUT.put_line (myQuery);
+        --print_debug (myQuery);
 
         EXECUTE IMMEDIATE myQuery INTO newColName,theDominantSemanticType, theDominantSyntacticType, maxLength;
-        --DBMS_OUTPUT.put_line ('['|| newColName || '--'||theDominantSemanticType||'--'||theDominantSyntacticType||'--'||maxLength||']');
+        --print_debug ('['|| newColName || '--'||theDominantSemanticType||'--'||theDominantSyntacticType||'--'||maxLength||']');
 
     END IF;
 
@@ -110,38 +110,43 @@ BEGIN
 
     -- je récupére le type semantic et syntactic de la data
     EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM '||
-        DR_CSVfile_Coli ||' WHERE UPPER(OLDVALUES) = UPPER('''|| data
-        ||''') AND  UPPER(CSVName) = UPPER('''|| CSVName ||''') AND ROWNUM = 1' INTO nbrValue;
+        DR_CSVfile_Coli ||' WHERE  ( UPPER(OLDVALUES) = UPPER('''|| data
+        ||''') OR OLDVALUES = '''|| data
+        ||''' ) AND  UPPER(CSVName) = UPPER('''|| CSVName ||''') AND ROWNUM = 1' INTO nbrValue;
     IF(nbrValue = 0) THEN
+        -- si la données est null alors on newData =  null 
         newData := null;
     ELSE
         EXECUTE IMMEDIATE ' SELECT SEMANTICCATEGORY, SYNTACTICTYPE FROM '||
             DR_CSVfile_Coli ||' WHERE UPPER(OLDVALUES) = UPPER('''|| data
             ||''') AND  UPPER(CSVName) = UPPER('''|| CSVName ||''') AND ROWNUM = 1' INTO dataSemanticType,dataSyntacticType;
-        --DBMS_OUTPUT.put_line ('-         [--'||dataSemanticType||'--'||dataSyntacticType||'--]'||data);
+        --print_debug ('-         [--'||dataSemanticType||'--'||dataSyntacticType||'--]'||data);
 
         -- je récupére le type semantic et syntactic dominant de la colonne de la data
         nbrValue := getInfoCol(CSVName,laColonne,doNotCare,theDominantSemanticType,theDominantSyntacticType,doNotCare);
-        --DBMS_OUTPUT.put_line ('+         [--'||theDominantSemanticType||'--'||theDominantSyntacticType||'--]');
+        --print_debug ('+         [--'||theDominantSemanticType||'--'||theDominantSyntacticType||'--]');
 
         ------------------------------------------------------------------------------------------------------------
         -- Début de la partie sur la correction
         ------------------------------------------------------------------------------------------------------------
         IF((dataSyntacticType = theDominantSyntacticType) AND (dataSemanticType LIKE '%'||theDominantSemanticType||'%')) THEN
-
+            -- ici on effectue l'homogénisation des données
             newData := CleanData(data,theDominantSemanticType,theDominantSyntacticType);
-            --DBMS_OUTPUT.put_line ('*    [--'||dataSemanticType||'--'||dataSyntacticType||'--]'||data||' -> '||newData);
+            --print_debug ('*    [--'||dataSemanticType||'--'||dataSyntacticType||'--]'||data||' -> '||newData);
 
-        ELSIF ((dataSyntacticType <> theDominantSyntacticType) AND (dataSemanticType NOT LIKE '%'||theDominantSemanticType||'%')) THEN
-            newData := null;--data;
+        ELSE
+            -- ici on essaye de corriger les annomalies
+            IF ((dataSyntacticType <> theDominantSyntacticType) AND (dataSemanticType NOT LIKE '%'||theDominantSemanticType||'%')) THEN
+                newData := null;--data;
 
-        ELSIF ((dataSyntacticType <> theDominantSyntacticType)) THEN
-            -- TODO fctsyn
-            newData := null;--data;
+            ELSIF ((dataSyntacticType <> theDominantSyntacticType)) THEN
+                -- TODO fctsyn
+                newData := null;--data;
 
-        ELSIF ((dataSyntacticType = theDominantSyntacticType) AND (dataSemanticType NOT LIKE '%'||theDominantSemanticType||'%')) THEN
-            -- TODO fctsem
-            newData := null;--data;
+            ELSIF ((dataSyntacticType = theDominantSyntacticType) AND (dataSemanticType NOT LIKE '%'||theDominantSemanticType||'%')) THEN
+                -- TODO fctsem
+                newData := null;--data;
+            END IF;
         END IF;
 
 
@@ -170,7 +175,6 @@ BEGIN
     RETURN (newData);
 END;
 /
-
 
 ---------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE NormaliserAndCleanData(CSVName in VARCHAR2, laTable in VARCHAR2) AS
@@ -203,6 +207,8 @@ oldValueCol_new VARCHAR2(500);
 myUpdateQuery VARCHAR2(500);
 
 BEGIN
+    print_debug (' +---------------------------------------------------------------------+ ');
+    print_debug (' [ NORMALISATION AND CLEANING DATA ] ');
 
     dataReportTableName := 'DR_'||CSVName||'_TabCol';
     EXECUTE IMMEDIATE 'ALTER SESSION SET NLS_DATE_FORMAT = ''YYYY-MM-DD'' ';
@@ -211,10 +217,6 @@ BEGIN
     selected_values := ' COLUMN_NAME ';
     where_conditions := ' where table_name = '''||upper(laTable)||''' AND DATA_TYPE = ''VARCHAR2''';
     myQuery := 'SELECT '|| selected_values ||' FROM user_tab_columns'|| where_conditions;
-
-
-
-    DBMS_OUTPUT.put_line ('[ Normalisation et Nettoyage des données ]');
 
     open table_cursor for myQuery;
     loop
@@ -225,28 +227,26 @@ BEGIN
         nbrValue := getInfoCol(CSVName,colName,newColName,theDominantSemanticType,theDominantSyntacticType,maxLength);
         IF (nbrValue > 0 ) THEN
 
-            DBMS_OUTPUT.put_line ('['|| newColName || '--'||theDominantSemanticType||'--'||theDominantSyntacticType||'--'||maxLength||']');
+            print_debug (' ----- ['|| newColName ||'--'||theDominantSyntacticType||' ( '||maxLength||' ) ]');
 
             -- ajout de la  nouvelle colonne
             getNewtype(theDominantSyntacticType,maxLength,newColType);
             alterAddCol(laTable,newColName,newColType);
 
             dataReportTableNameByCol := 'DR_'||CSVName||'_'||colName;
-            DBMS_OUTPUT.put_line ('[ Colonnes: '||colName||' -> '||newColName||' ]');
+            --print_debug ('[ Colonnes: '||colName||' -> '||newColName||' ]');
 
             --------------------------------------
 
             myQuery_col := ' SELECT OLDVALUES, NEWVALUES FROM '|| dataReportTableNameByCol ;
-            DBMS_OUTPUT.put_line(myQuery_col);
+            --print_debug(myQuery_col);
 
             open table_cursor_col for myQuery_col;
             loop
                 fetch table_cursor_col into oldValueCol, oldValueCol_new ;
                 EXIT when table_cursor_col%NOTFOUND;
 
-                -- nettoyage #TODO
-                --newValueCol := xxx(oldValueCol,oldValueCol_new,theDominantSemanticType);
-                -- remarque : si c'est une chaine ne pas oublier les ''
+                -- c'est ici que l'homogénisation des données et les correction éventuelle seront faites
                 newValueCol := 'EN COURS ... ';
                 newValueCol := getNewCleanValue(
                     oldValueCol,
@@ -255,13 +255,14 @@ BEGIN
                     dataReportTableNameByCol,
                     dataReportTableName);
 
+                -- remarque : si c'est une chaine ne pas oublier les ''
                 newValueCol := NormaliserSyntacticType(newValueCol,theDominantSyntacticType);
                 oldValueCol_new := ''''||oldValueCol_new||'''';
 
                 -- sauvegarde de la nouvelle données
                 myUpdateQuery := 'UPDATE '||laTable||' SET '||newColName||' = '||newValueCol||' WHERE '|| colName || ' = '||oldValueCol_new;
 
-                --DBMS_OUTPUT.put_line(myUpdateQuery);
+                --print_debug(myUpdateQuery);
 
                 EXECUTE IMMEDIATE myUpdateQuery;
 
@@ -271,21 +272,20 @@ BEGIN
             --------------------------------------
 
             -- suppression de l'ancienne colonne
-            --alterDropCol(laTable,colName);
+            alterDropCol(laTable,colName);
 
-            --DBMS_OUTPUT.put_line ('[------------------------ FIN ----------------------------]');
+            --print_debug ('[------------------------ FIN ----------------------------]');
 
         ELSE
-            DBMS_OUTPUT.put_line ('[ Colonnes: '||colName||'  VIDE ... ]');
+            print_debug (' ------- [ Colonnes: '||colName||'  VIDE ... ] ');
 
         END IF;
 
     end loop;
     close table_cursor;
 
-    DBMS_OUTPUT.put_line ('[]');
-    DBMS_OUTPUT.put_line ('[ CHECK TABLE : '|| laTable ||' To See Modification ]');
-    DBMS_OUTPUT.put_line ('[ select * from '|| laTable ||'; ]');
+    print_debug (' ---------- [ CHECK TABLE : '|| laTable ||' To See Modification ] ');
+    print_debug (' ---------- [ select * from '|| laTable ||'; ] ');
 
 END;
 /

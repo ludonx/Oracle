@@ -35,17 +35,25 @@ BEGIN
         newData := CleanData_Gender(data);
     ELSIF (semanticType LIKE 'NAMES') THEN
         newData := CleanData_Names(data);
-    ELSIF (semanticType LIKE 'BLOODGROUP') THEN
-        newData := null;
-    ELSIF (semanticType LIKE 'SIZEDISTANCE_LENGTH') THEN
+    ELSIF (semanticType LIKE 'ID') THEN
         newData := null;
     ELSIF (semanticType LIKE 'EMAIL') THEN
         newData := null;
-    ELSIF (semanticType LIKE 'GENDER') THEN
+    ELSIF (semanticType LIKE 'BLOODGROUP') THEN
         newData := null;
-    ELSIF (semanticType LIKE 'GENDER') THEN
+    ELSIF (semanticType LIKE 'WEIGHT') THEN
         newData := null;
-    ELSIF (semanticType LIKE 'GENDER') THEN
+    ELSIF (semanticType LIKE 'MEAN') THEN
+        newData := null;
+    ELSIF (semanticType LIKE 'SIZEDISTANCE_LENGTH') THEN
+        newData := null;
+    ELSIF (semanticType LIKE 'XXXX') THEN
+        newData := null;
+    ELSIF (semanticType LIKE 'XXXX') THEN
+        newData := null;
+    ELSIF (semanticType LIKE 'XXXX') THEN
+        newData := null;
+    ELSIF (semanticType LIKE 'XXXX') THEN
         newData := null;
     END IF;
 
@@ -245,38 +253,26 @@ BEGIN
     AND ROWNUM = 1;
 
     ---------------------------------------------------------------------------------------
-    nbr := 0;
-    SELECT COUNT(*) INTO nbr FROM DICOPAYSVILLE
-    WHERE VILLE = UPPER(data) OR VILLE = data
-    OR VILLE_EN = UPPER(data) OR VILLE_EN = data;
-    IF nbr > 0 THEN
+    IF isCity(data) = true THEN
       subSemanticType := 'CITY';
     END IF;
     ---------------------------------------------------------------------------------------
-    nbr := 0;
-    SELECT COUNT(*) INTO nbr FROM DICOPAYSVILLE
-    WHERE PAYS = UPPER(data) OR PAYS = data
-    OR PAYS_EN = UPPER(data) OR PAYS_EN = data;
-    IF nbr > 0 THEN
-      subSemanticType := 'CITY';
+    IF isCountry(data) = true THEN
+      subSemanticType := 'COUNTRY';
     END IF;
     ---------------------------------------------------------------------------------------
-    nbr := 0;
-    SELECT COUNT(*) INTO nbr FROM DICOPAYSVILLE
-    WHERE CONTINENT = UPPER(data) OR CONTINENT = data
-    OR CONTINENT_EN = UPPER(data) OR CONTINENT_EN = data;
-    IF nbr > 0 THEN
-      subSemanticType := 'CITY';
+    IF isContinent(data) = true THEN
+      subSemanticType := 'CONTINENT';
     END IF;
     ---------------------------------------------------------------------------------------
 
 
 
-    IF(subSemanticType LIKE 'LASTNAME') THEN
+    IF(subSemanticType LIKE 'LASTNAME' OR subSemanticType LIKE 'CONTINENT' ) THEN
 
         newData := UPPER(data);
 
-    ELSIF(subSemanticType LIKE 'FIRSTNAME' OR subSemanticType LIKE 'CITY') THEN
+    ELSIF(subSemanticType LIKE 'FIRSTNAME' OR subSemanticType LIKE 'CITY' OR subSemanticType LIKE 'COUNTRY') THEN
 
         newData := INITCAP(LOWER(data));
 

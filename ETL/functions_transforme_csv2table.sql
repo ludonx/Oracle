@@ -10,16 +10,18 @@ table_cursor SYS_REFCURSOR;
 myQuery VARCHAR2(100);
 maxLength NUMBER;
 nbrDelimiteur NUMBER;
-myColonne VARCHAR2(100);
+myColonne VARCHAR2(2000);
 
 BEGIN
 myQuery := 'SELECT '||LaColonne||' FROM '||laTable;
+--DBMS_OUTPUT.put_line ('----ERREUR----'||LaColonne||'--'||laTable);
   open table_cursor for myQuery;
   -- on boucle sur chaque ligne du tableau pour récupérer la longueur max d'une chaine delimiter par LeDelimiter
      maxLength :=0;
      loop
       fetch table_cursor into myColonne;
       EXIT when table_cursor%NOTFOUND;
+      --DBMS_OUTPUT.put_line ('----ERREUR----LOOP');
         SELECT REGEXP_COUNT(myColonne, LeDelimiter) INTO nbrDelimiteur FROM dual;
         IF nbrDelimiteur > maxLength THEN
           maxLength:= nbrDelimiteur;
@@ -126,6 +128,8 @@ nbrLigne NUMBER;
 
 
 BEGIN
+  print_debug (' +---------------------------------------------------------------------+ ');
+  print_debug (' [ TRANSFORME CSV TO A TABLE ] ');
 
   -- je determine le nombre de colonne
   nbrDelimiteur := getMaxLength(csvTable,'col',delimiter);

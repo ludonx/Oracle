@@ -19,7 +19,6 @@ selected_values VARCHAR2(500);
 where_conditions VARCHAR2(500);
 dataReportTableName VARCHAR2(500);
 
-insertETL VARCHAR2(500);
 ETLtable VARCHAR2(200) := 'ETL_REPORT';
 
 
@@ -27,6 +26,8 @@ colName VARCHAR2(60);
 dataReportTableNameByCol VARCHAR2(100);
 
 BEGIN
+    print_debug (' +---------------------------------------------------------------------+ ');
+    print_debug (' [ DETECT ANOMALY ON COLUMNS ] ');
 
     -- on crée la table des statistique pour la table passer en parametrer
     dataReportTableName := 'DR_'||CSVName||'_TabCol';
@@ -38,18 +39,16 @@ BEGIN
     where_conditions := ' where table_name = '''||upper(laTable)||''' AND DATA_TYPE = ''VARCHAR2''';
     myQuery := 'SELECT '|| selected_values ||' FROM user_tab_columns'|| where_conditions;
 
-
     --- pour chaque colonne récupérée, je lance la detection d'annomalie
     --- donc pour chaque colonne on auras une une table datareport qui sera créeé 
     --- et une ligne qui sera rajouté a la table de stat de la table
-    DBMS_OUTPUT.put_line ('[ Detection anomalies par colonnes ]');
 
     open table_cursor for myQuery;
     loop
         fetch table_cursor into colName ;
         EXIT when table_cursor%NOTFOUND;
         dataReportTableNameByCol := 'DR_'||CSVName||'_'||colName;
-        DBMS_OUTPUT.put_line ('[ Colonnes: '||colName||'] [ Table des statistiques '||dataReportTableNameByCol ||']');
+        print_debug (' ----- [ Colonnes: '||colName||'] [ Table des statistiques '||dataReportTableNameByCol ||']');
         
         GenerateReportByCol(CSVName,laTable,colName, dataReportTableNameByCol );
 
@@ -60,17 +59,15 @@ BEGIN
         -- pour les colonnes (observation et newValues) on fait un update car la clique contient déja des valeurs
         UpdateReportByCol(dataReportTableNameByCol, colName, dataReportTableName);
         
-        insertETL := 'INSERT INTO '||ETLtable||' VALUES('''||CSVName ||''', '''|| laTable ||''', '''||colName ||''','''||dataReportTableNameByCol ||''','''||dataReportTableName ||''' )';
-        EXECUTE IMMEDIATE insertETL;
+        insertIntoETLtable(ETLtable,CSVName, laTable ,colName ,dataReportTableName,dataReportTableNameByCol);
 
-        --DBMS_OUTPUT.put_line ('[------------------------ FIN ----------------------------]');
+        --print_debug ('[------------------------ FIN ----------------------------]');
     end loop;
     close table_cursor;
 
-    DBMS_OUTPUT.put_line ('[ Data Report : '|| dataReportTableName ||' ]');
-    DBMS_OUTPUT.put_line ('[]');
-    DBMS_OUTPUT.put_line ('[ CHECK TABLE : '|| ETLtable ||' For Resume ]');
-    DBMS_OUTPUT.put_line ('[ select * from '|| ETLtable ||'; ]');
+    print_debug (' ---------- [ Data Report : '|| dataReportTableName ||' ] ');
+    print_debug (' ---------- [ CHECK TABLE : '|| ETLtable ||' For Resume ] ');
+    print_debug (' ---------- [ select * from '|| ETLtable ||'; ] ');
 
 END;
 /
