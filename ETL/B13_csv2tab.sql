@@ -129,7 +129,7 @@ CREATE TABLE DATAREPORT
     nbrRows NUMBER;
     nbrNullValues NUMBER;
     nbrNotNullValues NUMBER;
-    minLenght NUMBER;
+    minLength NUMBER;
     maxLength NUMBER;
     nbrWords NUMBER;
     nbrValuesVarcharType NUMBER;
@@ -154,7 +154,7 @@ COLUMN NEWName FORMAT A15
 COLUMN nbrRows FORMAT 99
 COLUMN nbrNullValues FORMAT 99
 COLUMN nbrNotNullValues FORMAT 99
-COLUMN minLenght FORMAT 99
+COLUMN minLength FORMAT 99
 COLUMN maxLength FORMAT 99
 COLUMN nbrWords FORMAT 99
 COLUMN nbrValuesVarcharType FORMAT 99

@@ -118,7 +118,8 @@ BEGIN
         newData := null;
     ELSE
         EXECUTE IMMEDIATE ' SELECT SEMANTICCATEGORY, SYNTACTICTYPE FROM '||
-            DR_CSVfile_Coli ||' WHERE UPPER(OLDVALUES) = UPPER('''|| data
+            DR_CSVfile_Coli ||' WHERE ( UPPER(OLDVALUES) = UPPER('''|| data
+            ||''') OR OLDVALUES = '''|| data
             ||''') AND  UPPER(CSVName) = UPPER('''|| CSVName ||''') AND ROWNUM = 1' INTO dataSemanticType,dataSyntacticType;
         --print_debug ('-         [--'||dataSemanticType||'--'||dataSyntacticType||'--]'||data);
 
@@ -136,6 +137,15 @@ BEGIN
 
         ELSE
             -- ici on essaye de corriger les annomalies
+            -- TODO
+            
+            IF (CorrectSpecialData(data,theDominantSemanticType,newData) = false ) THEN 
+                newData := CorrectData(data, laColonne, dataSyntacticType, dataSemanticType, DR_CSVfile_TabCol);
+            ELSE
+                print_debug (' ******* [ CORRECTION SPECIAL ] ['||data||'] -> ['||newData||'] *******');
+            END IF;
+            /*
+
             IF ((dataSyntacticType <> theDominantSyntacticType) AND (dataSemanticType NOT LIKE '%'||theDominantSemanticType||'%')) THEN
                 newData := null;--data;
 
@@ -147,6 +157,7 @@ BEGIN
                 -- TODO fctsem
                 newData := null;--data;
             END IF;
+            */
         END IF;
 
 
@@ -227,7 +238,7 @@ BEGIN
         nbrValue := getInfoCol(CSVName,colName,newColName,theDominantSemanticType,theDominantSyntacticType,maxLength);
         IF (nbrValue > 0 ) THEN
 
-            print_debug (' ----- ['|| newColName ||'--'||theDominantSyntacticType||' ( '||maxLength||' ) ]');
+            print_debug (' ----- ['|| newColName ||' '||theDominantSyntacticType||'('||maxLength||') ]');
 
             -- ajout de la  nouvelle colonne
             getNewtype(theDominantSyntacticType,maxLength,newColType);
@@ -257,12 +268,19 @@ BEGIN
 
                 -- remarque : si c'est une chaine ne pas oublier les ''
                 newValueCol := NormaliserSyntacticType(newValueCol,theDominantSyntacticType);
-                oldValueCol_new := ''''||oldValueCol_new||'''';
 
                 -- sauvegarde de la nouvelle données
-                myUpdateQuery := 'UPDATE '||laTable||' SET '||newColName||' = '||newValueCol||' WHERE '|| colName || ' = '||oldValueCol_new;
+                oldValueCol_new := ''''||oldValueCol_new||'''';
+                --myUpdateQuery := 'UPDATE '||laTable||' SET '||newColName||' = '||newValueCol||' WHERE '|| colName || ' = '||oldValueCol_new;
+                oldValueCol := ''''||oldValueCol||'''';
+                myUpdateQuery := 'UPDATE '||laTable||' SET '||newColName||' = '||newValueCol||' WHERE '|| colName || ' = '||oldValueCol;
 
-                --print_debug(myUpdateQuery);
+                -- TODO : delete that test
+                IF (theDominantSemanticType = 'GENDER') THEN 
+                    print_debug (' ******* [ CORRECTION SPECIAL ] ['||oldValueCol||'] -> ['||newValueCol||'] *******');
+                    print_debug(myUpdateQuery);
+                END IF;
+                --
 
                 EXECUTE IMMEDIATE myUpdateQuery;
 

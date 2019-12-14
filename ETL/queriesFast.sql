@@ -7,3 +7,4 @@ desc csvfile2_new;
 
 select * from ETL_REPORT;
 select count(*) from ETL_REPORT;
+-- UPDATE CSVfile1_new SET COL3_GENDER = 'M' WHERE COL3 = '1|<!?!>ANOMALIES_SYNTACTIC'

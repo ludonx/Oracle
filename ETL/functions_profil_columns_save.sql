@@ -146,7 +146,7 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
 
    EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE OLDVALUES IS NULL ' INTO  dataReportTable.nbrNullValues  ;
 	 EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol || ' WHERE OLDVALUES IS NOT NULL ' INTO  dataReportTable.nbrNotNullValues  ;
-	 EXECUTE IMMEDIATE ' SELECT MIN(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.minLenght ;
+	 EXECUTE IMMEDIATE ' SELECT MIN(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.minLength ;
 	 EXECUTE IMMEDIATE ' SELECT MAX(COLUMNWIDHT) FROM  '|| laTableReportByCol INTO  dataReportTable.maxLength ;
 
    EXECUTE IMMEDIATE ' SELECT MAX(NUMBEROFWORDS) FROM  '|| laTableReportByCol ||' WHERE ROWNUM = 1' INTO  dataReportTable.nbrWords ;
@@ -208,7 +208,7 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
 				 dataReportTable.nbrNullValues ||','||
 				 dataReportTable.nbrNotNullValues ||','||
 
-				 dataReportTable.minLenght ||','||
+				 dataReportTable.minLength ||','||
 				 dataReportTable.maxLength ||','||
 
 				 dataReportTable.nbrWords ||','||

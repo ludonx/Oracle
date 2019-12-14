@@ -25,6 +25,7 @@ COLUMN BLOCKINGKEY    FORMAT A20
 --@tables_liste_villes.sql
 --@tables_liste_mois.sql
 @functions_CleanData.sql
+@functions_CorrectData.sql
 --@utest.sql
 
 
