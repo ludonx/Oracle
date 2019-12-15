@@ -274,12 +274,12 @@ BEGIN
                 --myUpdateQuery := 'UPDATE '||laTable||' SET '||newColName||' = '||newValueCol||' WHERE '|| colName || ' = '||oldValueCol_new;
                 oldValueCol := ''''||oldValueCol||'''';
                 myUpdateQuery := 'UPDATE '||laTable||' SET '||newColName||' = '||newValueCol||' WHERE '|| colName || ' = '||oldValueCol;
-
+                --print_debug('++++++++++++['||myUpdateQuery);
                 -- TODO : delete that test
-                IF (theDominantSemanticType = 'GENDER') THEN 
-                    print_debug (' ******* [ CORRECTION SPECIAL ] ['||oldValueCol||'] -> ['||newValueCol||'] *******');
-                    print_debug(myUpdateQuery);
-                END IF;
+                -- IF (theDominantSemanticType = 'GENDER') THEN 
+                --     print_debug (' ******* [ CORRECTION SPECIAL ] ['||oldValueCol||'] -> ['||newValueCol||'] *******');
+                --     print_debug(myUpdateQuery);
+                -- END IF;
                 --
 
                 EXECUTE IMMEDIATE myUpdateQuery;
@@ -295,7 +295,7 @@ BEGIN
             --print_debug ('[------------------------ FIN ----------------------------]');
 
         ELSE
-            print_debug (' ------- [ Colonnes: '||colName||'  VIDE ... ] ');
+            print_debug (' ------- [ Colonnes: '||colName||'  ALREADY EXIST ... ] ');
 
         END IF;
 

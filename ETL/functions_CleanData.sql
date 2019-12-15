@@ -36,15 +36,15 @@ BEGIN
     ELSIF (semanticType LIKE 'NAMES') THEN
         newData := CleanData_Names(data);
     ELSIF (semanticType LIKE 'ID') THEN
-        newData := null;
+        newData := CleanData_Id (data);
     ELSIF (semanticType LIKE 'EMAIL') THEN
         newData := null;
     ELSIF (semanticType LIKE 'BLOODGROUP') THEN
         newData := null;
     ELSIF (semanticType LIKE 'WEIGHT') THEN
-        newData := null;
+        newData := CleanData_Weight (data);
     ELSIF (semanticType LIKE 'MEAN') THEN
-        newData := null;
+        newData := CleanData_Mean (data);
     ELSIF (semanticType LIKE 'SIZEDISTANCE_LENGTH') THEN
         newData := null;
     ELSIF (semanticType LIKE 'XXXX') THEN
@@ -61,7 +61,7 @@ BEGIN
 END;
 /
 
-------------------------------------------------------------------
+-- CleanData_Date ----------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION CleanData_Date(data IN VARCHAR2)
     RETURN VARCHAR2
@@ -122,13 +122,14 @@ BEGIN
     RETURN (newData);
 END;
 /
-----------------------------------------------------------------
-CREATE OR REPLACE FUNCTION CleanData_Temperature(data IN VARCHAR2)
+-- CleanData_Temperature --------------------------------------------------------------
+CREATE OR REPLACE FUNCTION CleanData_Temperature(dataIN IN VARCHAR2)
     RETURN VARCHAR2
 AS
 newData VARCHAR2(500);
 subSemanticType VARCHAR2(500);
 regularExpresion VARCHAR2(500);
+data VARCHAR2(500);
 
 BEGIN
     -- on transfome
@@ -143,14 +144,16 @@ BEGIN
     -- (32 °F − 32) × 5/9 = 0 °C
 
     newData := null;
+    data := dataIN;
 
     SELECT SUBCATEGORY INTO subSemanticType
     FROM DDRE
-    WHERE REGEXP_LIKE (UPPER(data),REGULAREXPRESSION)
+    WHERE (REGEXP_LIKE (UPPER(data),REGULAREXPRESSION) OR REGEXP_LIKE (data,REGULAREXPRESSION))
     AND CATEGORY = 'TEMPERATURE'
     AND ROWNUM = 1;
-
-
+    -- comm UPPER(°c) = °C on peux tous mettre en majuscule avant de faire la convertion
+    -- si UPPER(°c) <> °C il aurait fallut modifier le regex et mettre le cas de valeur min
+    data := UPPER(data); 
     IF(subSemanticType LIKE 'TEMPERATURE_CELSIUS') THEN
         regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)(\s?(°C|°CELSIUS|CELSIUS))';
         newData := REGEXP_REPLACE(data,regularExpresion,'\1');
@@ -160,6 +163,7 @@ BEGIN
         regularExpresion := '^([\+-]?[0-9]+((\.|,)\d+)?)(\s?(°F|°FAHRENHEIT|FAHRENHEIT°))$';
         newData := REGEXP_REPLACE(data,regularExpresion,'\1');
         --(32 °F − 32) × 5/9 = 0 °C
+        newData := REGEXP_REPLACE(newData,'\.',',');
         newData := ( TO_NUMBER(newData) - 32 ) * 5/9 ;
         newData := REGEXP_REPLACE(newData,',','.');
 
@@ -167,6 +171,7 @@ BEGIN
         regularExpresion := '^([\+-]?[0-9]+((\.|,)\d+)?)(\s?((K|KELVIN)))$';
         newData := REGEXP_REPLACE(data,regularExpresion,'\1');
         --0 K − 273,15 = -273,1 °C
+        newData := REGEXP_REPLACE(newData,'\.',',');
         newData := TO_NUMBER(newData) - 273.15;
         newData := REGEXP_REPLACE(newData,',','.');
 
@@ -175,7 +180,7 @@ BEGIN
     RETURN (newData);
 END;
 /
-----------------------------------------------------------------
+-- CleanData_Age --------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION CleanData_Age(data IN VARCHAR2)
     RETURN VARCHAR2
@@ -201,7 +206,7 @@ BEGIN
 END;
 /
 
-----------------------------------------------------------------
+-- CleanData_Gender --------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION CleanData_Gender(data IN VARCHAR2)
     RETURN VARCHAR2
@@ -228,7 +233,7 @@ END;
 /
 
 
-----------------------------------------------------------------
+-- CleanData_Names --------------------------------------------------------------
 
 
 CREATE OR REPLACE FUNCTION CleanData_Names(data IN VARCHAR2)
@@ -267,14 +272,16 @@ BEGIN
     ---------------------------------------------------------------------------------------
 
 
-
+    -- TODO : modifier la langue d'intérprétation des caractéres de ORACLE ( voir TRICK)
+    -- solution Provisoire : évité d'utilisé LOWER 
     IF(subSemanticType LIKE 'LASTNAME' OR subSemanticType LIKE 'CONTINENT' ) THEN
 
         newData := UPPER(data);
 
     ELSIF(subSemanticType LIKE 'FIRSTNAME' OR subSemanticType LIKE 'CITY' OR subSemanticType LIKE 'COUNTRY') THEN
 
-        newData := INITCAP(LOWER(data));
+        --newData := INITCAP(LOWER(data));
+        newData := INITCAP(data);
 
     ELSIF(subSemanticType LIKE 'FULLNAME') THEN
 
@@ -282,7 +289,7 @@ BEGIN
         firstName := REGEXP_REPLACE(data,regularExpresion,'\1');
         lastName := REGEXP_REPLACE(data,regularExpresion,'\3');
 
-        newData := INITCAP(LOWER(firstName)) ||UPPER(lastName);
+        newData := INITCAP(firstName) ||UPPER(lastName);
 
     ELSIF(subSemanticType LIKE 'FULLNAME_CIVILITY') THEN
 
@@ -291,10 +298,286 @@ BEGIN
         civility := REGEXP_REPLACE(data,regularExpresion,'\1');
         firstName := REGEXP_REPLACE(data,regularExpresion,'\3');
         lastName := REGEXP_REPLACE(data,regularExpresion,'\5');
-
-        newData := INITCAP(civility)||INITCAP(LOWER(firstName))||UPPER(lastName);
+        -- TODO : modifier la langue d'intérprétation des caractéres de ORACLE ( voir TRICK)
+        --newData := INITCAP(civility)||INITCAP(LOWER(firstName))||UPPER(lastName);
+        -- solution Provisoire : évité d'utilisé LOWER 
+        newData := INITCAP(civility)||INITCAP(firstName)||UPPER(lastName);
     END IF;
     --DBMS_OUTPUT.put_line('SEM <--->'||subSemanticType);
+    RETURN (newData);
+END;
+/
+
+
+----------------------------------------------------------------
+CREATE OR REPLACE FUNCTION CleanData_Weight (dataIN IN VARCHAR2)
+    RETURN VARCHAR2
+AS
+newData VARCHAR2(500);
+subSemanticType VARCHAR2(500);
+regularExpresion VARCHAR2(500);
+data VARCHAR2(500);
+
+facteur NUMBER ;
+
+BEGIN
+
+    newData := null;
+    data := dataIN;
+
+    SELECT SUBCATEGORY INTO subSemanticType
+    FROM DDRE
+    WHERE (REGEXP_LIKE (UPPER(data),REGULAREXPRESSION) OR REGEXP_LIKE (data,REGULAREXPRESSION))
+    AND CATEGORY = 'WEIGHT'
+    AND ROWNUM = 1;
+    -- comm UPPER(°c) = °C on peux tous mettre en majuscule avant de faire la convertion
+    -- si UPPER(°c) <> °C il aurait fallut modifier le regex et mettre le cas de valeur min
+    data := UPPER(data); 
+
+
+    IF(subSemanticType LIKE 'WEIGHT_FR_KG' OR subSemanticType LIKE 'WEIGHT_EN_KG' ) THEN
+        ------------------------------------------------------------------- WEIGHT_FR_KG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        newData := REGEXP_REPLACE(newData,',','.');
+        
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_G' OR subSemanticType LIKE 'WEIGHT_EN_G') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_G
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1/1000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+    
+    ELSIF (subSemanticType LIKE 'WEIGHT_TO' OR subSemanticType LIKE 'WEIGHT_TO') THEN
+        ------------------------------------------------------------------- WEIGHT_TO
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_LB' OR subSemanticType LIKE 'WEIGHT_EN_LB') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_LB
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1/2.205 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_OZ' OR subSemanticType LIKE 'WEIGHT_OZ') THEN
+        ------------------------------------------------------------------- WEIGHT_OZ
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1/35.274 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_MGG' OR subSemanticType LIKE 'WEIGHT_EN_MGG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_MGG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1000000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_GG' OR subSemanticType LIKE 'WEIGHT_EN_GG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_GG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1000000000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_TG' OR subSemanticType LIKE 'WEIGHT_EN_TG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_TG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1000000000000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_TG' OR subSemanticType LIKE 'WEIGHT_EN_TG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_TG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1000000000000000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_EG' OR subSemanticType LIKE 'WEIGHT_EN_EG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_EG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1000000000000000000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_ZG' OR subSemanticType LIKE 'WEIGHT_EN_ZG') THEN
+        ------------------------------------------------------------------- WEIGHT_OZ
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1000000000000000000000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_YG' OR subSemanticType LIKE 'WEIGHT_EN_YG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_YG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1000000000000000000000000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_HG' OR subSemanticType LIKE 'WEIGHT_EN_HG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_HG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1/10 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+    
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_DAG' OR subSemanticType LIKE 'WEIGHT_EN_DAG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_DAG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1/100 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_DG' OR subSemanticType LIKE 'WEIGHT_EN_DG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_DG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1/10000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_CG' OR subSemanticType LIKE 'WEIGHT_EN_CG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_CG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1/100000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_MG' OR subSemanticType LIKE 'WEIGHT_EN_MG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_MG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1/1000000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSIF (subSemanticType LIKE 'WEIGHT_FR_μG' OR subSemanticType LIKE 'WEIGHT_EN_μG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_G
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1/1000000000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+     ELSIF (subSemanticType LIKE 'WEIGHT_FR_NG' OR subSemanticType LIKE 'WEIGHT_EN_NG') THEN
+        ------------------------------------------------------------------- WEIGHT_FR_NG
+        regularExpresion := '([\+-]?[0-9]+((\.|,)\d+)?)([[:alpha:] ]*)';
+        newData := REGEXP_REPLACE(data,regularExpresion,'\1');
+        facteur := 1/1000000000000 ;
+        
+        newData := REGEXP_REPLACE(newData,'\.',',');
+        newData := TO_NUMBER(newData) * facteur ;
+        newData := REGEXP_REPLACE(newData,',','.');
+
+    ELSE
+        newData := null;
+    END IF;
+    print_debug('++++++++++++['||newData||'--'||data);
+    RETURN (newData);
+END;
+/
+
+-- CleanData_Mean --------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION CleanData_Mean (data IN VARCHAR2)
+    RETURN VARCHAR2
+AS
+newData VARCHAR2(500);
+subSemanticType VARCHAR2(500);
+BEGIN
+
+    newData := null;
+
+    SELECT SUBCATEGORY INTO subSemanticType
+    FROM DDRE
+    WHERE REGEXP_LIKE (UPPER(data),REGULAREXPRESSION)
+    AND CATEGORY = 'MEAN'
+    AND ROWNUM = 1;
+
+
+    IF(subSemanticType LIKE 'MEAN') THEN
+        newData := REGEXP_REPLACE(data,',','.');
+    END IF;
+
+    RETURN (newData);
+END;
+/
+
+-- CleanData_Id --------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION CleanData_Id (data IN VARCHAR2)
+    RETURN VARCHAR2
+AS
+newData VARCHAR2(500);
+subSemanticType VARCHAR2(500);
+BEGIN
+
+    newData := null;
+
+    SELECT SUBCATEGORY INTO subSemanticType
+    FROM DDRE
+    WHERE REGEXP_LIKE (UPPER(data),REGULAREXPRESSION)
+    AND CATEGORY = 'ID'
+    AND ROWNUM = 1;
+
+
+    IF(subSemanticType LIKE 'ID') THEN
+        newData := UPPER(data);
+    END IF;
+
     RETURN (newData);
 END;
 /
