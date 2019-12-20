@@ -103,6 +103,7 @@ newData VARCHAR2(500);
 doNotCare VARCHAR2(500);
 
 nbrValue NUMBER;
+testCorrectSpecialData BOOLEAN;
 
 BEGIN
     newData := null;
@@ -138,8 +139,8 @@ BEGIN
         ELSE
             -- ici on essaye de corriger les annomalies
             -- TODO
-            
-            IF (CorrectSpecialData(data,theDominantSemanticType,newData) = false ) THEN 
+            testCorrectSpecialData := CorrectSpecialData(data,theDominantSemanticType,newData);
+            IF ( testCorrectSpecialData = false ) THEN 
                 newData := CorrectData(data, laColonne, dataSyntacticType, dataSemanticType, DR_CSVfile_TabCol);
             ELSE
                 print_debug (' ******* [ CORRECTION SPECIAL ] ['||data||'] -> ['||newData||'] *******');
@@ -257,6 +258,7 @@ BEGIN
                 fetch table_cursor_col into oldValueCol, oldValueCol_new ;
                 EXIT when table_cursor_col%NOTFOUND;
 
+                --print_debug('++++++++++++['||oldValueCol);
                 -- c'est ici que l'homogénisation des données et les correction éventuelle seront faites
                 newValueCol := 'EN COURS ... ';
                 newValueCol := getNewCleanValue(

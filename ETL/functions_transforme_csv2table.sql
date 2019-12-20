@@ -66,14 +66,18 @@ END;
 ------------- createInsertValues                |
 ------------------------------------------------+
 -- permet de générer la chaine de valeurs qui seront inséret dans une table à partir d'une chaine et d'un delimiteur
-CREATE OR REPLACE FUNCTION createInsertValues (mystring in VARCHAR2, delimiter in VARCHAR2, maxValues in NUMBER)
+CREATE OR REPLACE FUNCTION createInsertValues (mystring_old in VARCHAR2, delimiter in VARCHAR2, maxValues in NUMBER)
 RETURN VARCHAR2
 IS
 myInsertValues VARCHAR2(500);
 value VARCHAR2(500);
 firstIteration BOOLEAN;
+mystring VARCHAR2(500);
 BEGIN
 
+-- cas particulier : si on a ;; ou le transforme en ;-;
+mystring := REGEXP_REPLACE(mystring_old,''||delimiter||delimiter||'',''||delimiter||'-'||delimiter||'');
+--print_debug(mystring_n);
 -- trim() : supprime les espaces avant et après
 myInsertValues := 'VALUES (';
 firstIteration :=TRUE; -- on ajoute la virgule après la 1er itération ( après avoir récupérer la 1er colonnes)
@@ -83,22 +87,24 @@ FOR i IN
  CONNECT BY LEVEL <= maxValues+1)
  -- on peut remplacer nbrDelimiteur par regexp_count(MotsCles, delimiter)
  LOOP
-   IF i.mot is null THEN
+    IF i.mot is null THEN
+      value:= 'null';
+    ELSIF i.mot = '-' OR UPPER(i.mot) = 'NULL' THEN
      value:= 'null';
+    ELSE
+      value:=''''|| i.mot ||'''';
+    END IF;
 
-   ELSE
-     value:=''''|| i.mot ||'''';
-   END IF;
-
-   IF firstIteration = TRUE THEN
-     myInsertValues := myInsertValues || value;
-     firstIteration :=FALSE;
-   ELSE
-       myInsertValues := myInsertValues ||', '||value;
-   END IF;
+    IF firstIteration = TRUE THEN
+      myInsertValues := myInsertValues || value;
+      firstIteration :=FALSE;
+    ELSE
+        myInsertValues := myInsertValues ||', '||value;
+    END IF;
 
  END LOOP;
  myInsertValues := myInsertValues || ' )';
+ --print_debug(myInsertValues);
 
  -- insertion les données
   RETURN (myInsertValues);
@@ -146,7 +152,7 @@ BEGIN
        fetch table_cursor into originalCol;
        EXIT when table_cursor%NOTFOUND;
 
-       -- je decoupe chaque ligne avec un delimiteur de mot et je construit la commande insert
+       -- je decoupe chaque ligne avec un delimiteur de mot et je construis la commande insert
        myInsertValues := createInsertValues (originalCol, delimiter,nbrDelimiteur );
        myInsertQuery := 'INSERT INTO '|| newTable || ' '||myInsertValues;
        --DBMS_OUTPUT.put_line(myInsertQuery);

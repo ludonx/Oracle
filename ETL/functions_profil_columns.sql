@@ -110,7 +110,7 @@ maxNbrElemCategory NUMBER;
 BEGIN
 
 EXECUTE IMMEDIATE ' CREATE OR REPLACE VIEW todelete as ( SELECT SEMANTICCATEGORY, count(*) as nbr from '||laTableReportByCol||' GROUP BY SEMANTICCATEGORY )';
-EXECUTE IMMEDIATE ' SELECT SEMANTICCATEGORY FROM todelete WHERE nbr = (SELECT MAX(nbr) FROM todelete) AND ROWNUM = 1' INTO theDominantSemanticType;
+EXECUTE IMMEDIATE ' SELECT SEMANTICCATEGORY FROM todelete WHERE nbr = (SELECT MAX(nbr) FROM todelete WHERE SEMANTICCATEGORY IS NOT NULL) AND ROWNUM = 1' INTO theDominantSemanticType;
 
 theDominantSemanticType := ''''|| theDominantSemanticType ||'''';
 regexDelimiteurOfCategory := '[^'''|| delimiteurOfCategory ||''']+';
@@ -173,7 +173,7 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
 
    --EXECUTE IMMEDIATE ' SELECT SYNTACTICTYPE FROM ( SELECT SYNTACTICTYPE ) '|| laTableReportByCol INTO  dataReportTable.theDominantSyntacticType ;
    EXECUTE IMMEDIATE ' CREATE OR REPLACE VIEW todelete as ( SELECT SYNTACTICTYPE, count(*) as nbr from '||laTableReportByCol||' GROUP BY SYNTACTICTYPE )';
-   EXECUTE IMMEDIATE ' SELECT SYNTACTICTYPE FROM todelete WHERE nbr = (SELECT MAX(nbr) FROM todelete)' INTO dataReportTable.theDominantSyntacticType;
+   EXECUTE IMMEDIATE ' SELECT SYNTACTICTYPE FROM todelete WHERE nbr = (SELECT MAX(nbr) FROM todelete WHERE SYNTACTICTYPE IS NOT NULL )' INTO dataReportTable.theDominantSyntacticType;
    EXECUTE IMMEDIATE ' DROP VIEW todelete';
 
    -- c'est le nombre de valeur differente de la valeur syntaxique dominante

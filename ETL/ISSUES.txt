@@ -6,3 +6,7 @@
 
 - select the first value in multiple values return ( for max for example)
 + SELECT * FROM (SELECT [Column] FROM [Table] ORDER BY [Date] DESC) WHERE ROWNUM = 1
+
+- caracté non gérer par oracle : PÉ?KIN
+INSERT INTO CSVFILE4 VALUES ('M;Robert DUPONT;M;12-04-1987;B-; nn.pn@yahoo.com;;PÉ?KIN;CHINE;ASIE');
++ le supprimer PÉKIN
