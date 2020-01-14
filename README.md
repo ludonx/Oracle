@@ -13,16 +13,16 @@ iDQMS tool : An intelligent Data Quality Management System tool
 
 ## Demo : csvFile1
 
-* Before processing 
-    <img src="img/before.png" title="before processing" alt="before">
+### Before processing 
+<img src="img/before.png" title="before processing" alt="before">
 
-* during processing 
-    <img src="img/during1.png" title="Transforme CSV to Table" alt="during">
-    <img src="img/stat1.png" title="Statistic 1" alt="Statistic_1">
-    <img src="img/stat2.png" title="Statistic 2" alt="Statistic_2">
-    <img src="img/stat3.png" title="Statistic 3" alt="Statistic_3">
+### during processing 
+<img src="img/during1.png" title="Transforme CSV to Table" alt="during">
+<img src="img/stat1.png" title="Statistic 1" alt="Statistic_1">
+<img src="img/stat2.png" title="Statistic 2" alt="Statistic_2">
+<img src="img/stat3.png" title="Statistic 3" alt="Statistic_3">
 
-* After processing
+### After processing
     <img src="img/after.png" title="after processing" alt="after">
 
 ## Default Test 
