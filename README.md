@@ -1,64 +1,37 @@
-# Data Base project : Mini ETL (Extract Transform and Load)
-
+# Oracle ETL (Extract Transform and Load)
+`Oracle PL/SQL`
 iDQMS tool : An intelligent Data Quality Management System tool
-<img src="idqms.png" title="iDQMS" alt="iDQMS">
+<img src="img/idqms.png" title="iDQMS" alt="iDQMS">
 
-# training-data-analyst 
+## Code
+0. [Pipeline]( Oracle/ETL/ETL.sql )
+1. [Test]( Oracle/ETL/MAIN.sql )
 
-Labs and demos for Google Cloud Platform courses (http://cloud.google.com/training).
+2. [ETL](ETL)
+3. [Data and Tables](Oracle/ETL/tables)
+4. [Trasform CSV format to a table format ](Oracle/ETL/functions/CSV2TAB)
+5. [Detect anomaly and generate statistics ](Oracle/ETL/functions/DetectAnomaly)
+6. [Normalize data based on statistics ](Oracle/ETL/functions/NormalizeAndCleanData)
 
-## Contributing to this repo
+## Demo : csvFile1
+csvFile1
+* Before processing 
+    <img src="img/before.png" title="iDQMS" alt="iDQMS">
 
-* Small edits are welcome! Please submit a Pull-Request. See also [CONTRIBUTING.md](./CONTRIBUTING.md)
-* For larger edits, please submit an issue, and we will create a branch for you. Then, get the code reviewed (in the branch) before submitting.
+* during processing 
+    <img src="img/before.png" title="iDQMS" alt="iDQMS">
 
-## Organization of this repo
+* After processing
+    <img src="img/after.png" title="iDQMS" alt="iDQMS">
 
-### Try out the code on Google Cloud Platform
-[![Open in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/cloudshell/open/?git_repo=https://github.com/GoogleCloudPlatform/training-data-analyst.git)
+## Default Test 
+Connect to your oracle database and run  `@MAIN.sql`
 
-## Courses
-Code for the following courses is included in this repo:
-
-### Google Cloud Platform Big Data and Machine Learning Fundamentals
-#### Course
-https://cloud.google.com/training/courses/data-ml-fundamentals
-
-#### Code
-1. [GCP Big Data & Machine Learning Fundamentals](CPB100)
-
-### Data Engineering on Google Cloud Platform
-#### Course
-https://cloud.google.com/training/courses/data-engineering
-
-#### Code
-1. [Leveraging unstructured data](courses/unstructured)
-2. [Serverless Data Analysis](courses/data_analysis)
-3. [Serverless Machine Learning](courses/machine_learning)
-4. [Resilient streaming systems](courses/streaming)
-
-
-### Machine Learning on Google Cloud Platform (& Advanced ML on GCP)
-#### Courses
-1. https://www.coursera.org/learn/google-machine-learning
-2. https://www.coursera.org/specializations/advanced-machine-learning-tensorflow-gcp
-
-#### Codes
-1. [How Google Does ML](courses/machine_learning/deepdive/01_googleml)
-2. [Launching into ML](courses/machine_learning/deepdive/02_generalization)
-3. [Introduction to TensorFlow](courses/machine_learning/deepdive/03_tensorflow)
-4. [Feature Engineering](courses/machine_learning/deepdive/04_features)
-5. [Art and Science of ML](courses/machine_learning/deepdive/05_artandscience)
-6. [End-to-end machine learning on Structured Data](courses/machine_learning/deepdive/06_structured)
-7. Production ML models
-8. [Image Classification Models in TensorFlow](courses/machine_learning/deepdive/08_image)
-9. [Sequence Models for Time-Series and Text problems](courses/machine_learning/deepdive/09_sequence)
-10. [Recommendation Engines using TensorFlow](courses/machine_learning/deepdive/10_recommend)
+## Personal Test 
+1. Add your own csvfile [here] ( Oracle/ETL/tables/tables_data_csv_file1.sql )
+2. open oracle
+3. run `@resouces` to load necessary tools
+4. run `EXEC MyETL ('CSVfile1' ,';' ,'CSVfile1_new' );` or personalize [this file](Oracle/ETL/MAIN.sql )
 
 
 
-### Blog posts
-
-blogs/
-
-sshfs 11706765@sercalssh.ig-edu.univ-paris13.fr:/export/home/users/ingenieurs/info3/11706765 /home/ludovik/Bureau/server_up13_2/
