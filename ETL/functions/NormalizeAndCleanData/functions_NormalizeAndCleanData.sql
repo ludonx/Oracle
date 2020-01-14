@@ -189,7 +189,7 @@ END;
 /
 
 ---------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE NormaliserAndCleanData(CSVName in VARCHAR2, laTable in VARCHAR2) AS
+CREATE OR REPLACE PROCEDURE NormalizeAndCleanData(CSVName in VARCHAR2, laTable in VARCHAR2) AS
 dataReportTableName VARCHAR2(200);
 
 table_cursor SYS_REFCURSOR;

@@ -9,11 +9,11 @@ BEGIN
 
     DetectAnomaly(csvTable,newTable);
 
-    NormaliserAndCleanData(csvTable,newTable);
+    NormalizeAndCleanData(csvTable,newTable);
 
     print_debug (' +---------------------------------------------------------------------+ ');
     print_debug (' [ FIN ] ');
-    print_debug (' [ NOMBRE DE LIGNE TRAITER : '|| nbrLigne ||' ] ');
+    print_debug (' [ NOMBRE DE LIGNE TRAITÉ  : '|| nbrLigne ||' ] ');
 
 END;
 /

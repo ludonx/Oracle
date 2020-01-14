@@ -157,7 +157,7 @@ BEGIN
        myInsertQuery := 'INSERT INTO '|| newTable || ' '||myInsertValues;
        --DBMS_OUTPUT.put_line(myInsertQuery);
        EXECUTE IMMEDIATE myInsertQuery;
-       nbrLigne := +1;
+       nbrLigne := nbrLigne + 1;
 
       end loop;
   close table_cursor;

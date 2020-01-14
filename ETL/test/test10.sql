@@ -1,14 +1,14 @@
--- test NormaliserAndCleanData(...)
+-- test CSV2TAB(...) DetectAnomaly(...) NormalizeAndCleanData(...)
 set serveroutput on
 SET TIMING ON;
 SET LINES 1000
 SET PAGES 1000
 COLUMN BLOCKINGKEY    FORMAT A20
 -- M2EID_23/M2EID_23
--- @functions_basics.sql
+@functions_basics.sql
 -- @tables_data_csv_file.sql
--- @functions_transforme_csv2table.sql
--- @format_colonnes.sql
+--@functions_transforme_csv2table.sql
+--@format_colonnes.sql
 -- --@tables_data_csv_file.sql
 -- @tables_data_csv_file1.sql
 
@@ -17,18 +17,19 @@ COLUMN BLOCKINGKEY    FORMAT A20
 
 -- @tables_Data_Reporte.sql
 -- @tables_ETL_Report.sql
--- @tables_ETL_Report1.sql
- --@functions_profil_columns.sql
--- @functions_Detection_Anomalies.sql
+--@tables_ETL_Report1.sql
+@functions_profil_columns.sql
+@functions_Detection_Anomalies.sql
 
 
 --@tables_liste_villes.sql
 --@tables_liste_mois.sql
 @functions_CleanData.sql
+@functions_CorrectData.sql
 --@utest.sql
 
 
-@functions_NormaliserAndCleanData.sql
+@functions_NormalizeAndCleanData.sql
 
 --@tables_ETL_Report1.sql
 
@@ -62,18 +63,33 @@ theDominantSyntacticType  VARCHAR2(200);
 maxLength  VARCHAR2(200);
 
 BEGIN
-laTable := 'TE';
-nbrData := 15;
-memorySize := 2;
-nbrBlocks := 3;
-keyAtributes := 'id,nom';
+-- laTable := 'TE';
+-- nbrData := 15;
+-- memorySize := 2;
+-- nbrBlocks := 3;
+-- keyAtributes := 'id,nom';
 
 csvTable := 'CSVfile1';
 delimiteur := ';';
-newTable := 'mytable';
+newTable := csvTable || '_new';
+
+print_debug (' ** [ FILE : '||csvTable|| ' | DELIMITEUR : '|| delimiteur ||' | NEWTABLE : '||newTable || ' ] **');
+
+nbrLigne := CSV2TAB(csvTable,delimiteur,newTable);
+
+laTable := newTable;
+CSVName := csvTable;
+
+--dropTable('ETL_REPORT');
+
+DetectAnomaly(CSVName,laTable);
 
 colName := 'col3';
-NormaliserAndCleanData(csvTable,newTable);
+NormalizeAndCleanData(csvTable,newTable);
+
+print_debug (' +---------------------------------------------------------------------+ ');
+
+print_debug (' [ FIN ] ');
 
 colName := 'zéèçà';
 DBMS_OUTPUT.put_line(colName ||'---'||UPPER(colName));
