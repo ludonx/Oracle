@@ -3,13 +3,13 @@ ETL ( PL/SQL - Oracle )
 
 `iDQMS tool : An intelligent Data Quality Management System tool`
 
-The main objectif of this project is to clean you data (from a csv file) so if you have a csv file with a lot of data and you don't know what that data mean, you have no idea of the schema behin it , but you want to be able to explore it and be able to get insights, this programme will help you.
+The main objectif of this project is to clean you data (from a csv file) so if you have a csv file with a lot of data and you don't know what that data mean, you have no idea of the schema behin it , but you want to be able to explore it and be able to get insights, this program will help you.
 
 <img src="img/idqms.png" title="iDQMS" alt="iDQMS">
 
 ## Code
 1. [Pipeline](ETL/ETL.sql)
-2. [Main](ETL/Main.sql)
+2. [test program](ETL/MAIN.sql)
 3. [ETL](ETL)
 4. [Data and Tables](ETL/tables)
 5. [Trasform CSV format to a table format ](ETL/functions/CSV2TAB)
