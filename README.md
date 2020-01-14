@@ -6,10 +6,10 @@ iDQMS tool : An intelligent Data Quality Management System tool
 ## Code
 
 1. [ETL](ETL)
-2. [Data and Tables](Oracle/ETL/tables)
-3. [Trasform CSV format to a table format ](Oracle/ETL/functions/CSV2TAB)
-4. [Detect anomaly and generate statistics ](Oracle/ETL/functions/DetectAnomaly)
-5. [Normalize data based on statistics ](Oracle/ETL/functions/NormalizeAndCleanData)
+2. [Data and Tables](ETL/tables)
+3. [Trasform CSV format to a table format ](ETL/functions/CSV2TAB)
+4. [Detect anomaly and generate statistics ](ETL/functions/DetectAnomaly)
+5. [Normalize data based on statistics ](ETL/functions/NormalizeAndCleanData)
 
 ## Demo : csvFile1
 
@@ -36,10 +36,10 @@ iDQMS tool : An intelligent Data Quality Management System tool
 Connect to your oracle database and run  `@MAIN.sql`
 
 ## Personal Test 
-1. Add your own csvfile on `tables_data_csv_file1.sql` [here] ( Oracle/ETL/tables )
+1. Add your own csvfile in `tables_data_csv_file1.sql` [here] ( Oracle/ETL/tables )
 2. open oracle
 3. run `@resouces` to load necessary tools
-4. run `EXEC MyETL ('CSVfile1' ,';' ,'CSVfile1_new' );` or personalize this file : `MAIN.sql` [here](Oracle/ETL)
+4. run `EXEC MyETL ('CSVfile1' ,';' ,'CSVfile1_new' );` or personalize this file : `MAIN.sql` [here](ETL)
 
 
 
