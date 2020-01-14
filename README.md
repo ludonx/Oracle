@@ -17,7 +17,7 @@ ETL ( PL/SQL - Oracle )
 ### Before processing 
 <img src="img/before.png" title="before processing" alt="before">
 
-### during processing 
+### During processing 
 * Transforme CSV to Table
 <img src="img/during1.png" title="Transforme CSV to Table" alt="during">
 
