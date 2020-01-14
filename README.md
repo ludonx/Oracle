@@ -9,7 +9,7 @@ The main objectif of this project is to clean you data (from a csv file) so if y
 
 ## Code
 1. [Pipeline](ETL/ETL.sql)
-2. [test program](ETL/MAIN.sql)
+2. [Test program](ETL/MAIN.sql)
 3. [ETL](ETL)
 4. [Data and Tables](ETL/tables)
 5. [Trasform CSV format to a table format ](ETL/functions/CSV2TAB)
