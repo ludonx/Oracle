@@ -17,13 +17,20 @@ iDQMS tool : An intelligent Data Quality Management System tool
 <img src="img/before.png" title="before processing" alt="before">
 
 ### during processing 
+* Transforme CSV to Table
 <img src="img/during1.png" title="Transforme CSV to Table" alt="during">
+
+* Statistic 1
 <img src="img/stat1.png" title="Statistic 1" alt="Statistic_1">
+
+* Statistic 2
 <img src="img/stat2.png" title="Statistic 2" alt="Statistic_2">
+
+* Statistic 3
 <img src="img/stat3.png" title="Statistic 3" alt="Statistic_3">
 
 ### After processing
-    <img src="img/after.png" title="after processing" alt="after">
+<img src="img/after.png" title="after processing" alt="after">
 
 ## Default Test 
 Connect to your oracle database and run  `@MAIN.sql`
