@@ -38,7 +38,8 @@ The main objectif of this project is to clean you data (from a csv file) so if y
 Connect to your oracle database and run  `@MAIN.sql`
 
 ## Personal Test 
-1. Add your own csvfile in `tables_data_csv_file1.sql` [here]( Oracle/ETL/tables )
+1. Add your own csvfile in `tables_data_csv_file1.sql` [here]( Oracle/ETL/tables/tables_data_csv_file1.sql )
+
 2. open oracle
 3. run `@resouces` to load necessary tools
 4. run
