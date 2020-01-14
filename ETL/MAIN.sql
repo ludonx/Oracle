@@ -7,7 +7,7 @@ newTable  VARCHAR2(50);
 
 BEGIN
     --EXECUTE IMMEDIATE 'ALTER SESSION SET NLS_DATE_FORMAT = ''YYYY-MM-DD'' ';
-    csvTable := 'CSVfile4';
+    csvTable := 'CSVfile1';
     delimiteur := ';';
     newTable := csvTable || '_new';
     MyETL (csvTable ,delimiteur ,newTable );
@@ -20,7 +20,7 @@ BEGIN
 
 END;
 /
-@queries/queriesFile4.sql
+@queries/queriesFile1.sql
 
 
 -- @queries/queriesFile1.sql
