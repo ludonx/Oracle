@@ -30,5 +30,6 @@ SET TIMING ON;
 SET LINES 1000
 SET PAGES 1000
 
+-- spécification du format d'affichage des colonnes
 @initialization/format_colonnes.sql
 -- M2EID_23/M2EID_23
