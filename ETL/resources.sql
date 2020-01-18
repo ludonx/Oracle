@@ -21,6 +21,7 @@
 @functions/NormalizeAndCleanData/functions_CorrectData.sql
 @functions/NormalizeAndCleanData/functions_NormalizeAndCleanData.sql
 
+@functions/SemanticDependencies/functions_SemanticDependencies.sql
 -- main function
 @ETL.sql
 

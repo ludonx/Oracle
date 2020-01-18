@@ -2,6 +2,7 @@
 CREATE OR REPLACE PROCEDURE MyETL (csvTable  IN VARCHAR2,delimiteur  IN VARCHAR2,newTable  IN VARCHAR2)
 AS
 nbrLigne NUMBER ;
+DR_SemanticDependencies VARCHAR2(50);
 
 BEGIN
     print_debug (' ** [ FILE : '||csvTable|| ' | DELIMITEUR : '|| delimiteur ||' | NEWTABLE : '||newTable || ' ] **');
@@ -11,6 +12,10 @@ BEGIN
     DetectAnomaly(csvTable,newTable);
 
     NormalizeAndCleanData(csvTable,newTable);
+
+    DR_SemanticDependencies := 'DR_SemanticDependencies';
+    VERIFDF_TAB(newTable,DR_SemanticDependencies);
+
 
     print_debug (' +---------------------------------------------------------------------+ ');
     print_debug (' [ FIN ] ');
