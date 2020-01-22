@@ -50,17 +50,38 @@ BEGIN
     myQuery := 'SELECT COUNT(*) FROM '||tableName;
     EXECUTE IMMEDIATE myQuery INTO Y;
 
-    PERCENTAGE := (1 - X/Y) * 100;
-
     myQuery := 'SELECT MAX(NBROCC) FROM '||VERIFDF_VP;
     EXECUTE IMMEDIATE myQuery INTO maxocc;
 
-    --IF PERCENTAGE = 100 THEN  --OR
-    IF maxocc <= 1 THEN
-        SemanticDependency := '-EQ-';
-    ELSE
+    ----------------------------------------------------------------------------------
+    --IF PERCENTAGE = 100 THEN  ? --OR // NOP
+    -- DF
+    IF maxocc > 1 THEN
         SemanticDependency := '-DF-';
+    ELSE
+        
+        myQuery := 'SELECT COUNT(*) FROM '||tableName
+        ||' WHERE UPPER (CAST('||LEFTCOL||' AS VARCHAR2(10))) = UPPER (CAST('||RIGHTCOL||' AS VARCHAR2(10)))';
+        EXECUTE IMMEDIATE myQuery INTO maxocc;
+        -- EQ
+        IF maxocc > 0 THEN
+          SemanticDependency := '-EQ-';
+        ELSE
+          myQuery := 'SELECT COUNT(*) FROM '||tableName
+          ||' WHERE UPPER ( CAST('||LEFTCOL||' AS VARCHAR2(10)) ) > UPPER ( CAST('||RIGHTCOL||' AS VARCHAR2(10)) ) ';
+          EXECUTE IMMEDIATE myQuery INTO maxocc;
+          -- GE
+          IF maxocc > 0 THEN
+            SemanticDependency := '-GE-';
+          ELSE
+            SemanticDependency := '-LE-';
+          END IF;
+        END IF;
+        X := maxocc;
     END IF;
+    ----------------------------------------------------------------------------------
+
+    PERCENTAGE := (1 - X/Y) * 100;
 
     myQuery := ' SELECT COUNT(*) FROM '||DR_SemanticDependencies
     ||' WHERE tableName = '''|| tableName
@@ -85,6 +106,7 @@ BEGIN
         print_debug(SemanticDependency);
     END IF;
 
+    print_debug (' ----- ['|| LEFTCOL ||' ('||SemanticDependency||','|| ROUND(PERCENTAGE)||'%) '||RIGHTCOL||' ]');
     RETURN (PERCENTAGE);
 END;
 /
@@ -122,6 +144,10 @@ CREATE OR REPLACE PROCEDURE VERIFDF_TAB(tableName IN VARCHAR2,
 BEGIN
   print_debug (' +---------------------------------------------------------------------+ ');
   print_debug (' [ DETECT SEMANTIC DEPENDENCIES ] ');
+  --- on supprimer la semantic de la table passé en paramètre
+  myQuery := 'DELETE FROM '||DR_SemanticDependencies||' WHERE tableName = '''||tableName||'''';
+  EXECUTE IMMEDIATE myQuery ;
+  --print_debug(myQuery);
   --- cette requête permet de récupérer les colonnes qu'une table passer en paramètres
   selected_values := ' COLUMN_NAME ';
   where_conditions := ' where table_name = '''||upper(tableName)||''' ';
@@ -147,8 +173,7 @@ BEGIN
 
             --pct := VERIFDF(tableName,DR_SemanticDependencies,LEFTCOL,'COL2_NAMES');
             pct := VERIFDF(tableName,DR_SemanticDependencies,LEFTCOL,RIGHTCOL);
-            print_debug (' ----- ['|| LEFTCOL ||' ('||ROUND(pct)||'%) '||RIGHTCOL||' ]');
-
+            
             --print_debug(LEFTCOL || '-------' || RIGHTCOL || '--' || pct);
           END IF;
         end loop;
@@ -180,25 +205,4 @@ BEGIN
 END;
 /
 
-DECLARE
 
-csvTable  VARCHAR2(50);
-delimiteur  VARCHAR2(50);
-newTable  VARCHAR2(50);
-
-nbrLigne NUMBER;
-res  VARCHAR2(50);
-BEGIN
---print_debug('myQuery');
---res := VERIFDF('CSVfile1_new','DR_SemanticDependencies','COL1_NAMES','COL2_NAMES');
---select * from LISTAVERIFIER_VP0;
---res := VERIFDF('CSVfile1_new','DR_SemanticDependencies','COL2_NAMES','COL3_GENDER');
---res := VERIFDF('CSVfile1_new','DR_SemanticDependencies','COL2_NAMES','COL1_NAMES');
---res := VERIFDF('CSVfile1_new','DR_SemanticDependencies','COL3_GENDER','COL2_NAMES');
---res := VERIFDF('CSVfile1_new','DR_SemanticDependencies','COL3_GENDER','COL1_NAMES');
-
-
-VERIFDF_TAB('CSVfile1_new','DR_SemanticDependencies');
-
-END;
-/
