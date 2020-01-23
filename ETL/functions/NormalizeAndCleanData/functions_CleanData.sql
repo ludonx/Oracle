@@ -283,6 +283,9 @@ BEGIN
         --print_debug('+++++++['||newData);
         --newData := INITCAP(data);
 
+    ELSIF(subSemanticType LIKE 'CIVILITY_FR' OR subSemanticType LIKE 'CIVILITY_EN') THEN
+        newData := UPPER(data);
+        
     ELSIF(subSemanticType LIKE 'FULLNAME') THEN
 
         regularExpresion := '^([A-Za-zéèçà]{2,50}(-| )?)(([A-Za-zéèçà]{2,50})?)$';
@@ -292,6 +295,7 @@ BEGIN
         newData := INITCAP(firstName) ||UPPER(lastName);
 
     ELSIF(subSemanticType LIKE 'FULLNAME_CIVILITY') THEN
+        --print_debug('++++++++++++++++++++++++++++++++++');
 
         regularExpresion := '^((M.|Mme|m)\s*)([A-Za-zéèçà]{2,50}(-| )?)(([A-Za-zéèçà]{2,50})?)$';
         -- () -> \i  (()) -> \1 \2
@@ -300,6 +304,7 @@ BEGIN
         lastName := REGEXP_REPLACE(data,regularExpresion,'\5');
         -- TODO : modifier la langue d'intérprétation des caractéres de ORACLE ( voir TRICK)
         newData := INITCAP(LOWER(civility))||INITCAP(LOWER(firstName))||UPPER(lastName);
+        --print_debug(newData);
         -- solution Provisoire : évité d'utilisé LOWER 
         --newData := INITCAP(civility)||INITCAP(firstName)||UPPER(lastName);
     END IF;

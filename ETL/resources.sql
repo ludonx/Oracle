@@ -8,12 +8,13 @@
 @tables/tables_liste_mois.sql
 @tables/tables_Data_Reporte.sql
 @tables/tables_ETL_Report1.sql
+@tables/tables_DR_SemanticDependencies.sql
 
 
 -- call functions
 @functions/Basics/functions_basics.sql
 @functions/CSV2TAB/functions_transforme_csv2table.sql
-@functions/CSV2TAB/functions_transforme_csv2table_version2
+@functions/CSV2TAB/functions_transforme_csv2table_version2.sql
 
 @functions/DetectAnomaly/functions_profil_columns.sql
 @functions/DetectAnomaly/functions_Detection_Anomalies.sql
