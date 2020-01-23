@@ -8,6 +8,7 @@ BEGIN
     print_debug (' ** [ FILE : '||csvTable|| ' | DELIMITEUR : '|| delimiteur ||' | NEWTABLE : '||newTable || ' ] **');
 
     nbrLigne := CSV2TAB(csvTable,delimiteur,newTable);
+    --nbrLigne := CSV2TAB2(csvTable,delimiteur,newTable);
 
     DetectAnomaly(csvTable,newTable);
 

@@ -13,6 +13,7 @@
 -- call functions
 @functions/Basics/functions_basics.sql
 @functions/CSV2TAB/functions_transforme_csv2table.sql
+@functions/CSV2TAB/functions_transforme_csv2table_version2
 
 @functions/DetectAnomaly/functions_profil_columns.sql
 @functions/DetectAnomaly/functions_Detection_Anomalies.sql
