@@ -1,0 +1,12 @@
+﻿- formaliser l'affichage des tables dans un fichier séparer
+- mettre des commentaire pour chaque colonne et tables ( definir des queries pour cette table )
+
+- organiser les fichier du dossier
+- faire des commentaire pour toutes les fonction ( input, output, desc)
+
+- renommer les fichiers
+- crées des fichier query
+    - crées une query pour drop toutes les procedures et fonctions
+- pour chaque fichier, preciser les fichier donc il depant
+
+- ajouter NEWVALUES et eventuelement OBSERVATION pour semanticType

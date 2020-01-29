@@ -1,0 +1,74 @@
+<h1 id="oracleetlextracttransformandload">Oracle ETL (Extract Transform and Load)</h1>
+
+<p>ETL ( PL/SQL - Oracle )</p>
+
+<p><code>iDQMS tool : An intelligent Data Quality Management System tool</code></p>
+
+<p>The main objectif of this project is to clean you data (from a csv file) so if you have a csv file with a lot of data and you don't know what that data mean, you have no idea of the schema behin it , but you want to be able to explore it and be able to get insights, this program will help you.</p>
+
+<p><img src="img/idqms.png" title="iDQMS" alt="iDQMS"></p>
+
+<h2 id="code">Code</h2>
+
+<ol>
+<li><a href="ETL/ETL.sql">Pipeline</a></li>
+
+<li><a href="ETL/MAIN.sql">Test program</a></li>
+
+<li><a href="ETL">ETL</a></li>
+
+<li><a href="ETL/tables">Data and Tables</a></li>
+
+<li><a href="ETL/functions/CSV2TAB">Trasform CSV format to a table format </a></li>
+
+<li><a href="ETL/functions/DetectAnomaly">Detect anomaly and generate statistics </a></li>
+
+<li><a href="ETL/functions/NormalizeAndCleanData">Normalize data based on statistics </a></li>
+</ol>
+
+<h2 id="democsvfile1">Demo : csvFile1</h2>
+
+<h3 id="beforeprocessing">Before processing</h3>
+
+<p><img src="img/before.png" title="before processing" alt="before"></p>
+
+<h3 id="duringprocessing">During processing</h3>
+
+<ul>
+<li><p><strong><em>Transforme CSV to Table</em></strong>
+<img src="img/during1.png" title="Transforme CSV to Table" alt="during"></p></li>
+
+<li><p><strong><em>Statistic 1</em></strong>
+<img src="img/stat1.png" title="Statistic 1" alt="Statistic_1"></p></li>
+
+<li><p><strong><em>Statistic 2</em></strong>
+<img src="img/stat2.png" title="Statistic 2" alt="Statistic_2"></p></li>
+
+<li><p><strong><em>Statistic 3</em></strong>
+<img src="img/stat3.png" title="Statistic 3" alt="Statistic_3"></p></li>
+</ul>
+
+<h3 id="afterprocessing">After processing</h3>
+
+<p><img src="img/after.png" title="after processing" alt="after"></p>
+
+<h2 id="defaulttest">Default Test</h2>
+
+<p>Connect to your oracle database and run  <code>@MAIN.sql</code></p>
+
+<h2 id="personaltest">Personal Test</h2>
+
+<ol>
+<li><p>Add your own csv file <a href="ETL/tables/tables_data_csv_file1.sql">here</a></p></li>
+
+<li><p>connect to oracle database</p></li>
+
+<li><p>run <code>@resouces</code> to load necessary tools</p></li>
+
+<li><p>run</p></li>
+</ol>
+
+<pre><code class="sql language-sql">EXEC MyETL('CSVfile1' ,';' ,'CSVfile1_new' );
+</code></pre>
+
+<p>or personalize this file : <a href="ETL/MAIN.sql">MAIN.sql</a></p>

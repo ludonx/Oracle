@@ -1,0 +1,23 @@
+﻿- select the first élément (ROWNUM = 1)
+SELECT SEMANTICCATEGORY FROM todelete WHERE ROWNUM = 1
+
+- ISO 8859-2
+- UTF- 16 LE
+
+-- ma machine
+SELECT * FROM V$NLS_PARAMETERS
+
+
+--https://fadace.developpez.com/oracle/nls/#LIV
+
+-- Avant tout, déterminons avec certitude les paramètres attribués à l'instance Oracle, soit au niveau serveur. 
+select * from NLS_DATABASE_PARAMETERS ;
+
+--Au niveau de notre session, il est toujours possible de voir quels sont les paramètres locaux via 
+SELECT * FROM NLS_SESSION_PARAMETERS ;
+
+
+
+
+ALTER SESSION SET NLS_LANGUAGE=FRENCH 
+

@@ -1,0 +1,56 @@
+
+COL1;COL2_NAMES     ;COL3_NAMES     ;COL4_DATE      ;COL5_EMAIL                     ;COL;COL7;         COL8_WEIGHT;COL9_NAMES     ;COL10_NAMES    ;          COL11_MEAN;COL12_TEMPERATURE;COL13_SIZEDISTANCE_LENGTH
+----;---------------;---------------;---------------;-------------------------------;---;----;--------------------;---------------;---------------;--------------------;-----------------;-------------------------
+ID01;Eve            ;Premier        ;1988-08-19     ;eve.premier@labas.fr           ;   ;F   ;             40,9833;France         ;EUROPE         ;              71,279;               31;                   6,3876
+ID02;Claire         ;Soleil         ;1965-02-10     ;claire.soleil@gmail.com        ;A- ;F   ;            44,45657;Itale          ;               ;              62,623;                 ;
+ID03;Rose           ;Paris          ;1974-08-20     ;                               ;A+ ;F   ;            50,72321;Sã©Nã©Gal      ;AFRIQUE        ;             105,304;                 ;
+ID04;Mamadou        ;Tropfor        ;1965-02-10     ;mamadou.tropfor@hotmail.com    ;   ;M   ;               91,11;Qatar          ;ASIE           ;                  10;               27;                    10,96
+ID05;Mamadou        ;Deloin         ;1988-08-19     ;mamadou.deloin@gmail.com       ;B- ;M   ;               58,74;Tunisie        ;AFRIQUE        ;                  46;                 ;
+ID06;Mã©Decin       ;Plus BELLE     ;1975-01-03     ;                               ;A+ ;M   ;               66,94;Tunisie        ;AFRIQUE        ;                   9;                 ;
+ID07;Ibrahim        ;Sportif        ;1969-08-17     ;ibrahim.sportif@gmail.com      ;B- ;M   ;               86,33;Algã©Rie       ;AFRIQUE        ;                  33;               41;                     9,22
+ID08;Kenza          ;Mignonne       ;1960-05-18     ;kenza.mignonne@hotmail.com     ;   ;F   ;            63,15957;Brã©Sil        ;Amã©Rique      ;             105,158;               44;                   7,3684
+ID09;INÃ¦S          ;Tropfor        ;1999-11-27     ;                               ;   ;    ;             40,9833;Espagne        ;               ;              93,323;               33;
+ID10;Rayan          ;Fort           ;1995-06-24     ;rayan.fort@hotmail.com         ;   ;M   ;               88,87;Maroc          ;AFRIQUE        ;                  74;               26;                    20,97
+ID11;Marie          ;Fort           ;1974-08-06     ;                               ;   ;F   ;            72,42534;Algã©Rie       ;AFRIQUE        ;              60,732;               31;                   4,7625
+ID12;Mã©Decin       ;Plus BELLE     ;1960-05-18     ;                               ;AB+;M   ;               82,68;Tunisie        ;AFRIQUE        ;                  60;               21;
+ID13;Omar           ;Grande         ;1995-02-25     ;omar.grande@yahoo.fr           ;A+ ;M   ;               64,63;Itale          ;               ;                  53;               26;
+ID14;Adam           ;Grande         ;1969-05-21     ;adam.grande@hotmail.com        ;   ;M   ;               66,94;Espagne        ;               ;                  24;               41;                    13,28
+ID15;Alain          ;Aimant         ;1979-01-21     ;                               ;B+ ;    ;               64,54;Chine          ;ASIE           ;                  47;               41;                    13,28
+ID16;Rayan          ;Mignonne       ;1965-02-10     ;rayan.mignonne@hotmail.com     ;A+ ;M   ;               88,87;Qatar          ;ASIE           ;                  10;               16;
+ID17;Faouzi         ;Unique         ;1999-11-27     ;faouzi.unique@gmail.com        ;AB-;M   ;                    ;Belgique       ;EUROPE         ;                  62;                 ;                    13,28
+ID18;Fleurette      ;Premier        ;1979-01-21     ;fleurette.premier@hotmail.com  ;   ;F   ;            44,45657;Allemagne      ;EUROPE         ;             135,238;               48;                   6,7987
+ID19;Sabrine        ;Bon            ;1995-02-25     ;sabrine.bon@gmail.com          ;   ;F   ;            44,45657;France         ;EUROPE         ;             136,181;               46;                   7,1341
+ID20;Maria          ;Deloin         ;1995-02-25     ;maria.deloin@hotmail.com       ;   ;F   ;            44,45657;Canada         ;Amã©Rique      ;             131,203;                 ;                   6,3876
+ID21;Faouzi         ;Excelle        ;1975-01-03     ;faouzi.excelle@gmail.com       ;O- ;M   ;               93,88;Canada         ;Amã©Rique      ;                  57;               27;                    14,98
+ID22;Marie          ;Sportif        ;1974-08-20     ;marie.sportif@gmail.com        ;AB+;    ;            48,71039;Chine          ;ASIE           ;              41,529;                 ;                   6,4434
+ID23;Eve            ;Paris          ;1975-01-03     ;eve.paris@hotmail.com          ;   ;F   ;            42,01579;Tunisie        ;AFRIQUE        ;              28,967;                 ;                   7,1341
+ID24;Omar           ;Clement        ;1978-01-14     ;omar.clement@yahoo.fr          ;AB+;M   ;               64,54;France         ;EUROPE         ;                  37;               41;                    12,95
+ID25;Emna           ;Jolie          ;1969-08-17     ;emna.jolie@hotmail.com         ;B- ;F   ;                    ;Itale          ;               ;              41,249;               46;                   7,1341
+ID26;Ibrahim        ;Paris          ;1993-11-27     ;ibrahim.paris@hotmail.com      ;   ;M   ;               58,74;Tunisie        ;AFRIQUE        ;                  59;               41;                     9,22
+ID27;Clã©Ment       ;Touil          ;1999-11-27     ;                               ;AB-;M   ;               58,74;Tunisie        ;AFRIQUE        ;                  34;               27;
+ID28;Jean           ;Sportif        ;1993-11-27     ;jean.sportif@hotmail.com       ;AB+;M   ;               64,24;France         ;               ;                  69;               41;                    12,94
+ID29;Alain          ;Mignonne       ;1965-02-10     ;alain.mignonne@ici.tn          ;B- ;M   ;                    ;Tunisie        ;AFRIQUE        ;                  10;                 ;
+ID30;Mã©Decin       ;Moustafa       ;1988-08-19     ;                               ;   ;M   ;               64,54;Maroc          ;AFRIQUE        ;                  44;               38;                    20,97
+ID31;Clã©Ment       ;Moustafa       ;1993-11-27     ;                               ;   ;M   ;               58,74;France         ;               ;                  60;               38;                    20,97
+ID32;Mamadou        ;Fort           ;1982-12-08     ;mamadou.fort@gmail.com         ;A- ;M   ;                    ;Maroc          ;AFRIQUE        ;                  58;                 ;
+ID33;Emna           ;Fort           ;1988-08-19     ;emna.fort@gmail.com            ;A+ ;F   ;            65,85012;Maroc          ;AFRIQUE        ;              64,365;               29;
+ID34;Omar           ;Paris          ;1960-05-18     ;omar.paris@gmail.com           ;AB-;M   ;               64,63;Malie          ;AFRIQUE        ;                  73;               27;
+ID35;Mamadou        ;Clement        ;1995-06-24     ;mamadou.clement@hotmail.com    ;AB-;M   ;               86,33;Canada         ;Amã©Rique      ;                  50;               38;                    12,95
+ID36;Mamadou        ;Soleil         ;1995-06-24     ;                               ;   ;F   ;               64,24;Espagne        ;               ;                  44;               38;                     2,39
+ID37;Ibrahim        ;Belle          ;1982-12-08     ;                               ;A- ;M   ;               64,63;France         ;EUROPE         ;                  12;               21;                    12,94
+ID38;Ibrahim        ;Plus BELLE     ;1960-09-08     ;                               ;B+ ;F   ;               64,24;France         ;               ;                   9;               25;
+ID39;Clã©Ment       ;Printemps      ;1999-11-27     ;                               ;O+ ;M   ;               93,88;Algã©Rie       ;AFRIQUE        ;                  33;               21;                     2,39
+ID40;Claire         ;Sportif        ;1995-06-24     ;claire.sportif@yahoo.fr        ;B+ ;F   ;            72,42534;Tunisie        ;AFRIQUE        ;             121,929;               48;                   4,2803
+ID41;Eve            ;Rahma          ;1995-02-25     ;eve.rahma@gmail.com            ;   ;F   ;            63,28234;Portugal       ;EUROPE         ;              56,813;                 ;
+ID42;Clã©Mence      ;Sportif        ;2000-04-30     ;                               ;B+ ;F   ;            72,42534;Portugal       ;EUROPE         ;             135,288;               44;
+ID43;Jean           ;Informe        ;1969-08-17     ;jean.informe@ici.tn            ;O- ;    ;               86,33;Sã©Nã©Gal      ;AFRIQUE        ;                  71;                 ;
+ID44;Jean           ;Soleil         ;1993-06-05     ;jean.soleil@hotmail.com        ;   ;M   ;                    ;Canada         ;Amã©Rique      ;                  18;               27;                    20,97
+ID45;Ibrahim        ;Tropfor        ;1967-03-01     ;ibrahim.tropfor@hotmail.com    ;A+ ;F   ;               64,54;Itale          ;               ;                  72;               21;                    10,96
+ID46;Faouzi         ;Aimant         ;1978-01-14     ;faouzi.aimant@ici.tn           ;AB+;    ;                    ;Argentine      ;Amã©Rique      ;                  12;                 ;                     2,39
+ID47;Fleurette      ;Unique         ;1975-01-03     ;fleurette.unique@gmail.com     ;AB+;F   ;                    ;Chine          ;ASIE           ;             146,323;               44;                   6,4434
+ID48;Jean           ;Clement        ;1995-02-25     ;jean.clement@hotmail.com       ;O+ ;M   ;                    ;Algã©Rie       ;AFRIQUE        ;                  11;                 ;                    10,96
+ID49;Ibrahim        ;Fort           ;1969-05-21     ;ibrahim.fort@gmail.com         ;AB-;M   ;                    ;Malie          ;AFRIQUE        ;                  33;                 ;                    10,96
+ID50;Sabrine        ;Excelle        ;1966-02-14     ;sabrine.excelle@yahoo.fr       ;B- ;F   ;            44,45657;Portugal       ;EUROPE         ;              64,008;               33;                   6,4434
+
+50 lignes sélectionnées.
+

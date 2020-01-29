@@ -18,6 +18,26 @@ CREATE OR REPLACE FUNCTION getDataType(data in VARCHAR2)
    END;
    /
 
+   CREATE OR REPLACE FUNCTION getDataSubType(data in VARCHAR2)
+   RETURN VARCHAR2
+   AS
+   typeData VARCHAR2(40) := null;
+   BEGIN
+      FOR i IN (SELECT * FROM DDRE)
+      LOOP
+        IF ( REGEXP_LIKE (data,i.REGULAREXPRESSION) OR REGEXP_LIKE (UPPER(data),i.REGULAREXPRESSION)) THEN
+          typeData := i.SUBTYPE;
+          EXIT;
+        END IF;
+      END LOOP;
+      RETURN(typeData);
+   END;
+   /
+
+   
+   
+
+
 ------------------------------------------------+
 ------------- getDataCategory                   |
 ------------------------------------------------+
@@ -177,6 +197,7 @@ CREATE OR REPLACE PROCEDURE GenerateReportTable(laTableReportByCol in VARCHAR2, 
    EXECUTE IMMEDIATE ' DROP VIEW todelete';
 
    -- c'est le nombre de valeur differente de la valeur syntaxique dominante
+   
    EXECUTE IMMEDIATE ' SELECT COUNT(*) FROM  '|| laTableReportByCol
    || ' WHERE SYNTACTICTYPE IS NULL OR SYNTACTICTYPE NOT LIKE ''%'||
    dataReportTable.theDominantSyntacticType ||'%'' '  INTO  dataReportTable.NumberOfSyntacticAnomalies ;
@@ -297,6 +318,7 @@ selected_values VARCHAR2(500);
 where_conditions VARCHAR2(500);
 
 colDataType VARCHAR2(60);
+colDataSubType VARCHAR2(60);
 colLength NUMBER;
 colNbrMot NUMBER;
 myColValues VARCHAR2(60);
@@ -319,7 +341,7 @@ BEGIN
   dropTable(laTableRes);
   EXECUTE IMMEDIATE ' CREATE TABLE '|| laTableRes || ' as SELECT * FROM DATAREPORTBYCOL';
   -- je m'assure que la table est bien vide
-  EXECUTE IMMEDIATE ' DELETE  FROM '||laTableRes;
+  --EXECUTE IMMEDIATE ' DELETE  FROM '||laTableRes;
 
   -- je parcours les valeurs de la colonnes passée en paramétre et je rempli ma table de profilage
   -- profilate syntaxique uniquement car le profilage semantique ne pourra se faire que sur la base du résultats du profilage syntaxique
@@ -335,6 +357,7 @@ BEGIN
           ------------ SYNTAXIC -----------
           myColValuesToInsert := 'null';
           colDataType := 'null';
+          colDataSubType := 'null';
           colLength := 0;
           colNbrMot := 0;
 
@@ -351,6 +374,7 @@ BEGIN
 
           -- je détermine le type syntaxique de la colonne
           colDataType :=''''|| getDataType(myColValues) ||'''';
+          colDataSubType :=''''|| getDataSubType(myColValues) ||'''';
 
           -- je détermine la longueur de la colonne
           colLength := length(myColValues);
@@ -376,7 +400,9 @@ BEGIN
 
 
         -- pour le profilage syntaxique on insert les données car la table est vide
-        myInsertValueSyntaxique := ' VALUES ('''||CSVName||''','|| myColValuesToInsert ||','|| colDataType ||',' ||colLength ||', '|| colNbrMot ||','||observation||','||newValues||','|| colDataCategory||','|| colDataSubCategory||')';
+        myInsertValueSyntaxique := ' VALUES ('''||CSVName||''','|| myColValuesToInsert ||','|| colDataType ||','|| colDataSubType ||',' ||colLength ||', '|| colNbrMot ||','||observation||','||newValues||','|| colDataCategory||','|| colDataSubCategory||')';
+        --myInsertValueSyntaxique := ' VALUES ('''||CSVName||''','|| myColValuesToInsert ||','|| colDataType ||',' ||colLength ||', '|| colNbrMot ||','||observation||','||newValues||','|| colDataCategory||','|| colDataSubCategory||')';
+
         myInsertQuerySyntaxique := 'INSERT INTO ' || laTableRes ||myInsertValueSyntaxique;
         --DBMS_OUTPUT.put_line (myInsertQuerySyntaxique);
         EXECUTE IMMEDIATE myInsertQuerySyntaxique;

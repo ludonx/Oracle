@@ -1,0 +1,25 @@
+
+COL1           ;COL2           ;COL3           ;COL4           ;COL5           ;COL6           ;COL7           ;COL8           ;COL9           ;COL10
+---------------;---------------;---------------;---------------;---------------;---------------;---------------;---------------;---------------;---------------
+Mme            ;Anne MARTIN    ;M              ;12-05-1985     ;A+             ;a.martin@hotmai;               ;PARIS          ;FRANCE         ;EUROPE
+               ;               ;               ;               ;               ;l.fr           ;               ;               ;               ;
+
+MME            ;ANNE MARTIN    ;M              ;12-05-1985     ;A+             ;A.MARTIN@HOTMAI;               ;PARIS          ;FRANCE         ;EUROPE
+               ;               ;               ;               ;               ;L.FR           ;               ;               ;               ;
+
+Mme            ;Karine LEBON   ;F              ;               ;AB+            ;kl@@cnam.fr    ;               ;PARIS          ;FRANCE         ;EUROPE
+M              ;Robert FORT    ;M              ;03-12-1990     ;O+             ;rl@yahoo.fr    ;               ;NICE           ;FRANCE         ;EUROPE
+M              ;Robert DUPONT  ;M              ;12-04-1987     ;B-             ;nn.pn@yahoo.com;               ;PÃ¿KIN         ;CHINE          ;ASIE
+M              ;Simon GENEREUX ;M              ;10-16-1996     ;               ;sg@gmail.com   ;               ;LONDRES        ;ROYAUME-UNI    ;EUROPE
+M              ;Simon GENEREUX@;M              ;16-october-1996;O-             ;               ;3313007085013  ;LONDON         ;UNITED-KINGDOM ;EUROPE
+Mme            ;Katia BON      ;F              ;26-november-195;X              ;               ;3313007085022  ;BEIJING        ;CHINA          ;ASIA
+               ;               ;               ;7              ;               ;               ;               ;               ;               ;
+
+M              ;Adem LE BON    ;M              ;05-june-2000   ;A+             ;               ;3313007085012  ;TUNIS          ;TUNISIA        ;AFRICA
+M              ;Adem LE BON    ;M              ;05-june-2000   ;               ;               ;3363007085012  ;TUNIS          ;TUNISIA        ;AFRICA
+M              ;Robert LEBON   ;M              ;12-december-198;B+             ;               ;3313007085052  ;PARIS          ;FRANCE         ;EUROPE
+               ;               ;               ;0              ;               ;               ;               ;               ;               ;
+
+
+11 lignes sélectionnées.
+

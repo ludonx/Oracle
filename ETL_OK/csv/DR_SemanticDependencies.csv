@@ -1,0 +1,51 @@
+
+TABLENAME      ;LEFTCOL                  ;SEMANTICDEPENDENCY            ;RIGHTCOL                 ;PERCENTAGE
+---------------;-------------------------;------------------------------;-------------------------;----------
+CSVfile1_new   ;COL2_NAMES               ;-DF-                          ;COL1_NAMES               ;        67
+CSVfile1_new   ;COL2_NAMES               ;-DF-                          ;COL3_GENDER              ;        83
+CSVfile1_new   ;COL2_NAMES               ;-DF-                          ;COL4_AGE                 ;        67
+CSVfile1_new   ;COL2_NAMES               ;-DF-                          ;COL5_DATE                ;        67
+CSVfile1_new   ;COL2_NAMES               ;-DF-                          ;COL6_TEMPERATURE         ;        67
+CSVfile1_new   ;COL2_NAMES + COL3_GENDER ;-DF-                          ;COL6_TEMPERATURE         ;        59
+CSVfile1_new   ;COL2_NAMES + COL3_GENDER ;-DF-                          ;COL1_NAMES               ;        62
+               ;+ COL4_AGE + COL5_DATE + ;                              ;                         ;
+               ;COL6_TEMPERATURE         ;                              ;                         ;
+
+CSVfile1_new   ;COL2_NAMES + COL3_GENDER ;-DF-                          ;COL5_DATE                ;        58
+               ;+ COL4_AGE + COL6_TEMPERA;                              ;                         ;
+               ;TURE                     ;                              ;                         ;
+
+CSVfile1_new   ;COL2_NAMES + COL3_GENDER ;-DF-                          ;COL4_AGE                 ;        60
+               ;+ COL5_DATE + COL6_TEMPER;                              ;                         ;
+               ;ATURE                    ;                              ;                         ;
+
+CSVfile1_new   ;COL2_NAMES + COL5_DATE + ;-DF-                          ;COL3_GENDER              ;        83
+               ;COL6_TEMPERATURE         ;                              ;                         ;
+
+CSVfile1_new   ;COL3_GENDER              ;-DF-                          ;COL1_NAMES               ;        25
+CSVfile1_new   ;COL3_GENDER              ;-DF-                          ;COL2_NAMES               ;        42
+CSVfile1_new   ;COL3_GENDER              ;-DF-                          ;COL4_AGE                 ;        33
+CSVfile1_new   ;COL3_GENDER              ;-DF-                          ;COL5_DATE                ;        25
+CSVfile1_new   ;COL3_GENDER              ;-DF-                          ;COL6_TEMPERATURE         ;        50
+CSVfile1_new   ;COL3_GENDER + COL4_AGE + ;-DF-                          ;COL2_NAMES               ;        65
+               ;COL5_DATE + COL6_TEMPERAT;                              ;                         ;
+               ;URE                      ;                              ;                         ;
+
+CSVfile1_new   ;COL4_AGE                 ;-DF-                          ;COL1_NAMES               ;        83
+CSVfile1_new   ;COL4_AGE                 ;-DF-                          ;COL2_NAMES               ;        83
+CSVfile1_new   ;COL4_AGE                 ;-DF-                          ;COL5_DATE                ;        83
+CSVfile1_new   ;COL4_AGE                 ;-GE-                          ;COL6_TEMPERATURE         ;        75
+CSVfile1_new   ;COL4_AGE                 ;-LE-                          ;COL3_GENDER              ;       100
+CSVfile1_new   ;COL5_DATE                ;-DF-                          ;COL1_NAMES               ;        83
+CSVfile1_new   ;COL5_DATE                ;-DF-                          ;COL2_NAMES               ;        83
+CSVfile1_new   ;COL5_DATE                ;-DF-                          ;COL3_GENDER              ;        83
+CSVfile1_new   ;COL5_DATE                ;-DF-                          ;COL4_AGE                 ;        83
+CSVfile1_new   ;COL5_DATE                ;-LE-                          ;COL6_TEMPERATURE         ;       100
+CSVfile1_new   ;COL6_TEMPERATURE         ;-DF-                          ;COL1_NAMES               ;        50
+CSVfile1_new   ;COL6_TEMPERATURE         ;-DF-                          ;COL2_NAMES               ;        50
+CSVfile1_new   ;COL6_TEMPERATURE         ;-DF-                          ;COL3_GENDER              ;        83
+CSVfile1_new   ;COL6_TEMPERATURE         ;-DF-                          ;COL4_AGE                 ;        58
+CSVfile1_new   ;COL6_TEMPERATURE         ;-DF-                          ;COL5_DATE                ;        58
+
+31 lignes sélectionnées.
+

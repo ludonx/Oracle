@@ -1,0 +1,12 @@
+- erreur lorsque la table t_col4 est vide
++ solution non implemente : s'assure que la table n'est pas vide avant de faire des requete dessu
+
+- erreur lorsque pas assez d'espace allouÃ© pour les var char
++ solution implemente : VARCHAR2(60) -> VARCHAR2(2000)
+
+- select the first value in multiple values return ( for max for example)
++ SELECT * FROM (SELECT [Column] FROM [Table] ORDER BY [Date] DESC) WHERE ROWNUM = 1
+
+- caracté non gérer par oracle : PÉ?KIN
+INSERT INTO CSVFILE4 VALUES ('M;Robert DUPONT;M;12-04-1987;B-; nn.pn@yahoo.com;;PÉ?KIN;CHINE;ASIE');
++ le supprimer PÉKIN

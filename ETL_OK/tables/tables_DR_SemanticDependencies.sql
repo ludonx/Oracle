@@ -1,0 +1,11 @@
+exec dropTable('DR_SemanticDependencies');
+CREATE TABLE DR_SemanticDependencies
+(
+TableName VARCHAR2(100),   --NomDuFichier CSV_ DateHeureSystéme
+LEFTCOL VARCHAR2(2000),
+SEMANTICDEPENDENCY VARCHAR2(4),
+RIGHTCOL VARCHAR2(500),
+PERCENTAGE NUMBER,          --Pourcentage de la vérification de la relation sémantique
+CONSTRAINT PK_SEMDEP PRIMARY KEY (TableName,LEFTCOL,SEMANTICDEPENDENCY,RIGHTCOL,PERCENTAGE),
+CONSTRAINT CK_SEMDEP CHECK (SEMANTICDEPENDENCY IN ('-DF-', '-EQ-', '-LE-', '-GE-'))
+);

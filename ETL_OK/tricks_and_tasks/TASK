@@ -1,0 +1,13 @@
+﻿TODO :
+- add table for continent
+- add table for PAYS
+- check date 4 premier char ou 3 premier char
+- the dominante subCategory
+[ok]
+-- nettoyage
+--newValueCol := xxx(oldValueCol,oldValueCol_new,theDominantSemanticType);
+-- remarque : si c'est une chaine ne pas oublier les ''
+newValueCol := 'EN COURS ... ';
+
+[ok] modifier pour prendre en compte le genre et plus le names (col3)
+[ok] crées une table qui regroupe les tables de stat pour chaque colonnes

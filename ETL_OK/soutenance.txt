@@ -1,0 +1,7 @@
+-mysql
+7 fev -> compte rendu
+
+-mongo
+- plusieurs docs csv avec jointure
+-- article -- commande -- clients --
+un client avec tous les article dans un document 

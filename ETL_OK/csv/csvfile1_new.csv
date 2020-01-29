@@ -1,0 +1,18 @@
+
+COL1_NAMES     ;COL2_NAMES     ;COL3;            COL4_AGE;COL5_DATE      ;COL6_TEMPERATURE
+---------------;---------------;----;--------------------;---------------;----------------
+Adam           ;Paris          ;M   ;                  19;2001-06-19     ;              38
+Eve            ;Paris          ;F   ;                  23;1996-10-16     ;              37
+Gabriel        ;Paris          ;M   ;                  18;2002-09-17     ;              37
+Mariam         ;Paris          ;F   ;                  41;1978-08-13     ;
+Nadia          ;Londres        ;F   ;                  55;1965-10-10     ;              35
+INÃ¦S          ;Madrid         ;F   ;                  50;1969-11-22     ;              38
+Inconnu        ;               ;    ;                    ;               ;
+Abnomly        ;Rome           ;M   ;                  88;2019-10-02     ;              38
+Anomalies      ;Tunis          ;F   ;                  99;               ;
+Adam           ;Paris          ;M   ;                  19;2001-06-19     ;              38
+Eve            ;Paris          ;F   ;                  23;1996-10-16     ;              37
+Marie          ;Pari           ;F   ;                  41;1979-09-17     ;
+
+12 lignes sélectionnées.
+
